@@ -1,0 +1,87 @@
+.botton-margin {
+  margin-bottom: 40px;
+}
+body {
+  font-family: "Open Sans", sans-serif;
+  line-height: 1.25;
+  font-size: 1rem;
+}
+
+table {
+  width: 750px;
+  border-collapse: collapse;
+  margin: 50px auto;
+  box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%),
+    0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+}
+
+th {
+  background: rgb(47, 46, 65);
+  color: white;
+  font-weight: bold;
+}
+
+td,
+th {
+  padding: 10px;
+  text-align: left;
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+@media only screen and (max-width: 760px),
+  (min-device-width: 768px) and (max-device-width: 1024px) {
+  body {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  table {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    font-size: 1rem;
+  }
+
+  tr {
+    border: 1px solid #ccc;
+  }
+
+  td {
+    height: 50px;
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 50%;
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  td:before {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    content: attr(data-column);
+    color: #000;
+    font-weight: bold;
+  }
+}
