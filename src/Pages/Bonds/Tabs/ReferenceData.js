@@ -34,7 +34,8 @@ export class ReferenceData extends Component {
                                 <td>{bond.BloombergIndustrySector}</td>
                                 <td>{bond.CountryOfIssurance}</td>
                                 <td>{bond.IssueCurrency}</td>
-                                <td>{bond.RiskCurrency}</td>   
+                                <td>{bond.Issuer}</td>   
+                                <td>{bond.RiskCurrency}</td>
                             </tr>:null)
                         }
                     </tbody>

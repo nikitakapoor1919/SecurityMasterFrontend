@@ -1,21 +1,25 @@
 import React, { Component } from 'react'
-import {Button, Dialog,DialogActions,DialogTitle,DialogContent,DialogContentText,Container} from '@material-ui/core';
+import {Button, Dialog,DialogActions,DialogTitle,DialogContent,DialogContentText,Container, IconButton} from '@material-ui/core';
 import './styles/styles.css'
 import EditBond from './EditBond'
 import SecurityInfo from './SecurityInfo'
-import { withStyles } from '@material-ui/core/styles';
-import styles from './styles/styles';
-import Alert from '@material-ui/lab/Alert';
-import {Tabs,Tab} from '@mui/material';
-import AppBar from '@mui/material/AppBar';
+import { withStyles } from '@material-ui/core/styles'
+import styles from './styles/styles'
+import Alert from '@material-ui/lab/Alert'
+import {Tabs,Tab} from '@mui/material'
+import AppBar from '@mui/material/AppBar'
 import UploadBond from './UploadBond'
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+
 import {
     BrowserRouter as Router,
     Route,
     Routes,
     Link,
   } from "react-router-dom";
-  
+
 export class Bonds extends Component {
 
   constructor(props) {
@@ -71,15 +75,25 @@ export class Bonds extends Component {
                   <div className={classes.tabContainer}>
                     <Button color="inherit" onClick={()=>this.setState({view:'one'})}>View</Button>
                     <Button color="inherit" onClick={()=>this.setState({view:'two'})}>Upload</Button>
-                    <Button color="inherit" onClick={()=>this.setState({view:'three'})}>Create</Button>
+                    <Button color="inherit" >Create</Button>
                   </div>
                 </AppBar>
                 {this.state.success ? <Alert severity="success" style={{marginTop:70}}>Deleted Successfully</Alert> :''}
                     {this.state.view==='one'?<table className="mt-4" striped bordered hover size="sm">
                         <thead>
                             <tr>
-                                <th>Security Name</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Asset</th>
+                                <th>First Coupon Date</th>
                                 <th>Issue Date</th>
+                                <th>Investment Type</th>
+                                <th>Country Of Issurance</th>
+                                <th>Issue Currency</th>
+                                <th>Tranding Factor</th>
+                                <th>Credit Rating</th>
+                                <th>Coupon Type</th>
+                                <th>Coupon Frequency</th>
                                 <th>View More</th>
                                 <th>Actions</th>
                             </tr>
@@ -87,14 +101,24 @@ export class Bonds extends Component {
                         <tbody>
                             {bonds.map(bond=>
                                 <tr key={bond.BondId}>
-                                    <td data-column="Security Name">{bond.SecurityName}</td>
+                                    <td data-column="Name">{bond.SecurityName}</td>
+                                    <td data-column="Description">{bond.SecurityDescription}</td>
+                                    <td data-column="Asset">{bond.AssetType}</td>
+                                    <td data-column="First Coupan Date">{bond.FirstCouponDate}</td>
                                     <td data-column="Issue Date">{bond.IssueDate!=null ?bond.IssueDate.substring(0,10): ''}</td>
-                                    <td data-column="View More"><Link to={`bond/${bond.BondId}`} className={classes.link}><Button color="inherit">View</Button></Link></td>
-                                    <td data-column="Actions"><Button color="inherit" onClick={()=>this.handleEdit(bond.BondId)}>Edit</Button><Button color="inherit" onClick={()=>this.handleOpen(bond.BondId)}>Delete</Button></td>
+                                    <td data-column="Investment Type">{bond.InvestmentType}</td>
+                                    <td data-column="Country Of Issurance">{bond.CountryOfIssurance}</td>
+                                    <td data-column="Issuer Currency">{bond.IssueCurrency}</td>
+                                    <td data-column="Trading Factor">{bond.TradingFactor}</td>
+                                    <td data-column="Rating">{bond.PFCreditRating}</td>
+                                    <td data-column="Coupon Type">{bond.CouponType}</td>
+                                    <td data-column="Coupon Frequency">{bond.CouponFrequency}</td>
+                                    <td data-column="View More"><Link to={`bond/${bond.BondId}`} className={classes.link}><MoreHorizIcon/></Link></td>
+                                    <td data-column="Actions"><IconButton><EditIcon/></IconButton><IconButton onClick={()=>this.handleOpen(bond.BondId)}><DeleteIcon /></IconButton></td>
                                 </tr>)
                             }
                         </tbody>
-                    </table>:this.state.view==='two' ?<UploadBond/>:''}
+                    </table>:this.state.view==='two' ?<UploadBond/>:this.state.view==='three' ? <EditBond/>:''}
                     <Dialog
                         open={this.state.open}
                         onClose={this.handleClose}
@@ -117,7 +141,7 @@ export class Bonds extends Component {
                           </Button>
                         </DialogActions>
                       </Dialog>
-                    <EditBond bonds={bonds} display={this.state.editModalShow}/>
+                    {/* <EditBond bonds={bonds} display={this.state.editModalShow}/> */}
                 </Container>
             )
   }

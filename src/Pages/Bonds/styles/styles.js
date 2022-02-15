@@ -68,7 +68,8 @@ const styles = theme => ({
         overflowX:'auto'
     },
     appbar:{
-        marginTop:150,background:'rgb(47, 46, 65)'
+        marginTop:150,background:'rgb(47, 46, 65)',
+        padding:'10px'
     },
     tabContainer:{
         display:'flex'

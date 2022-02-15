@@ -33,6 +33,7 @@ export class RegulatoryDetails extends Component {
                         {this.props.bonds.map(bond=>
                             bond.BondId == this.props.bid ?
                             <tr key={bond.BondId}>
+                                <td>{bond.PFAssetClass}</td>
                                 <td>{bond.PFCountry}</td>
                                 <td>{bond.PFCreditRating}</td>
                                 <td>{bond.PFCurrency}</td>

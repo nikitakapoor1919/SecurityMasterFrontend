@@ -40,18 +40,23 @@ export class SecurityDetails extends Component {
                         {this.props.bonds.map(bond=>
                             bond.BondId == this.props.bid ?
                             <tr key={bond.BondId}>
-                                <td>{bond.FirstCoupanDate}</td>
-                                <td>{bond.CoupanCap}</td>
-                                <td>{bond.CoupanFloor}</td>
-                                <td>{bond.CoupanFrequency}</td>
-                                <td>{bond.CoupanRate}</td>
-                                <td>{bond.CoupanType}</td>   
+                                <td>{bond.FirstCouponDate}</td>
+                                <td>{bond.CouponCap}</td>
+                                <td>{bond.CouponFloor}</td>
+                                <td>{bond.CouponFrequency}</td>
+                                <td>{bond.CouponRate}</td>
+                                <td>{bond.CouponType}</td>   
                                 <td>{bond.Spread}</td>
                                 <td>{bond.CallableFlag}</td>
                                 <td>{bond.FixToFloatFlag}</td>
                                 <td>{bond.PutableFlag}</td>
                                 <td>{bond.IssueDate}</td>
                                 <td>{bond.LastResetDate}</td>   
+                                <td>{bond.Maturity}</td>
+                                <td>{bond.CallNotificationMaxDays}</td>
+                                <td>{bond.PutNotificationMaxDays}</td>
+                                <td>{bond.PenultimateCouponDate}</td>
+                                <td>{bond.ResestFrequency}</td>
                                 <td>{bond.HasPosition}</td>   
                             </tr>:null)
                         }
