@@ -26,7 +26,7 @@ function App() {
           <Route path='/signin' component={SignIn}/>
           
           <Route path='/bonds' component={Bond}/>
-          <Route path='/create-bond' component={CreateBond}/>
+          {/* <Route path='/create-bond' component={CreateBond}/> */}
           <Route path='/bonds-upload' component={BondUpload}/>
           <Route path='/bond/:id' component={BondResponsiveDrawer}/>
           
