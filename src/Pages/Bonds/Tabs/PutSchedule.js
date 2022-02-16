@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import '../styles/styles.css'
 import { withStyles } from '@material-ui/core/styles';
 import styles from '../styles/styles.js'
+import {List,ListItem,ListItemIcon,ListItemText,ListSubheader} from '@mui/material';
+
 
 export class PutSchedule extends Component {
     render() {
@@ -13,23 +15,20 @@ export class PutSchedule extends Component {
         return (
             <div className="botton-margin">
                 <Typography variant="h4" className={classes.topHeading}  style={{fontWeight:700}}>Put Schedule</Typography>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Put Date </th>
-                            <th>Put Price </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.props.bonds.map(bond=>
-                            bond.BondId == this.props.bid ?
-                            <tr key={bond.BondId}>
-                                <td>{bond.PutDate}</td>
-                                <td>{bond.PutPrice}</td>  
-                            </tr>:null)
-                        }
-                    </tbody>
-                </table>
+                {this.props.bonds.map(bond=>
+                bond.BondId == this.props.bid ?
+                <List sx={{ width: '100%', margin:'0 auto', bgcolor: 'background.paper' }} className={classes.listTable}>
+                    <ListItem alignItems="flex-start">
+                        <ListItemText className={classes.listFirst}>Put Date</ListItemText>
+                        <ListItemText  className={classes.listSecond}>{bond.PutDate}</ListItemText>
+                    </ListItem>
+                    <ListItem alignItems="flex-start">
+                        <ListItemText className={classes.listFirst}>Put Price</ListItemText>
+                        <ListItemText className={classes.listSecond}>{bond.PutPrice}</ListItemText>
+                    </ListItem>
+                </List>
+                 : null)
+                }
             </div>
         )
     }

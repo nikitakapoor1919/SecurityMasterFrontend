@@ -10,7 +10,9 @@ const styles = theme => ({
        overflow:"hidden"
       },
     card:{
-        margin:'0 auto'
+        margin:'0 auto',
+        marginTop:'100px',
+        padding:'20px'
     },
     saveButton:{
         backgroundColor:"#6C63FF",
@@ -63,6 +65,7 @@ const styles = theme => ({
     topHeading:{
         textAlign:'center',
         textTransform:'uppercase',
+        marginBottom:'30px'
     },
     tabContainer:{
         overflowX:'auto'
@@ -73,8 +76,31 @@ const styles = theme => ({
     },
     tabContainer:{
         display:'flex'
+    },
+    tab:{
+        textTransform:'uppercase',
+        textAlign:'center',
+        fontWeight:'bold',
+        marginTop:'20px'
+    },
+    saveButton:{
+        backgroundColor:"rgb(47, 46, 65)",margin:'0 auto',width:250
+    },
+    tabHeading:{
+        marginTop:'20px'
+    },
+    listTable:{
+        margin:'0 auto',
+        padding:'20px',
+        boxShadow:'0px 2px 4px -1px rgb(0 0 0 / 20%),0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);'
+    },
+    listFirst:{
+        width:'40%',
+    },
+    listSecond:{
+        width:'60%',
+        marginLeft:'15px'
     }
-    
 
 });
   

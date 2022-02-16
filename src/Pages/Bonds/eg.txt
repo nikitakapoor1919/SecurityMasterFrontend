@@ -1,0 +1,249 @@
+  <TextField id="outlined-basic" label="Bond Id" value={bond.BondId} variant="outlined" fullWidth  />
+    <TextField id="outlined-basic" label="Security Name" variant={bond.SecurityName} fullWidth />
+    <TextField id="outlined-basic" label="Security Description" variant={bond.SecurityDescription} fullWidth />
+    <TextField id="outlined-basic" label="Has Position" variant={bond.SecurityDescription} fullWidth />
+    <TextField id="outlined-basic" label="Is Active" variant={bond.AssetType} fullWidth />
+    <TextField id="outlined-basic" label="Lot Size" variant="outlined" fullWidth />
+    <TextField id="outlined-basic" label="Lot Size" variant="outlined" fullWidth />
+    <TextField id="outlined-basic" label="BBG Unique Name" variant="outlined" fullWidth />
+    <TextField id="outlined-basic" label="CUSIP" variant="outlined" fullWidth />
+    <TextField id="outlined-basic" label="ISIN" variant="outlined" fullWidth />
+    <TextField id="outlined-basic" label="SEDOL" variant="outlined" fullWidth />
+    <TextField id="outlined-basic" label="Bloomberg Ticket" variant="outlined" fullWidth />
+    <TextField id="outlined-basic" label="Bloomberg Unique ID" variant="outlined" fullWidth />
+    <TextField id="outlined-basic" label="Bloomberg Global ID" variant="outlined" fullWidth />
+    <TextField id="outlined-basic" label="Ticker And Exchange" variant="outlined" fullWidth />
+    <TextField id="outlined-basic" label="Is ADR" variant="outlined" fullWidth />
+    <TextField id="outlined-basic" label="ADR Underlying Ticker" variant="outlined" fullWidth />
+    <TextField id="outlined-basic" label="Shares Per ADR" variant="outlined" fullWidth />
+    <TextField id="outlined-basic" label="Bloomberg Unique ID" variant="outlined" fullWidth />
+    <TextField id="outlined-basic" label="Ticker And Exchange" variant="outlined" fullWidth />
+    <TextField id="outlined-basic" label="Is ADR" variant="outlined" fullWidth />
+    <TextField id="outlined-basic" label="ADR Underlying Ticker" variant="outlined" fullWidth />
+    <TextField id="outlined-basic" label="Shares Per ADR" variant="outlined" fullWidth />
+    <TextField id="outlined-basic" label="IPO Date" variant="outlined" fullWidth />
+    <TextField id="outlined-basic" label="Pricing Currency" variant="outlined" fullWidth />
+    <TextField id="outlined-basic" label="Settle Days" variant="outlined" fullWidth />
+    <TextField id="outlined-basic" label="Total Shares Outstanding" variant="outlined" fullWidth />
+    <TextField id="outlined-basic" label="Voting Rights Per Share" variant="outlined" fullWidth />
+    <TextField id="outlined-basic" label="Average Volume 20D" variant="outlined" fullWidth />
+    <TextField id="outlined-basic" label="Beta" variant="outlined" fullWidth />
+    <TextField id="outlined-basic" label="Short Interest" variant="outlined" fullWidth />
+    <TextField id="outlined-basic" label="Return YTD" variant="outlined" fullWidth />
+    <TextField id="outlined-basic" label="Volatility 90D" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="PF Asset Class" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="PF Credit Rating" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="PF Currency" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="PF Instrument" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="PF Liquidity Profile" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="PF Maturity" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="PF NAICS Code" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="PF Region" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="PF Sector" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="PF Sub Asset Class" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="PF Liquidity Profile" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="Country Of Issurance" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="Exchange" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="Issurer" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="Issue Currency" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="Trading Currency" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="PF Liquidity Profile" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="BBG Industry Sub Group" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="BBloomberg Industry Group" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="Country Of Incorporation" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="Open Price" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="Close Price" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="Volume" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="Last Price" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="Bid Ratio" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="PE Ratio" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="Divident Declared Date" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="Divident Ex Date" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="Divident Record Date" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="Divident Pay Date" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="Divident Amount" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="Frequency" variant="outlined" fullWidth />
+  <TextField id="outlined-basic" label="Divident Type" variant="outlined" fullWidth />   
+                      
+<div className={classes.tabHeading}>
+  <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Security Summary</Typography>
+  <TextField name="BondId" label="Bond Id" value={bond.BondId} variant="filled" fullWidth />
+  <TextField name="SecurityName" label="Security Name" variant="filled" placeholder={bond.SecurityName}  fullWidth onChange={(e)=>this.setState({SecurityName:e.target.value})}/>
+  <TextField name="SecurityDescription" label="Security Description" variant="filled" value={bond.SecurityDescription} fullWidth onChange={(e)=>this.setState({SecurityDescription:e.target.value})} />
+  <TextField name="AssetType" label="AssetType" variant="filled" value={bond.AssetType} fullWidth onChange={(e)=>this.setState({AssetType:e.target.value})} />
+  <TextField name="InvestmentType" label="Investment Type" variant="filled" value={bond.InvestmentType} fullWidth onChange={(e)=>this.setState({InvestmentType:e.target.value})}/>
+  <TextField name="TradingFactor" label="Trading Factor" variant="filled" value={bond.TradingFactor} fullWidth onChange={(e)=>this.setState({TradingFactor:e.target.value})} />
+  <TextField name="PricingFactor" label="PricingPricingFactor Factor" variant="filled" value={bond.PricingFactor} fullWidth onChange={(e)=>this.setState({PricingFactor:e.target.value})}/>
+</div>
+                            
+<div className={classes.tabHeading}>
+  <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Security Identifier</Typography>
+  <TextField name="ISIN" label="ISIN" variant="filled" fullWidth value={bond.ISIN}/>
+  <TextField name="BBGTicker" label="BBGTicker" variant="filled" value={bond.BBGTicker} fullWidth />
+  <TextField name="BBGUniqueID" label="BBGUniqueID" variant="filled" value={bond.BBGUniqueID} fullWidth />
+  <TextField name="SEDOL" label="SEDOL" variant="filled" fullWidth value={bond.SEDOL}/>
+</div>
+                            
+<div className={classes.tabHeading}>
+  <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Security Details</Typography>
+  <TextField name="FirstCouponDate" label="First Coupon Date" variant="filled" fullWidth value={bond.FirstCouponDate}/>
+  <TextField name="CouponCap" label="Coupon Cap" variant="filled" fullWidth value={bond.CouponCap} />
+  <TextField name="CoupanFloor" label="Coupon Floor" variant="filled" fullWidth value={bond.CoupanFloor} />
+  <TextField name="CouponFrequency" label="Coupon Frequency" variant="filled" fullWidth value={bond.CouponFrequency} />
+  <TextField name="CouponRate" label="Coupon Rate" variant="filled" fullWidth value={bond.CouponRate} />
+  <TextField name="CouponType" label="Coupon Type" variant="filled" fullWidth  value={bond.CouponType}/>
+  <TextField name="Spread" label="Spread" variant="filled" fullWidth value={bond.Spread} />
+  <TextField name="CallableFlag" label="Callable Flag" variant="filled" fullWidth value={bond.CallableFlag} />
+  <TextField name="FixToFloatFlag" label="Fix To Float Flag" variant="filled" fullWidth value={bond.FixToFloatFlag} />
+  <TextField name="PutableFlag" label="Putable Flag" variant="filled" fullWidth value={bond.PutableFlag} />
+  <TextField name="IssueDate" label="Issue Date" variant="filled" fullWidth value={bond.IssueDate}/>
+  <TextField name="LastResetDate" label="Last Reset Date" variant="filled" fullWidth value={bond.LastResetDate}/>
+  <TextField name="Maturity" label="Maturity" variant="filled" fullWidth value={bond.Maturity}/>
+  <TextField name="CallNotificationMaxDays" label="Call Notification Max Days" variant="filled" fullWidth value={bond.CallNotificationMaxDays}/>
+  <TextField name="PutNotificationMaxDays" label="Put Notification Max Days" variant="filled" fullWidth value={bond.PutNotificationMaxDays}/>
+  <TextField name="PenultimateCouponDate" label="Penultimate Coupon Date" variant="filled" fullWidth value={bond.PenultimateCouponDate}/>
+  <TextField name="ResetFrequency" label="Reset Frequency" variant="filled" fullWidth value={bond.ResetFrequency}/>
+  <TextField name="HasPosition" label="Has Position" variant="filled" fullWidth value={bond.HasPosition}/>
+</div>
+                            
+<div className={classes.tabHeading}>
+  <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Risk</Typography>
+  <TextField name="MaculayDuration" label="Maculay Duration" variant="filled" fullWidth value={bond.MaculayDuration}/>
+  <TextField name="Volatility30D" label="Volatility30D" variant="filled" fullWidth value={bond.Volatility30D}/>
+  <TextField name="Volatility90D" label="Volatility90D" variant="filled" fullWidth value={bond.Volatility90D}/>
+  <TextField name="Convexity" label="Convexity" variant="filled" fullWidth value={bond.Convexity}/>
+  <TextField name="AverageVolume30D" label="Average Volume 30D" variant="filled" fullWidth value={bond.AverageVolume30D}/>
+</div>
+                            
+<div className={classes.tabHeading}>
+  <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Form PF Asset Class</Typography>
+  <TextField name="PFAssetClass" label="PF Asset Class" variant="filled" fullWidth value={bond.PFAssetClass}/>
+  <TextField name="PFCountry" label="PF Country" variant="filled" fullWidth value={bond.PFCountry} />
+  <TextField name="PFCreditRating" label="PF Credit Rating" variant="filled" fullWidth value={bond.PFCreditRating}/>
+  <TextField name="PFCurrency" label="PF Currency" variant="filled" fullWidth value={bond.PFCurrency}/>
+  <TextField name="PFInstrument" label="PF Instrument" variant="filled" fullWidth value={bond.PFInstrument}/>
+  <TextField name="PFLiquidityProfile" label="PF Liquidity Profile" variant="filled" fullWidth value={bond.PFLiquidityProfile}/>
+  <TextField name="PFMaturity" label="PF Maturity" variant="filled" fullWidth value={bond.PFMaturity}/>
+  <TextField name="PFNAICSCode" label="PF NAICS Code" variant="filled" fullWidth value={bond.PFNAICSCode}/>
+  <TextField name="PFRegion" label="PF Region" variant="filled" fullWidth value={bond.PFRegion}/>
+  <TextField name="PFSector" label="PF Sector" variant="filled" fullWidth value={bond.PFSector}/>
+  <TextField name="PFSubAssetClass" label="PF Sub Asset Class" variant="filled" fullWidth value={bond.PFSubAssetClass}/>
+</div>
+                            
+<div className={classes.tabHeading}>
+  <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Reference Data</Typography>
+  <TextField name="BloombergIndustryGroup" label="Bloomberg Industry Group" variant="filled" fullWidth value={bond.BloombergIndustryGroup}/>
+  <TextField name="BloombergIndustrySubGroup" label="Bloomberg Industry SubGroup" variant="filled" fullWidth value={bond.BloombergIndustrySubGroup}/>
+  <TextField name="BloombergIndustrySector" label="Bloomberg Industry Sector" variant="filled" fullWidth value={bond.BloombergIndustrySector} />
+  <TextField name="CountryOfIssurance" label="Country Of Issurance" variant="filled" fullWidth value={bond.CountryOfIssurance}/>
+  <TextField name="IssueCurrency" label="Issue Currency" variant="filled" fullWidth value={bond.IssueCurrency}/>
+  <TextField name="Issuer" label="Issuer" variant="filled" fullWidth value={bond.Issuer}/>
+  <TextField name="RiskCurrency" label="Risk Currency" variant="filled" fullWidth value={bond.RiskCurrency}/>
+</div>
+                            
+<div className={classes.tabHeading}>
+  <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Put Schedule</Typography>
+  <TextField name="PutDate" label="Put Date" variant="filled" fullWidth value={bond.PutDate}/>
+  <TextField name="PutPrice" label="Put Price" variant="filled" fullWidth value={bond.PutPrice}/>
+</div>
+                            
+<div className={classes.tabHeading}>
+  <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Pricing And Analytics</Typography>
+  <TextField name="AskPrice" label="Ask Price" variant="filled" fullWidth value={bond.AskPrice} />
+  <TextField name="HighPrice" label="High Price" variant="filled" fullWidth value={bond.HighPrice}/>
+  <TextField name="Volume" label="Volume" variant="filled" fullWidth value={bond.Volume}/>
+  <TextField name="LowPrice" label="Low Price" variant="filled" fullWidth value={bond.LowPrice}/>
+  <TextField name="BidPrice" label="Bid Price" variant="filled" fullWidth value={bond.BidPrice}/>
+  <TextField name="LastPrice" label="Last Price" variant="filled" fullWidth value={bond.LastPrice}/>
+  <TextField name="OpenPrice" label="Open Price" variant="filled" fullWidth value={bond.OpenPrice}/>
+</div>
+                            
+<div className={classes.tabHeading}>
+  <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Call Schedule</Typography>
+  <TextField name="CallDate" label="Call Date" variant="filled" fullWidth value={bond.CallDate}/>
+  <TextField name="CallPrice" label="Call Price" variant="filled" fullWidth value={bond.CallPrice}/>  
+</div> 
+
+
+
+
+ // const { BondId,SecurityName, SecurityDescription, AssetType, InvestmentType, TradingFactor,PricingFactor
+//   ,ISIN,BBGTicker, BBGUniqueID,SEDOL,FirstCouponDate
+//   ,CouponCap,CoupanFloor,CouponFrequency,CouponRate,
+//   CouponType,Spread,CallableFlag,FixToFloatFlag,
+//   PutableFlag,IssueDate,LastResetDate,Maturity,
+//   CallNotificationMaxDays,PutNotificationMaxDays,
+//   PenultimateCouponDate,ResetFrequency,HasPosition,
+//   MaculayDuration,Volatility30D,Volatility90D,Convexity,
+//   AverageVolume30D,PFAssetClass,PFCountry,PFCreditRating,
+//   PFCurrency,PFInstrument,PFLiquidityProfile,PFMaturity,
+//   PFNAICSCode,PFRegion,PFSector,PFSubAssetClass,
+//   BloombergIndustryGroup,BloombergIndustrySubGroup,
+//   BloombergIndustrySector,CountryOfIssurance,IssueCurrency,
+//   Issuer,RiskCurrency,PutDate,PutPrice,AskPrice,HighPrice,
+//   Volume,LowPrice,BidPrice,LastPrice,OpenPrice,CallDate,CallPrice   
+//   } = event.target.elements;
+let details = {
+  BondId: BondId.value,
+  SecurityName: SecurityName.value,
+  SecurityDescription: SecurityDescription.value,
+  AssetType: AssetType.value,
+  InvestmentType: InvestmentType.value,
+  TradingFactor: TradingFactor.value,
+  PricingFactor: PricingFactor.value,
+  ISIN: ISIN.value,
+  BBGTicker: BBGTicker.value,
+  BBGUniqueID: BBGUniqueID.value,
+  SEDOL: SEDOL.value,
+  FirstCouponDate: FirstCouponDate.value,
+  CouponCap: CouponCap.value,
+  CoupanFloor: CoupanFloor.value,
+  CouponFrequency: CouponFrequency.value,
+  CouponRate: CouponRate.value,
+  CouponType: CouponType.value,
+  Spread: Spread.value,
+  CallableFlag: CallableFlag.value,
+  FixToFloatFlag: FixToFloatFlag.value,
+  PutableFlag: PutableFlag.value,
+  IssueDate: IssueDate.value,
+  LastResetDate:LastResetDate.value,
+  Maturity:Maturity.value,
+  CallNotificationMaxDays: CallNotificationMaxDays.value,
+  PutNotificationMaxDays: PutNotificationMaxDays.value,
+  PenultimateCouponDate: PenultimateCouponDate.value,
+  ResetFrequency: ResetFrequency.value,
+  HasPosition: HasPosition.value,
+  MaculayDuration: MaculayDuration.value,
+  Volatility30D: Volatility30D.value,
+  Volatility90D: Volatility90D.value,
+  Convexity:Convexity.value,
+  AverageVolume30D: AverageVolume30D.value,
+  PFAssetClass: PFAssetClass.value,
+  PFCountry: PFCountry.value,
+  PFCreditRating: PFCreditRating.value,
+  PFCurrency: PFCurrency.value,
+  PFInstrument: PFInstrument.value,
+  PFLiquidityProfile: PFLiquidityProfile.value,
+  PFMaturity: PFMaturity.value,
+  PFNAICSCode: PFNAICSCode.value,
+  PFRegion: PFRegion.value,
+  PFSector: PFSector.value,
+  PFSubAssetClass: PFSubAssetClass.value,
+  BloombergIndustryGroup: BloombergIndustryGroup.value,
+  BloombergIndustrySubGroup: BloombergIndustrySubGroup.value,
+  BloombergIndustrySector: BloombergIndustrySector.value,
+  CountryOfIssurance: CountryOfIssurance.value,
+  IssueCurrency: IssueCurrency.value,
+  Issuer: Issuer.value,
+  RiskCurrency: RiskCurrency.value,
+  PutDate: PutDate.value,
+  PutPrice: PutPrice.value,
+  AskPrice: AskPrice.value,
+  HighPrice: HighPrice.value,
+  Volume: Volume.value,
+  LowPrice: LowPrice.value,
+  BidPrice: BidPrice.value,
+  LastPrice: LastPrice.value,
+  OpenPrice: OpenPrice.value,
+  CallDate: CallDate.value,
+  CallPrice: CallPrice.value,    

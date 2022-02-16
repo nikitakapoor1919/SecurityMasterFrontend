@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import {Button, Dialog,DialogActions,DialogTitle,DialogContent,DialogContentText,Container, IconButton} from '@material-ui/core';
-import './styles/styles.css'
-import EditBond from './EditBond'
-import SecurityInfo from './SecurityInfo'
+import '../styles/styles.css'
+import SecurityInfo from '../SecurityInfo'
 import { withStyles } from '@material-ui/core/styles'
-import styles from './styles/styles'
+import styles from '../styles/styles'
 import Alert from '@material-ui/lab/Alert'
-import {Tabs,Tab} from '@mui/material'
 import AppBar from '@mui/material/AppBar'
 import UploadBond from './UploadBond'
 import EditIcon from '@mui/icons-material/Edit';
@@ -71,15 +69,15 @@ export class Bonds extends Component {
     const {bonds,open}=this.state;
             return(
                 <Container>
-                <AppBar position="static" className={classes.appbar} style={{background:'rgb(47, 46, 65)'}}>
+                <AppBar position="static" className={classes.appbar} style={{background:'white',color:'black'}}>
                   <div className={classes.tabContainer}>
                     <Button color="inherit" onClick={()=>this.setState({view:'one'})}>View</Button>
                     <Button color="inherit" onClick={()=>this.setState({view:'two'})}>Upload</Button>
-                    <Button color="inherit" >Create</Button>
+                    {/* <Button color="inherit" >Create</Button> */}
                   </div>
                 </AppBar>
                 {this.state.success ? <Alert severity="success" style={{marginTop:70}}>Deleted Successfully</Alert> :''}
-                    {this.state.view==='one'?<table className="mt-4" striped bordered hover size="sm">
+                    {this.state.view==='one'?<div style={{overflowX:'auto'}}><table className="mt-4" striped bordered hover size="sm">
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -114,11 +112,11 @@ export class Bonds extends Component {
                                     <td data-column="Coupon Type">{bond.CouponType}</td>
                                     <td data-column="Coupon Frequency">{bond.CouponFrequency}</td>
                                     <td data-column="View More"><Link to={`bond/${bond.BondId}`} className={classes.link}><MoreHorizIcon/></Link></td>
-                                    <td data-column="Actions"><IconButton><EditIcon/></IconButton><IconButton onClick={()=>this.handleOpen(bond.BondId)}><DeleteIcon /></IconButton></td>
+                                    <td data-column="Actions"><IconButton href={`bond-edit/${bond.BondId}`}><EditIcon/></IconButton><IconButton onClick={()=>this.handleOpen(bond.BondId)}><DeleteIcon /></IconButton></td>
                                 </tr>)
                             }
                         </tbody>
-                    </table>:this.state.view==='two' ?<UploadBond/>:this.state.view==='three' ? <EditBond/>:''}
+                    </table></div>:this.state.view==='two' ?<UploadBond/>:''}
                     <Dialog
                         open={this.state.open}
                         onClose={this.handleClose}
@@ -141,7 +139,6 @@ export class Bonds extends Component {
                           </Button>
                         </DialogActions>
                       </Dialog>
-                    {/* <EditBond bonds={bonds} display={this.state.editModalShow}/> */}
                 </Container>
             )
   }

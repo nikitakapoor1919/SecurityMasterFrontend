@@ -12,11 +12,13 @@ export default function FormDialog(props) {
   const history=useHistory()
   
   const handleClick = event => {
+    props.onUploadError(false)
     props.onSuccessfullyUpload(false)
     props.onErrorChange(false)
     hiddenFileInput.current.click();
   };
   const handleChange = event => {
+    props.onUploadError(false)
     props.onSuccessChange(false)
     props.onErrorChange(false)
     setSelectedFile(event.target.files[0])
@@ -30,18 +32,16 @@ export default function FormDialog(props) {
           props.onSuccessChange(true)
           setShow(true)
         }, 2000); 
+        
     }
     else{
-        props.onErrorChange(true)
-        setShow(false)
-        props.onProgressChange(true) 
-        setTimeout(() => {
-            setSelectedFile(null)
-            props.onErrorChange(false)
-          }, 2000); 
+      setShow(false)
+      props.onProgressChange(true) 
+      props.onErrorChange(true)  
         setTimeout(() => {
             props.onProgressChange(false)
         }, 2000);
+        setSelectedFile(null)
     }
   };
   const handleChangeUpload = event => {
@@ -56,10 +56,11 @@ export default function FormDialog(props) {
       }
     })
     .then((response) => { 
+      props.onErrorChange(false) 
       props.onProgressChange(false)
       props.onSuccessfullyUpload(true)
     })
-    .catch((error) => { 
+    .catch((error) => {  
       props.onUploadError(true)
       props.onProgressChange(false)
       console.log(error)
@@ -86,7 +87,7 @@ export default function FormDialog(props) {
         </div>
      :SelectedFile ?
        <Button variant="contained" disabled  className={classes.btn} onClick={handleClick} startIcon={<CloudUploadIcon />}>
-       CHOOSE FILE
+       Upload
      </Button>
        :
        <Button variant="contained"  className={classes.btn} onClick={handleClick} startIcon={<CloudUploadIcon />}>

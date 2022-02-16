@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import styles from '../styles/styles.js'
 import '../styles/styles.css'
+import {List,ListItem,ListItemIcon,ListItemText,ListSubheader} from '@mui/material';
+
 
 export class SecurityDetails extends Component {
     render() {
@@ -13,55 +15,84 @@ export class SecurityDetails extends Component {
         return (
             <div className="botton-margin">
                 <Typography variant="h4" className={classes.topHeading}  style={{fontWeight:700}}>Security Details</Typography>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>First Coupon Date  </th>
-                            <th>Coupon Cap </th>
-                            <th>Coupon Floor</th>
-                            <th>Coupon Frequencyr</th>
-                            <th>Coupon Rate </th>
-                            <th>Coupon Type</th>
-                            <th>Float Spread </th>
-                            <th>Is Callable</th>
-                            <th>Is Fix to Float</th>
-                            <th>Is Putable </th>
-                            <th>Issue Date</th>
-                            <th>Last Reset Date </th>
-                            <th>Maturity Date</th>
-                            <th>Maximum Call Notice Days </th>
-                            <th>Maximum Put Notice Days</th>
-                            <th>Penultimate Coupon Date</th>
-                            <th>Reset Frequency</th>
-                            <th>Has Position </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.props.bonds.map(bond=>
-                            bond.BondId == this.props.bid ?
-                            <tr key={bond.BondId}>
-                                <td>{bond.FirstCouponDate}</td>
-                                <td>{bond.CouponCap}</td>
-                                <td>{bond.CouponFloor}</td>
-                                <td>{bond.CouponFrequency}</td>
-                                <td>{bond.CouponRate}</td>
-                                <td>{bond.CouponType}</td>   
-                                <td>{bond.Spread}</td>
-                                <td>{bond.CallableFlag}</td>
-                                <td>{bond.FixToFloatFlag}</td>
-                                <td>{bond.PutableFlag}</td>
-                                <td>{bond.IssueDate}</td>
-                                <td>{bond.LastResetDate}</td>   
-                                <td>{bond.Maturity}</td>
-                                <td>{bond.CallNotificationMaxDays}</td>
-                                <td>{bond.PutNotificationMaxDays}</td>
-                                <td>{bond.PenultimateCouponDate}</td>
-                                <td>{bond.ResestFrequency}</td>
-                                <td>{bond.HasPosition}</td>   
-                            </tr>:null)
-                        }
-                    </tbody>
-                </table>
+                {this.props.bonds.map(bond=>
+                        bond.BondId == this.props.bid ?
+                        <List sx={{ width: '100%', margin:'0 auto', bgcolor: 'background.paper' }} className={classes.listTable}>
+                            <ListItem alignItems="flex-start">
+                                <ListItemText className={classes.listFirst}>First Coupon Date</ListItemText>
+                                <ListItemText  className={classes.listSecond}>{bond.FirstCouponDate}</ListItemText>
+                            </ListItem>
+                            <ListItem alignItems="flex-start">
+                                <ListItemText className={classes.listFirst}>Coupon Cap</ListItemText>
+                                <ListItemText className={classes.listSecond}>{bond.CouponCap}</ListItemText>
+                            </ListItem>
+                            <ListItem alignItems="flex-start">
+                                <ListItemText className={classes.listFirst}>Coupon Floor</ListItemText>
+                                <ListItemText  className={classes.listSecond}>{bond.CouponFloor}</ListItemText>
+                            </ListItem>
+                            <ListItem alignItems="flex-start">
+                                <ListItemText className={classes.listFirst}>Coupon Frequency</ListItemText>
+                                <ListItemText className={classes.listSecond}>{bond.CouponFrequency}</ListItemText>
+                            </ListItem>
+                            <ListItem alignItems="flex-start">
+                                <ListItemText className={classes.listFirst}>Coupon Rate</ListItemText>
+                                <ListItemText className={classes.listSecond}>{bond.CouponRate}</ListItemText>
+                            </ListItem>
+                            <ListItem alignItems="flex-start">
+                                <ListItemText className={classes.listFirst}>Coupon Type</ListItemText>
+                                <ListItemText  className={classes.listSecond}>{bond.CouponType}</ListItemText>
+                            </ListItem>
+                            <ListItem alignItems="flex-start">
+                                <ListItemText className={classes.listFirst}>Float Spread </ListItemText>
+                                <ListItemText className={classes.listSecond}>{bond.PFMaturity}</ListItemText>
+                            </ListItem>
+                            <ListItem alignItems="flex-start">
+                                <ListItemText className={classes.listFirst}>Is Callable</ListItemText>
+                                <ListItemText  className={classes.listSecond}>{bond.CallableFlag}</ListItemText>
+                            </ListItem>
+                            <ListItem alignItems="flex-start">
+                                <ListItemText className={classes.listFirst}>Is Fix to Float</ListItemText>
+                                <ListItemText className={classes.listSecond}>{bond.FixToFloatFlag}</ListItemText>
+                            </ListItem>
+                            <ListItem alignItems="flex-start">
+                                <ListItemText className={classes.listFirst}>Is Putable</ListItemText>
+                                <ListItemText className={classes.listSecond}>{bond.PutableFlag}</ListItemText>
+                            </ListItem>
+                            <ListItem alignItems="flex-start">
+                                <ListItemText className={classes.listFirst}>Issue Date</ListItemText>
+                                <ListItemText  className={classes.listSecond}>{bond.IssueDate}</ListItemText>
+                            </ListItem>         
+                            <ListItem alignItems="flex-start">
+                                <ListItemText className={classes.listFirst}>Last Reset Date</ListItemText>
+                                <ListItemText className={classes.listSecond}>{bond.LastResetDate}</ListItemText>
+                            </ListItem>
+                            <ListItem alignItems="flex-start">
+                                <ListItemText className={classes.listFirst}>Maturity Date</ListItemText>
+                                <ListItemText className={classes.listSecond}>{bond.Maturity}</ListItemText>
+                            </ListItem>
+                            <ListItem alignItems="flex-start">
+                                <ListItemText className={classes.listFirst}>Maximum Call Notice Days</ListItemText>
+                                <ListItemText  className={classes.listSecond}>{bond.CallNotificationMaxDays}</ListItemText>
+                            </ListItem>
+                            <ListItem alignItems="flex-start">
+                                <ListItemText className={classes.listFirst}>Maximum Put Notice Days</ListItemText>
+                                <ListItemText className={classes.listSecond}>{bond.PutNotificationMaxDays}</ListItemText>
+                            </ListItem>
+                            <ListItem alignItems="flex-start">
+                                <ListItemText className={classes.listFirst}>Penultimate Coupon Date</ListItemText>
+                                <ListItemText  className={classes.listSecond}>{bond.PenultimateCouponDate}</ListItemText>
+                            </ListItem>
+                            <ListItem alignItems="flex-start">
+                                <ListItemText className={classes.listFirst}>Reset Frequency</ListItemText>
+                                <ListItemText className={classes.listSecond}>{bond.ResestFrequency}</ListItemText>
+                            </ListItem>
+                            <ListItem alignItems="flex-start">
+                                <ListItemText className={classes.listFirst}>Has Position</ListItemText>
+                                <ListItemText className={classes.listSecond}>{bond.HasPosition}</ListItemText>
+                            </ListItem>
+                        </List>
+                         : null)                    
+                 }
             </div>
         )
     }

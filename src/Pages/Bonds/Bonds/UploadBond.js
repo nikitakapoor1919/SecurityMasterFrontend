@@ -1,7 +1,7 @@
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import styles from './styles/styles';
-import UploadCSV from '../../Components/UploadFile/UploadBondsCSV'
+import styles from '../styles/styles';
+import UploadCSV from '../../../Components/UploadFile/UploadBondsCSV'
 import Alert from '@material-ui/lab/Alert';
 import React, { Component } from 'react'
 import {CircularProgress} from '@material-ui/core';
@@ -11,14 +11,14 @@ export class UploadBond extends Component {
         super(props)
   
         this.state = {
-          progress:false,success:false,errorNotCSV:false,file:null,errorUpload:false,successUpload:false
+          progress:false,success:false,errorNotCSV:false,file:null,successUpload:false
         }
       }
     onChange=(val)=> { this.setState({progress:val})}
     onChangeSuccess=(val)=> { this.setState({success:val})}
-    onChangeError=(val)=> { this.setState({error:val})}
+    onChangeError=(val)=> { this.setState({errorNotCSV:val})}
     onUploadFile=(val)=> { this.setState({file:val})}
-    onUploadError=(val)=>{ this.setState({errorUpload:val})}
+    onUploadError=(val)=>{ this.setState({error:val})}
     onSuccessfullyUpload=(val)=>{this.setState({successUpload:val})}
   render() {
     const {classes} = this.props;  
@@ -28,8 +28,8 @@ export class UploadBond extends Component {
        <div className={classes.progress}>
             {this.state.progress ? <div style={{textAlign:"center"}}> <CircularProgress/></div> :''}
             {this.state.success ? <Alert severity="success">Please Click on Upload</Alert> :''}
+            {this.state.error ? <Alert severity="warning">File Format not Supported</Alert> :''}
             {this.state.errorNotCSV ? <Alert severity="error">Only CSV Files Can Be Uploaded</Alert> :''}
-            {this.state.errorUpload ? <Alert severity="error">Error</Alert> :''}
             {this.state.successUpload ? <Alert severity="success">Successfully Uploaded</Alert>:''}
           </div>
             <Typography className={classes.heading}>

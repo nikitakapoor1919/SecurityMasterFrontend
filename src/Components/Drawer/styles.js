@@ -60,7 +60,7 @@ const styles = theme => ({
       listItemText:{
         fontSize:"0.875rem",
         fontWeight:700
-      }
+      },
 });
   
 export default styles; 

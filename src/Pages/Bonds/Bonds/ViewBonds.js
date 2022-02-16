@@ -1,18 +1,18 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import './styles/styles.css'
+import '../styles/styles.css'
 import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import SecurityAndSummary from './Tabs/SecuritySummary';
-import SecurityIdentifier from './Tabs/SecurityIdentifier';
-import SecurityDetails from './Tabs/SecurityDetails';
-import Risk from './Tabs/Risk';
-import RegulatoryDetails from './Tabs/RegulatoryDetails';
-import ReferenceData from './Tabs/ReferenceData';
-import PricingAndAnalytics from './Tabs/PricingAndAnalytics';
-import CallSchedule from './Tabs/CallSchedule';
-import PutSchedule from './Tabs/PutSchedule';
+import SecurityAndSummary from '../Tabs/SecuritySummary';
+import SecurityIdentifier from '../Tabs/SecurityIdentifier';
+import SecurityDetails from '../Tabs/SecurityDetails';
+import Risk from '../Tabs/Risk';
+import RegulatoryDetails from '../Tabs/RegulatoryDetails';
+import ReferenceData from '../Tabs/ReferenceData';
+import PricingAndAnalytics from '../Tabs/PricingAndAnalytics';
+import CallSchedule from '../Tabs/CallSchedule';
+import PutSchedule from '../Tabs/PutSchedule';
 
 class ViewBonds extends React.Component {
 

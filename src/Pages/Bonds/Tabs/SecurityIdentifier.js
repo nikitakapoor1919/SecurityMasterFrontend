@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import styles from '../styles/styles.js'
 import '../styles/styles.css'
+import {List,ListItem,ListItemIcon,ListItemText,ListSubheader} from '@mui/material';
 
 export class SecurityIdentifier extends Component {
     render() {
@@ -13,29 +14,33 @@ export class SecurityIdentifier extends Component {
         return (
             <div className="botton-margin">
                 <Typography variant="h4" className={classes.topHeading}  style={{fontWeight:700}}>Security Identifier</Typography>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ISIN </th>
-                            <th>Bloomberg Ticker</th>
-                            <th>Bloomberg Unique ID</th>
-                            <th>CUSIP</th>
-                            <th>SEDOL</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.props.bonds.map(bond=>
-                            bond.BondId == this.props.bid ?
-                            <tr key={bond.BondId}>
-                                <td>{bond.ISIN}</td>
-                                <td>{bond.BBGTicker}</td>
-                                <td>{bond.BBGUniqueID}</td>
-                                <td>{bond.CUSIP}</td>
-                                <td>{bond.SEDOL}</td>
-                            </tr>:null)
-                        }
-                    </tbody>
-                </table>
+                {this.props.bonds.map(bond=>
+                        bond.BondId == this.props.bid ?
+                        <List sx={{ width: '100%', margin:'0 auto', bgcolor: 'background.paper' }} className={classes.listTable}>
+                            <ListItem alignItems="flex-start">
+                                <ListItemText className={classes.listFirst}>ISIN</ListItemText>
+                                <ListItemText  className={classes.listSecond}>{bond.ISIN}</ListItemText>
+                            </ListItem>
+                            <ListItem alignItems="flex-start">
+                                <ListItemText className={classes.listFirst}>Bloomberg Ticker</ListItemText>
+                                <ListItemText className={classes.listSecond}>{bond.BBGTicker}</ListItemText>
+                            </ListItem>
+                            <ListItem alignItems="flex-start">
+                                <ListItemText className={classes.listFirst}>Bloomberg Unique ID</ListItemText>
+                                <ListItemText className={classes.listSecond}>{bond.BBGUniqueID}</ListItemText>
+                            </ListItem>
+                            <ListItem alignItems="flex-start">
+                                <ListItemText className={classes.listFirst}>CUSIP</ListItemText>
+                                <ListItemText className={classes.listSecond}>{bond.CUSIP}</ListItemText>
+                            </ListItem>
+                            <ListItem alignItems="flex-start">
+                                <ListItemText className={classes.listFirst}>SEDOL</ListItemText>
+                                <ListItemText className={classes.listSecond}>{bond.SEDOL}</ListItemText>
+                            </ListItem>
+                        </List>
+                         : null)
+                        
+                 }
             </div>
         )
     }
