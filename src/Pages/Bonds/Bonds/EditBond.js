@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import { Container, Divider, Button,  Dialog,DialogActions,DialogTitle,DialogContent,DialogContentText, Typography } from '@mui/material';
+import { Container, Divider, Button,  Dialog,DialogActions,
+        DialogContent,DialogContentText, Typography, FormControl } from '@mui/material';
 import { withStyles } from '@material-ui/core/styles';
 import styles from '../../../styles/styles';
 import TextField from '@mui/material/TextField';
 import '../../../styles/styles.css'
 import {CircularProgress} from '@material-ui/core';
-import DateTimePicker from '@mui/lab/DateTimePicker';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import MomentUtils from '@date-io/moment';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers'; 
+import DateFnsUtils from '@date-io/date-fns';  
 
 export class EditBond extends Component{
   constructor(props) {
@@ -256,12 +255,8 @@ export class EditBond extends Component{
         
         }) 
         .then((response) => { 
-          alert("Saved Successfull")
-          // this.setState({open:true})
-          // setTimeout(()=>this.setState({success:false}),4000)
-      })
-      .catch(()=>{
-        alert("Error")
+          // alert("Saved Successfull")
+          this.setState({open:true})
       })
   }
   handleOpen=()=>{this.setState({open:true})} 
@@ -273,180 +268,211 @@ export class EditBond extends Component{
            <div className={classes.load}>
               {this.state.loading ? <div style={{textAlign:"center"}}> <CircularProgress/></div> :''}
            </div>
-          <Card className={classes.card} style={{background:'#e6e6e6'}}>
+          <Card className={classes.card} style={{background:'#f5f4f4'}}>
           <Typography variant="h4" gutterBottom component="div" className={classes.tab}>Edit Bond </Typography>
           <Divider/>
               <CardContent>
                  <form onSubmit={this.handleSubmit}>
-                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <div>
                             <div className={classes.tabHeading}>
                               <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Security Summary</Typography>
-                              <div className={classes.textField}><TextField name="BondId" label="Bond Id" value={this.state.BondId} variant="filled" fullWidth disabled /></div>
-                              <div className={classes.textField}><TextField name="SecurityName" label="Security Name" variant="filled" placeholder value={this.state.SecurityName}  fullWidth onChange={(e)=>this.setState({SecurityName:e.target.value})} required/></div>
-                              <div className={classes.textField}><TextField name="SecurityDescription" label="Security Description" variant="filled" value={this.state.SecurityDescription} fullWidth onChange={(e)=>this.setState({SecurityDescription:e.target.value})} required/></div>
-                              <div className={classes.textField}><TextField name="AssetType" label="AssetType" variant="filled" value={this.state.AssetType} fullWidth onChange={(e)=>this.setState({AssetType:e.target.value})} /></div>
-                              <div className={classes.textField}><TextField name="InvestmentType" label="Investment Type" variant="filled" value={this.state.InvestmentType} fullWidth onChange={(e)=>this.setState({InvestmentType:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="TradingFactor" helperText="Only Numbers are allowed"  type='number' label="Trading Factor" variant="filled" value={this.state.TradingFactor} fullWidth onChange={(e)=>this.setState({TradingFactor:e.target.value})} /></div>
-                              <div className={classes.textField}><TextField name="PricingFactor" helperText="Only Numbers are allowed" type='number' label="PricingPricingFactor Factor" variant="filled" value={this.state.PricingFactor} fullWidth onChange={(e)=>this.setState({PricingFactor:e.target.value})}/></div>
+                              <Divider/>
+                              <div className={classes.textField}><TextField name="BondId" label="Bond Id" value={this.state.BondId} variant="outlined" fullWidth disabled /></div>
+                              <div className={classes.textField}><TextField name="SecurityName" label="Security Name" variant="outlined" placeholder value={this.state.SecurityName}  fullWidth onChange={(e)=>this.setState({SecurityName:e.target.value})} required/></div>
+                              <div className={classes.textField}><TextField name="SecurityDescription" label="Security Description" variant="outlined" value={this.state.SecurityDescription} fullWidth onChange={(e)=>this.setState({SecurityDescription:e.target.value})} required/></div>
+                              <div className={classes.textField}><TextField name="AssetType" label="AssetType" variant="outlined" value={this.state.AssetType} fullWidth onChange={(e)=>this.setState({AssetType:e.target.value})} /></div>
+                              <div className={classes.textField}><TextField name="InvestmentType" label="Investment Type" variant="outlined" value={this.state.InvestmentType} fullWidth onChange={(e)=>this.setState({InvestmentType:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="TradingFactor" helperText="Only Numbers are allowed"  type='number' label="Trading Factor" variant="outlined" value={this.state.TradingFactor} fullWidth onChange={(e)=>this.setState({TradingFactor:e.target.value})} /></div>
+                              <div className={classes.textField}><TextField name="PricingFactor" helperText="Only Numbers are allowed" type='number' label="Pricing Factor" variant="outlined" value={this.state.PricingFactor} fullWidth onChange={(e)=>this.setState({PricingFactor:e.target.value})}/></div>
                             </div>
                             
                             <div className={classes.tabHeading}>
                               <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Security Identifier</Typography>
-                              <div className={classes.textField}><TextField name="ISIN" label="ISIN" variant="filled" fullWidth value={this.state.ISIN} onChange={(e)=>this.setState({ISIN:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="BBGTicker" label="BBGTicker" variant="filled" value={this.state.BBGTicker} fullWidth onChange={(e)=>this.setState({BBGTicker:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="BBGUniqueID" label="BBGUniqueID" variant="filled" value={this.state.BBGUniqueID} fullWidth onChange={(e)=>this.setState({BBGUniqueID:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="SEDOL" label="SEDOL" variant="filled" fullWidth value={this.state.SEDOL} onChange={(e)=>this.setState({SEDOL:e.target.value})}/></div>
+                              <Divider/>
+                              <div className={classes.textField}><TextField name="ISIN" label="ISIN" variant="outlined" fullWidth value={this.state.ISIN} onChange={(e)=>this.setState({ISIN:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="BBGTicker" label="BBGTicker" variant="outlined" value={this.state.BBGTicker} fullWidth onChange={(e)=>this.setState({BBGTicker:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="BBGUniqueID" label="BBGUniqueID" variant="outlined" value={this.state.BBGUniqueID} fullWidth onChange={(e)=>this.setState({BBGUniqueID:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="SEDOL" label="SEDOL" variant="outlined" fullWidth value={this.state.SEDOL} onChange={(e)=>this.setState({SEDOL:e.target.value})}/></div>
                             </div>
                             
                             <div className={classes.tabHeading}>
                               <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Security Details</Typography>
-                              {/* <div className={classes.textField}>
-                              <DateTimePicker
+                              <Divider/>
+                              <div className={classes.textField}>
+                              <TextField
                                 label="First Coupon Date"
-                                showTodayButton
+                                name="FirstCouponDate"
+                                type="datetime-local"
                                 fullWidth
                                 value={this.state.FirstCouponDate} 
                                 onChange={(e)=>this.setState({FirstCouponDate:e.target.value})}
-                                renderInput={(params) => <TextField {...params} />}
+                                InputLabelProps={{
+                                  shrink: true,
+                                }}
                               />
-                            </div> */}
-                              <div className={classes.textField}><TextField name="FirstCouponDate" label="First Coupon Date" variant="filled" fullWidth value={this.state.FirstCouponDate}  onChange={(e)=>this.setState({FirstCouponDate:e.target.value})} /></div>
-                              <div className={classes.textField}><TextField name="CouponCap" label="Coupon Cap" variant="filled" fullWidth value={this.state.CouponCap} onChange={(e)=>this.setState({CouponCap:e.target.value})} /></div>
-                              <div className={classes.textField}><TextField name="CoupanFloor" label="Coupon Floor" variant="filled" fullWidth value={this.state.CoupanFloor} onChange={(e)=>this.setState({CoupanFloor:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="CouponFrequency" label="Coupon Frequency" variant="filled" fullWidth value={this.state.CouponFrequency} onChange={(e)=>this.setState({CouponFrequency:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="CouponRate" type='number' label="Coupon Rate" variant="filled" fullWidth value={this.state.CouponRate} onChange={(e)=>this.setState({CouponRate:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="CouponType" label="Coupon Type" variant="filled" fullWidth  value={this.state.CouponType} onChange={(e)=>this.setState({CouponType:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="Spread" label="Spread" variant="filled" fullWidth value={this.state.Spread} onChange={(e)=>this.setState({Spread:e.target.value})} /></div></div>
-                              <div className={classes.textField}><TextField name="CallableFlag" label="Callable Flag" variant="filled" fullWidth value={this.state.CallableFlag} onChange={(e)=>this.setState({CallableFlag:e.target.value})} /></div>
-                              <div className={classes.textField}><TextField name="FixToFloatFlag" label="Fix To Float Flag" variant="filled" fullWidth value={this.state.FixToFloatFlag} onChange={(e)=>this.setState({FixToFloatFlag:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="PutableFlag" label="Putable Flag" variant="filled" fullWidth value={this.state.PutableFlag} onChange={(e)=>this.setState({PutableFlag:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="IssueDate" label="Issue Date"  variant="filled" fullWidth value={this.state.IssueDate} onChange={(e)=>this.setState({IssueDate:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="LastResetDate" label="Last Reset Date"   variant="filled" fullWidth value={this.state.LastResetDate} onChange={(e)=>this.setState({LastResetDate:e.target.value}) }/></div>
-                              <div className={classes.textField}><TextField name="Maturity" label="Maturity"  variant="filled" fullWidth value={this.state.Maturity} onChange={(e)=>this.setState({Maturity:e.target.value})}/></div>
-                              {/* <div className={classes.textField}>
-                              <DateTimePicker
-                                label="Issue Date" 
-                                showTodayButton
-                                fullWidth
-                                value={this.state.IssueDate} onChange={(e)=>this.setState({IssueDate:e.target.value})}
-                                renderInput={(params) => <TextField {...params} />}
-                              />
+                            </div>
+                              {/* <div className={classes.textField}><TextField name="FirstCouponDate" label="First Coupon Date" variant="outlined" fullWidth value={this.state.FirstCouponDate}  onChange={(e)=>this.setState({FirstCouponDate:e.target.value})} /></div> */}
+                              <div className={classes.textField}><TextField name="CouponCap" label="Coupon Cap" variant="outlined" fullWidth value={this.state.CouponCap} onChange={(e)=>this.setState({CouponCap:e.target.value})} /></div>
+                              <div className={classes.textField}><TextField name="CoupanFloor" label="Coupon Floor" variant="outlined" fullWidth value={this.state.CoupanFloor} onChange={(e)=>this.setState({CoupanFloor:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="CouponFrequency" label="Coupon Frequency" variant="outlined" fullWidth value={this.state.CouponFrequency} onChange={(e)=>this.setState({CouponFrequency:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="CouponRate" type='number' label="Coupon Rate" variant="outlined" fullWidth value={this.state.CouponRate} onChange={(e)=>this.setState({CouponRate:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="CouponType" label="Coupon Type" variant="outlined" fullWidth  value={this.state.CouponType} onChange={(e)=>this.setState({CouponType:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="Spread" label="Spread" variant="outlined" fullWidth value={this.state.Spread} onChange={(e)=>this.setState({Spread:e.target.value})} /></div></div>
+                              <div className={classes.textField}><TextField name="CallableFlag" label="Callable Flag" variant="outlined" fullWidth value={this.state.CallableFlag} onChange={(e)=>this.setState({CallableFlag:e.target.value})} /></div>
+                              <div className={classes.textField}><TextField name="FixToFloatFlag" label="Fix To Float Flag" variant="outlined" fullWidth value={this.state.FixToFloatFlag} onChange={(e)=>this.setState({FixToFloatFlag:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="PutableFlag" label="Putable Flag" variant="outlined" fullWidth value={this.state.PutableFlag} onChange={(e)=>this.setState({PutableFlag:e.target.value})}/></div>
+                              {/* <div className={classes.textField}><TextField name="IssueDate" label="Issue Date"  variant="outlined" fullWidth value={this.state.IssueDate} onChange={(e)=>this.setState({IssueDate:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="LastResetDate" label="Last Reset Date"   variant="outlined" fullWidth value={this.state.LastResetDate} onChange={(e)=>this.setState({LastResetDate:e.target.value}) }/></div>
+                              <div className={classes.textField}><TextField name="Maturity" label="Maturity"  variant="outlined" fullWidth value={this.state.Maturity} onChange={(e)=>this.setState({Maturity:e.target.value})}/></div> */}
+                              <div className={classes.textField}>
+                                 <TextField
+                                  label="Issue Date" 
+                                  name="IssueDate"
+                                  type="datetime-local"
+                                  fullWidth
+                                  value={this.state.IssueDate} onChange={(e)=>this.setState({IssueDate:e.target.value})}
+                                  InputLabelProps={{
+                                    shrink: true,
+                                  }}
+                                />
                               </div>
                               <div className={classes.textField}> 
-                              <DateTimePicker
-                                label="Last Reset Date" 
-                                showTodayButton
-                                fullWidth
-                                value={this.state.LastResetDate}
-                                onChange={(e)=>this.setState({LastResetDate:e.target.value}) }
-                                renderInput={(params) => <TextField {...params} />}
-                              /></div>
+                                <TextField
+                                  label="Last Reset Date" 
+                                  name="LastResetDate"
+                                  type="datetime-local"
+                                  fullWidth
+                                  value={this.state.LastResetDate}
+                                  onChange={(e)=>this.setState({LastResetDate:e.target.value}) }
+                                  InputLabelProps={{
+                                    shrink: true,
+                                  }}
+                                />
+                              </div>
                               <div className={classes.textField}>
-                              <DateTimePicker
+                              <TextField
                                 label="Maturity"
-                                showTodayButton
+                                name="Maturity"
+                                type="datetime-local"
                                 fullWidth
                                 value={this.state.Maturity} onChange={(e)=>this.setState({Maturity:e.target.value})}
-                                renderInput={(params) => <TextField {...params} />}
-                              /></div>
-                       */}
-                              <div className={classes.textField}><TextField name="CallNotificationMaxDays" helperText="Only Numbers are allowed" type='number' label="Call Notification Max Days" variant="filled" fullWidth value={this.state.CallNotificationMaxDays} onChange={(e)=>this.setState({CallNotificationMaxDays:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="PutNotificationMaxDays" helperText="Only Numbers are allowed" type='number' label="Put Notification Max Days" variant="filled" fullWidth value={this.state.PutNotificationMaxDays} onChange={(e)=>this.setState({PutNotificationMaxDays:e.target.value})}/></div>
-                              {/* <div className={classes.textField}>
-                                <DateTimePicker
+                                InputLabelProps={{
+                                  shrink: true,
+                                }}
+                              />
+                             </div>
+                      
+                              <div className={classes.textField}><TextField name="CallNotificationMaxDays" helperText="Only Numbers are allowed" type='number' label="Call Notification Max Days" variant="outlined" fullWidth value={this.state.CallNotificationMaxDays} onChange={(e)=>this.setState({CallNotificationMaxDays:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="PutNotificationMaxDays" helperText="Only Numbers are allowed" type='number' label="Put Notification Max Days" variant="outlined" fullWidth value={this.state.PutNotificationMaxDays} onChange={(e)=>this.setState({PutNotificationMaxDays:e.target.value})}/></div>
+                              <div className={classes.textField}>
+                                 <TextField
                                   label="Penultimate Coupon Date"
-                                  showTodayButton
+                                  name="PenultimateCouponDate"
+                                  type="datetime-local"
                                   fullWidth
                                   value={this.state.PenultimateCouponDate} onChange={(e)=>this.setState({PenultimateCouponDate:e.target.value})}
-                                  renderInput={(params) => <TextField {...params} />}
+                                  InputLabelProps={{
+                                    shrink: true,
+                                  }}
                                 />
-                              </div> */}
-                              <div className={classes.textField}><TextField name="PenultimateCouponDate" label="Penultimate Coupon Date"  variant="filled" fullWidth value={this.state.PenultimateCouponDate} onChange={(e)=>this.setState({PenultimateCouponDate:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="PenultimateCouponDate" label="Penultimate Coupon Date" variant="filled" fullWidth value={this.state.PenultimateCouponDate} onChange={(e)=>this.setState({PenultimateCouponDate:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="ResetFrequency" label="Reset Frequency" variant="filled" fullWidth value={this.state.ResetFrequency} onChange={(e)=>this.setState({ResetFrequency:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="HasPosition" label="Has Position" variant="filled" fullWidth value={this.state.HasPosition} onChange={(e)=>this.setState({HasPosition:e.target.value})}/>
+                              </div>
+                              {/* <div className={classes.textField}><TextField name="PenultimateCouponDate" label="Penultimate Coupon Date"  variant="outlined" fullWidth value={this.state.PenultimateCouponDate} onChange={(e)=>this.setState({PenultimateCouponDate:e.target.value})}/></div> */}
+                              <div className={classes.textField}><TextField name="PenultimateCouponDate" label="Penultimate Coupon Date" variant="outlined" fullWidth value={this.state.PenultimateCouponDate} onChange={(e)=>this.setState({PenultimateCouponDate:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="ResetFrequency" label="Reset Frequency" variant="outlined" fullWidth value={this.state.ResetFrequency} onChange={(e)=>this.setState({ResetFrequency:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="HasPosition" label="Has Position" variant="outlined" fullWidth value={this.state.HasPosition} onChange={(e)=>this.setState({HasPosition:e.target.value})}/>
                             </div>
                             
                             <div className={classes.tabHeading}>
                               <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Risk</Typography>
-                              <div className={classes.textField}><TextField name="MaculayDuration" helperText="Only Numbers are allowed" type='number' label="Maculay Duration" variant="filled" fullWidth value={this.state.MaculayDuration} onChange={(e)=>this.setState({MaculayDuration:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="Volatility30D" helperText="Only Numbers are allowed" type='number' label="Volatility30D" variant="filled" fullWidth value={this.state.Volatility30D} onChange={(e)=>this.setState({Volatility30D:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="Volatility90D" helperText="Only Numbers are allowed" type='number' label="Volatility90D" variant="filled" fullWidth value={this.state.Volatility90D} onChange={(e)=>this.setState({Holatility90D:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="Convexity" helperText="Only Numbers are allowed" type='number' label="Convexity" variant="filled" fullWidth value={this.state.Convexity} onChange={(e)=>this.setState({Convexity:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="AverageVolume30D"helperText="Only Numbers are allowed" type='number' label="Average Volume 30D" variant="filled" fullWidth value={this.state.AverageVolume30D} onChange={(e)=>this.setState({AverageVolume30D:e.target.value})}/></div>
+                              <Divider/>
+                              <div className={classes.textField}><TextField name="MaculayDuration" helperText="Only Numbers are allowed" type='number' label="Maculay Duration" variant="outlined" fullWidth value={this.state.MaculayDuration} onChange={(e)=>this.setState({MaculayDuration:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="Volatility30D" helperText="Only Numbers are allowed" type='number' label="Volatility30D" variant="outlined" fullWidth value={this.state.Volatility30D} onChange={(e)=>this.setState({Volatility30D:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="Volatility90D" helperText="Only Numbers are allowed" type='number' label="Volatility90D" variant="outlined" fullWidth value={this.state.Volatility90D} onChange={(e)=>this.setState({Holatility90D:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="Convexity" helperText="Only Numbers are allowed" type='number' label="Convexity" variant="outlined" fullWidth value={this.state.Convexity} onChange={(e)=>this.setState({Convexity:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="AverageVolume30D"helperText="Only Numbers are allowed" type='number' label="Average Volume 30D" variant="outlined" fullWidth value={this.state.AverageVolume30D} onChange={(e)=>this.setState({AverageVolume30D:e.target.value})}/></div>
                             </div>
                             
                             <div className={classes.tabHeading}>
                               <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Regulatory Details</Typography>
-                              <div className={classes.textField}><TextField name="PFAssetClass" label="PF Asset Class" variant="filled" fullWidth value={this.state.PFAssetClass} onChange={(e)=>this.setState({PFAssetClass:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="PFCountry" label="PF Country" variant="filled" fullWidth value={this.state.PFCountry} onChange={(e)=>this.setState({PFCountry:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="PFCreditRating" label="PF Credit Rating" variant="filled" fullWidth value={this.state.PFCreditRating} onChange={(e)=>this.setState({PFCreditRating:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="PFCurrency" label="PF Currency" variant="filled" fullWidth value={this.state.PFCurrency} onChange={(e)=>this.setState({PFCurrency:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="PFInstrument" label="PF Instrument" variant="filled" fullWidth value={this.state.PFInstrument} onChange={(e)=>this.setState({PFInstrument:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="PFLiquidityProfile" label="PF Liquidity Profile" variant="filled" fullWidth value={this.state.PFLiquidityProfile} onChange={(e)=>this.setState({PFLiquidityProfile:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="PFMaturity" label="PF Maturity" variant="filled" fullWidth value={this.state.PFMaturity} onChange={(e)=>this.setState({PFMaturity:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="PFNAICSCode" label="PF NAICS Code" variant="filled" fullWidth value={this.state.PFNAICSCode} onChange={(e)=>this.setState({PFNAICSCode:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="PFRegion" label="PF Region" variant="filled" fullWidth value={this.state.PFRegion} onChange={(e)=>this.setState({PFRegion:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="PFSector" label="PF Sector" variant="filled" fullWidth value={this.state.PFSector} onChange={(e)=>this.setState({PFSector:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="PFSubAssetClass" label="PF Sub Asset Class" variant="filled" fullWidth value={this.state.PFSubAssetClass} onChange={(e)=>this.setState({PFSubAssetClass:e.target.value})}/></div>
+                              <Divider/>
+                              <div className={classes.textField}><TextField name="PFAssetClass" label="PF Asset Class" variant="outlined" fullWidth value={this.state.PFAssetClass} onChange={(e)=>this.setState({PFAssetClass:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="PFCountry" label="PF Country" variant="outlined" fullWidth value={this.state.PFCountry} onChange={(e)=>this.setState({PFCountry:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="PFCreditRating" label="PF Credit Rating" variant="outlined" fullWidth value={this.state.PFCreditRating} onChange={(e)=>this.setState({PFCreditRating:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="PFCurrency" label="PF Currency" variant="outlined" fullWidth value={this.state.PFCurrency} onChange={(e)=>this.setState({PFCurrency:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="PFInstrument" label="PF Instrument" variant="outlined" fullWidth value={this.state.PFInstrument} onChange={(e)=>this.setState({PFInstrument:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="PFLiquidityProfile" label="PF Liquidity Profile" variant="outlined" fullWidth value={this.state.PFLiquidityProfile} onChange={(e)=>this.setState({PFLiquidityProfile:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="PFMaturity" label="PF Maturity" variant="outlined" fullWidth value={this.state.PFMaturity} onChange={(e)=>this.setState({PFMaturity:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="PFNAICSCode" label="PF NAICS Code" variant="outlined" fullWidth value={this.state.PFNAICSCode} onChange={(e)=>this.setState({PFNAICSCode:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="PFRegion" label="PF Region" variant="outlined" fullWidth value={this.state.PFRegion} onChange={(e)=>this.setState({PFRegion:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="PFSector" label="PF Sector" variant="outlined" fullWidth value={this.state.PFSector} onChange={(e)=>this.setState({PFSector:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="PFSubAssetClass" label="PF Sub Asset Class" variant="outlined" fullWidth value={this.state.PFSubAssetClass} onChange={(e)=>this.setState({PFSubAssetClass:e.target.value})}/></div>
                             </div>
                             
                             <div className={classes.tabHeading}>
                               <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Reference Data</Typography>
-                              <div className={classes.textField}><TextField name="BloombergIndustryGroup" label="Bloomberg Industry Group" variant="filled" fullWidth value={this.state.BloombergIndustryGroup} onChange={(e)=>this.setState({BloombergIndustryGroup:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="BloombergIndustrySubGroup" label="Bloomberg Industry SubGroup" variant="filled" fullWidth value={this.state.BloombergIndustrySubGroup} onChange={(e)=>this.setState({BloombergIndustrySubGroup:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="BloombergIndustrySector" label="Bloomberg Industry Sector" variant="filled" fullWidth value={this.state.BloombergIndustrySector} onChange={(e)=>this.setState({BloombergIndustrySector:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="CountryOfIssurance" label="Country Of Issurance" variant="filled" fullWidth value={this.state.CountryOfIssurance} onChange={(e)=>this.setState({CountryOfIssurance:e.target.value})} required/></div>
-                              <div className={classes.textField}><TextField name="IssueCurrency" label="Issue Currency" variant="filled" fullWidth value={this.state.IssueCurrency} onChange={(e)=>this.setState({IssueCurrency:e.target.value})} required/></div>
-                              <div className={classes.textField}><TextField name="Issuer" label="Issuer" variant="filled" fullWidth value={this.state.Issuer} onChange={(e)=>this.setState({Issuer:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="RiskCurrency" label="Risk Currency" variant="filled" fullWidth value={this.state.RiskCurrency} onChange={(e)=>this.setState({RiskCurrency:e.target.value})}/></div>
+                              <Divider/>
+                              <div className={classes.textField}><TextField name="BloombergIndustryGroup" label="Bloomberg Industry Group" variant="outlined" fullWidth value={this.state.BloombergIndustryGroup} onChange={(e)=>this.setState({BloombergIndustryGroup:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="BloombergIndustrySubGroup" label="Bloomberg Industry SubGroup" variant="outlined" fullWidth value={this.state.BloombergIndustrySubGroup} onChange={(e)=>this.setState({BloombergIndustrySubGroup:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="BloombergIndustrySector" label="Bloomberg Industry Sector" variant="outlined" fullWidth value={this.state.BloombergIndustrySector} onChange={(e)=>this.setState({BloombergIndustrySector:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="CountryOfIssurance" label="Country Of Issurance" variant="outlined" fullWidth value={this.state.CountryOfIssurance} onChange={(e)=>this.setState({CountryOfIssurance:e.target.value})} required/></div>
+                              <div className={classes.textField}><TextField name="IssueCurrency" label="Issue Currency" variant="outlined" fullWidth value={this.state.IssueCurrency} onChange={(e)=>this.setState({IssueCurrency:e.target.value})} required/></div>
+                              <div className={classes.textField}><TextField name="Issuer" label="Issuer" variant="outlined" fullWidth value={this.state.Issuer} onChange={(e)=>this.setState({Issuer:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="RiskCurrency" label="Risk Currency" variant="outlined" fullWidth value={this.state.RiskCurrency} onChange={(e)=>this.setState({RiskCurrency:e.target.value})}/></div>
                             </div>
                             
                             <div className={classes.tabHeading}>
                               <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Put Schedule</Typography>
-                              {/* <div className={classes.textField}>
-                              <DateTimePicker
+                              <Divider/>
+                              <div className={classes.textField}>
+                                <TextField
                                   label="Put Date"
-                                  showTodayButton
+                                  name="PutDate"  
+                                  type="datetime-local"
                                   fullWidth
                                   value={this.state.PutDate} onChange={(e)=>this.setState({PutDate:e.target.value})}
-                                  renderInput={(params) => <TextField {...params} />}
+                                  InputLabelProps={{
+                                    shrink: true,
+                                  }}
                                 />
-                              </div> */}
-                              <div className={classes.textField}><TextField name="PutDate" label="Put Date"  variant="filled" fullWidth value={this.state.PutDate} onChange={(e)=>this.setState({PutDate:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="PutPrice" type='number' helperText="Only Numbers are allowed" label="Put Price" variant="filled" fullWidth value={this.state.PutPrice} onChange={(e)=>this.setState({PutPrice:e.target.value})}/></div>
+                              </div>
+                              {/* <div className={classes.textField}><TextField name="PutDate" label="Put Date"  variant="outlined" fullWidth value={this.state.PutDate} onChange={(e)=>this.setState({PutDate:e.target.value})}/></div> */}
+                              <div className={classes.textField}><TextField name="PutPrice" type='number' helperText="Only Numbers are allowed" label="Put Price" variant="outlined" fullWidth value={this.state.PutPrice} onChange={(e)=>this.setState({PutPrice:e.target.value})}/></div>
                             </div>
                             
                             <div className={classes.tabHeading}>
                               <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Pricing And Analytics</Typography>
-                              <div className={classes.textField}><TextField name="AskPrice" helperText="Only Numbers are allowed"type='number' label="Ask Price" variant="filled" fullWidth value={this.state.AskPrice} onChange={(e)=>this.setState({AskPrice:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="HighPrice" helperText="Only Numbers are allowed" type='number' label="High Price" variant="filled" fullWidth value={this.state.HighPrice} onChange={(e)=>this.setState({HighPrice:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="Volume" type='number'helperText="Only Numbers are allowed"  label="Volume" variant="filled" fullWidth value={this.state.Volume} onChange={(e)=>this.setState({Volume:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="LowPrice" type='number' helperText="Only Numbers are allowed" type='number'  label="Low Price" variant="filled" fullWidth value={this.state.LowPrice} onChange={(e)=>this.setState({LowPrice:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="BidPrice" type='number' helperText="Only Numbers are allowed" label="Bid Price" variant="filled" fullWidth value={this.state.BidPrice} onChange={(e)=>this.setState({BidPrice:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="LastPrice" type='number' helperText="Only Numbers are allowed" label="Last Price" variant="filled" fullWidth value={this.state.LastPrice} onChange={(e)=>this.setState({LastPrice:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="OpenPrice" type='number' helperText="Only Numbers are allowed" label="Open Price" variant="filled" fullWidth value={this.state.OpenPrice} onChange={(e)=>this.setState({OpenPrice:e.target.value})}/></div>
+                              <Divider/>
+                              <div className={classes.textField}><TextField name="AskPrice" helperText="Only Numbers are allowed"type='number' label="Ask Price" variant="outlined" fullWidth value={this.state.AskPrice} onChange={(e)=>this.setState({AskPrice:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="HighPrice" helperText="Only Numbers are allowed" type='number' label="High Price" variant="outlined" fullWidth value={this.state.HighPrice} onChange={(e)=>this.setState({HighPrice:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="Volume" type='number'helperText="Only Numbers are allowed"  label="Volume" variant="outlined" fullWidth value={this.state.Volume} onChange={(e)=>this.setState({Volume:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="LowPrice" type='number' helperText="Only Numbers are allowed" type='number'  label="Low Price" variant="outlined" fullWidth value={this.state.LowPrice} onChange={(e)=>this.setState({LowPrice:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="BidPrice" type='number' helperText="Only Numbers are allowed" label="Bid Price" variant="outlined" fullWidth value={this.state.BidPrice} onChange={(e)=>this.setState({BidPrice:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="LastPrice" type='number' helperText="Only Numbers are allowed" label="Last Price" variant="outlined" fullWidth value={this.state.LastPrice} onChange={(e)=>this.setState({LastPrice:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="OpenPrice" type='number' helperText="Only Numbers are allowed" label="Open Price" variant="outlined" fullWidth value={this.state.OpenPrice} onChange={(e)=>this.setState({OpenPrice:e.target.value})}/></div>
                             </div>
                             
                             <div className={classes.tabHeading}>
                               <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Call Schedule</Typography>
-                              {/* <div className={classes.textField}>
-                              <DateTimePicker
-                                  label="Call Date"
-                                  value={this.state.CallDate}
-                                  showTodayButton
+                              <Divider/>
+                              <div className={classes.textField}>
+                                <TextField
+                                  label="Call Date" 
+                                  name="CallDate"  
+                                  type="datetime-local"
                                   fullWidth
-                                  onChange={(e)=>this.setState({CallDate:e.target.value})}
-                                  renderInput={(params) => <TextField {...params} />}
+                                  value={this.state.CallDate} onChange={(e)=>this.setState({CallDate:e.target.value})}  
+                                  InputLabelProps={{
+                                    shrink: true,
+                                  }}
                                 />
-                              </div> */}
-                              <div className={classes.textField}><TextField name="CallDate" label="Call Date"  variant="filled" fullWidth value={this.state.CallDate} onChange={(e)=>this.setState({CallDate:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField type='number' helperText="Only Numbers are allowed"  name="CallPrice" label="Call Price" variant="filled" fullWidth value={this.state.CallPrice} onChange={(e)=>this.setState({CallPrice:e.target.value})}/>  </div>
+                              </div>
+                              {/* <div className={classes.textField}><TextField name="CallDate" label="Call Date"  variant="outlined" fullWidth value={this.state.CallDate} onChange={(e)=>this.setState({CallDate:e.target.value})}/></div> */}
+                              <div className={classes.textField}><TextField type='number' helperText="Only Numbers are allowed"  name="CallPrice" label="Call Price" variant="outlined" fullWidth value={this.state.CallPrice} onChange={(e)=>this.setState({CallPrice:e.target.value})}/>  </div>
                             </div> 
                         </div> 
-                    <Button variant="contained" className={classes.saveButton} style={{backgroundColor:"rgb(47, 46, 65)",marginTop:'20px'}} type="submit" fullWidth>SAVE</Button>
-                    </LocalizationProvider>
+                    <div style={{textAlign:'center'}}><Button variant="contained" className={classes.saveButton} style={{backgroundColor:"rgb(47, 46, 65)",marginTop:'20px'}} type="submit">SAVE</Button></div>
+                    </MuiPickersUtilsProvider>  
                  </form>
               </CardContent>
 

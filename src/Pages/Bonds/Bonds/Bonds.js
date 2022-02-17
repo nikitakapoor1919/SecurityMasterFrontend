@@ -71,7 +71,7 @@ export class Bonds extends Component {
             return(
                 <Container>
                 {/* <SecurityInfo len={this.state.len}/> */}
-                <AppBar position="static" className={classes.appbar} style={{background:'#e6e6e6',color:'black'}}>
+                <AppBar position="static" className={classes.appbar} style={{background:'#f5f4f4',color:'black'}}>
                   <div className={classes.tabContainer}>
                     <Button color="inherit" onClick={()=>this.setState({view:'one'})}>View</Button>
                     <Button color="inherit" onClick={()=>this.setState({view:'two'})}>Upload</Button>

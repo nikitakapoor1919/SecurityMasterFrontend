@@ -16,7 +16,7 @@ export class SecurityIdentifier extends Component {
                 <Typography variant="h4" className={classes.topHeading}  style={{fontWeight:700}}>Security Identifier</Typography>
                 {this.props.bonds.map(bond=>
                         bond.BondId == this.props.bid ?
-                        <List sx={{ width: '100%', margin:'0 auto', background:'#e6e6e6' }} className={classes.listTable}>
+                        <List sx={{ width: '100%', margin:'0 auto', background:'#f5f4f4' }} className={classes.listTable}>
                             <ListItem alignItems="flex-start">
                                 <ListItemText className={classes.listFirst}>ISIN</ListItemText>
                                 <ListItemText  className={classes.listSecond}>{bond.ISIN}</ListItemText>

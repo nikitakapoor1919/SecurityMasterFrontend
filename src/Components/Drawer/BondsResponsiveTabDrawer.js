@@ -30,11 +30,6 @@ const options = [
   {id: 9, text: 'Call Schedule'},
 ];
 
-const audit = [
-  {id: 1, text: 'Audit',subTopics:[
-    {id:1, text: 'View Audit'},
-  ]},
-];
 
 const uploadExcel = [
   {id: 1, text: 'Upload',subTopics:[
@@ -73,26 +68,6 @@ function ResponsiveDrawer(props) {
           <ListItem button key={option.text}>
             <ListItemText classes={{primary:classes.listItemText}}   primary={option.text} onClick={()=>setId(option.id)}/>
           </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List style={{textAlign: "left"}}>
-        {audit.map((option, index) => (
-          <>
-          <ListItem button onClick={handleClickAudit}>
-            <ListItemText classes={{primary:classes.listItemText}}  primary={option.text}  />
-            {open ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-           <Collapse in={open} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-            {option.subTopics.map((option, index) => (
-               <ListItem button className={classes.nested}>
-                <ListItemText classes={{primary:classes.listItem}}  primary={option.text} onClick={()=>setId(option.id)}/>
-              </ListItem>
-            ))}
-            </List>
-          </Collapse>
-          </>
         ))}
       </List>
       <Divider/>

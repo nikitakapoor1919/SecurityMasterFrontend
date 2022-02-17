@@ -29,11 +29,6 @@
 //   {id: 8, text: 'Divident History'},
 // ];
 
-// const audit = [
-//   {id: 1, text: 'Audit',subTopics:[
-//     {id:1, text: 'View Audit'},
-//   ]},
-// ];
 
 // const uploadExcel = [
 //   {id: 1, text: 'Upload',subTopics:[
@@ -75,26 +70,6 @@
 //         ))}
 //       </List>
 //       <Divider />
-//       <List style={{textAlign: "left"}}>
-//         {audit.map((option, index) => (
-//           <>
-//           <ListItem button onClick={handleClickAudit}>
-//             <ListItemText classes={{primary:classes.listItemText}}  primary={option.text}  />
-//             {open ? <ExpandLess /> : <ExpandMore />}
-//           </ListItem>
-//            <Collapse in={open} timeout="auto" unmountOnExit>
-//             <List component="div" disablePadding>
-//             {option.subTopics.map((option, index) => (
-//                <ListItem button className={classes.nested}>
-//                 <ListItemText classes={{primary:classes.listItem}}  primary={option.text} onClick={()=>setId(option.id)}/>
-//               </ListItem>
-//             ))}
-//             </List>
-//           </Collapse>
-//           </>
-//         ))}
-//       </List>
-//       <Divider/>
 //       <List style={{textAlign: "left"}}>
 //         {uploadExcel.map((option, index) => (
 //           <>

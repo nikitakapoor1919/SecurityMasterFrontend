@@ -82,7 +82,15 @@ const styles = theme => ({
         textTransform:'uppercase',
         textAlign:'center',
         fontWeight:'bold',
-        marginTop:'20px'
+        marginTop:'20px',
+        color: 'white',
+        background:' rgb(47, 46, 65)',
+        padding: '20px',
+        marginBottom:10,
+        // '@media screen and (max-width: 1024px)': {
+        //    color:'black',
+        //    background:'#f5f4f4'
+        //  } 
     },
     saveButton:{
         backgroundColor:"rgb(47, 46, 65)",margin:'0 auto',width:250
