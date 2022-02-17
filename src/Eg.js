@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import * as XLSX from "xlsx";
 
 export default function FormDialog(props) {
   const hiddenFileInput = React.useRef(null);
@@ -51,7 +52,7 @@ export default function FormDialog(props) {
     props.onUploadFile(SelectedFile)
     const formData = new FormData();
     formData.append('file', SelectedFile);
-    axios.post("http://localhost:14011/api/equity/", formData, {
+    axios.post("http://localhost:14011/api/bond/", formData, {
     onUploadProgress: progressEvent => {
         props.onProgressChange(true)
       }
@@ -67,6 +68,43 @@ export default function FormDialog(props) {
       console.log(error)
     })
   };
+  
+  const readFile=() =>{
+    var f = SelectedFile;
+    var name = f.name;
+    const reader = new FileReader();
+    reader.onload = (evt) => {
+      const bstr = evt.target.result;
+      const wb = XLSX.read(bstr, { type: "binary" });
+      const wsname = wb.SheetNames[0];
+      const ws = wb.Sheets[wsname];
+      const data = XLSX.utils.sheet_to_csv(ws, { header: 1 });
+      convertToJson(data)
+    };
+    reader.readAsBinaryString(f);
+  }
+
+  const convertToJson=(csv) =>{
+    var lines = csv.split("\n");
+
+    var result = [];
+
+    var headers = lines[0].split(",");
+
+    for (var i = 1; i < lines.length; i++) {
+      var obj = {};
+      var currentline = lines[i].split(",");
+
+      for (var j = 0; j < headers.length; j++) {
+        obj[headers[j]] = currentline[j];
+      }
+
+      result.push(obj);
+    }
+    console.log(result)
+    // return JSON.stringify(result); 
+  }
+  
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -76,7 +114,7 @@ export default function FormDialog(props) {
       <div style={{textAlign:"center"}}>
       {Show ? 
        <div className={classes.btnBox}>
-          <div><Button variant="contained"  className={classes.btn2} onClick={handleChangeUpload} startIcon={<CloudUploadIcon />}>
+          <div><Button variant="contained"  className={classes.btn2} onClick={readFile} startIcon={<CloudUploadIcon />}>
             UPLOAD
           </Button>
           </div>
@@ -113,7 +151,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign:'center'
   },
   btn:{
-      backgroundColor:"rgb(47, 49, 58)",
+      backgroundColor:"#6C63FF",
       color:"white",
       fontWeight: 600,
       letterSpacing:"0.1em",
@@ -121,11 +159,11 @@ const useStyles = makeStyles((theme) => ({
       borderRadius:8,
       width:250,
       "&:hover": {
-        backgroundColor:"rgb(77 80 90)",
+        backgroundColor:"#5b52ea",
       }
     },
     btn2:{
-      backgroundColor:"rgb(47, 49, 58)",
+      backgroundColor:"#6C63FF",
       color:"white",
       fontWeight: 600,
       letterSpacing:"0.1em",
@@ -133,7 +171,7 @@ const useStyles = makeStyles((theme) => ({
       borderRadius:8,
       width:250,
       "&:hover": {
-        backgroundColor:"rgb(77 80 90)",
+        backgroundColor:"#5b52ea",
       }
     },
     btn3:{
@@ -149,7 +187,7 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "1.1rem",
       textAlign: "justify",
       letterSpacing:" 0.05em",
-      color: "rgb(47, 49, 58)",
+      color: "#6C63FF",
       '@media screen and (max-width: 1024px)': {
         fontSize: "1.1rem",
         marginTop:20

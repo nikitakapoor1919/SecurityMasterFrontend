@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { Container, Divider, Button,  Dialog,DialogActions,
-        DialogContent,DialogContentText, Typography, Snackbar } from '@mui/material';
+        DialogContent,DialogContentText, Typography, FormControl } from '@mui/material';
 import { withStyles } from '@material-ui/core/styles';
 import styles from '../../../styles/styles';
 import TextField from '@mui/material/TextField';
@@ -11,19 +11,13 @@ import {CircularProgress} from '@material-ui/core';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers'; 
 import DateFnsUtils from '@date-io/date-fns';  
 
-import MuiAlert from '@mui/material/Alert';
-
-const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  });
-  
-export class EditBond extends Component{
+export class EditEquity extends Component{
   constructor(props) {
     super(props)
   
     this.state = {
        bonds:[],success:false,error:false,open:false,
-       BondId: "",
+       EquityId: "",
        SecurityName: "",
        SecurityDescription: "",
        AssetType: "",
@@ -91,12 +85,12 @@ export class EditBond extends Component{
   }
   refreshList(){
       this.setState({loading:true})
-      fetch('http://localhost:14011/api/bond/'+this.props.match.params.id)
+      fetch('http://localhost:14011/api/equity/'+this.props.match.params.id)
       .then(response=>response.json())
       .then(data=>{
           console.log(data)
           this.setState({bonds:data,
-            BondId: data.BondId,
+            EquityId: data.EquityId,
             SecurityName: data.SecurityName,
             SecurityDescription: data.SecurityDescription,
             AssetType: data.AssetType,
@@ -167,10 +161,10 @@ export class EditBond extends Component{
     this.refreshList();
   }
     
-    handleSubmit(event){
+    async handleSubmit(event){
       event.preventDefault();
 
-       const { BondId,SecurityName, SecurityDescription, AssetType, InvestmentType, TradingFactor,PricingFactor
+       const { EquityId,SecurityName, SecurityDescription, AssetType, InvestmentType, TradingFactor,PricingFactor
         ,ISIN,BBGTicker, BBGUniqueID,SEDOL,FirstCouponDate
         ,CouponCap,CoupanFloor,CouponFrequency,CouponRate,
         CouponType,Spread,CallableFlag,FixToFloatFlag,
@@ -251,7 +245,7 @@ export class EditBond extends Component{
         CallPrice: CallPrice.value,   
       }
       console.log(details)
-      fetch('http://localhost:14011/api/bond/'+BondId.value,{
+      fetch('http://localhost:14011/api/equity/'+EquityId.value,{
           method:'PUT',
           headers:{
               'Accept':'application/json',
@@ -261,12 +255,9 @@ export class EditBond extends Component{
         
         }) 
         .then((response) => { 
-          alert("Saved Successfull")
+          // alert("Saved Successfull")
           this.setState({open:true})
       })
-      .catch((error) => { 
-        console.log(error)
-    })
   }
   handleOpen=()=>{this.setState({open:true})} 
   handleClose=()=>{this.setState({open:false})} 
@@ -277,7 +268,7 @@ export class EditBond extends Component{
            <div className={classes.load}>
               {this.state.loading ? <div style={{textAlign:"center"}}> <CircularProgress/></div> :''}
            </div>
-          <Card className={classes.card} style={{background:'rgb(228 228 228)'}}>
+          <Card className={classes.card} style={{background:'#f5f4f4'}}>
           <Typography variant="h4" gutterBottom component="div" className={classes.tab}>Edit Bond </Typography>
           <Divider/>
               <CardContent>
@@ -287,7 +278,7 @@ export class EditBond extends Component{
                             <div className={classes.tabHeading}>
                               <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Security Summary</Typography>
                               <Divider/>
-                              <div className={classes.textField}><TextField name="BondId" label="Bond Id" value={this.state.BondId} variant="outlined" fullWidth disabled /></div>
+                              <div className={classes.textField}><TextField name="EquityId" label="Bond Id" value={this.state.EquityId} variant="outlined" fullWidth disabled /></div>
                               <div className={classes.textField}><TextField name="SecurityName" label="Security Name" variant="outlined" placeholder value={this.state.SecurityName}  fullWidth onChange={(e)=>this.setState({SecurityName:e.target.value})} required/></div>
                               <div className={classes.textField}><TextField name="SecurityDescription" label="Security Description" variant="outlined" value={this.state.SecurityDescription} fullWidth onChange={(e)=>this.setState({SecurityDescription:e.target.value})} required/></div>
                               <div className={classes.textField}><TextField name="AssetType" label="AssetType" variant="outlined" value={this.state.AssetType} fullWidth onChange={(e)=>this.setState({AssetType:e.target.value})} /></div>
@@ -486,14 +477,25 @@ export class EditBond extends Component{
               </CardContent>
 
           </Card>
-          <Snackbar open={this.state.open} autoHideDuration={6000} onClose={this.handleClose}>
-          <Alert onClose={this.handleClose} severity="success" sx={{ width: '100%' }}>
-             Bond Edited Successfully !!
-          </Alert>
-        </Snackbar>
+          <Dialog
+          open={this.state.open}
+          onClose={this.handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Changes are Saved Successfully
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClose}>OK</Button>
+          </DialogActions>
+        </Dialog>
+
       </Container>
     )
   }
 }
 
-export default withStyles(styles) (EditBond)
+export default withStyles(styles) (EditEquity)

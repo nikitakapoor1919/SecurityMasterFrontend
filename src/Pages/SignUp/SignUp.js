@@ -1,70 +1,30 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { unstable_createMuiStrictModeTheme } from '@mui/material/styles';
 import { withStyles } from '@material-ui/core/styles';
 import styles from '../../styles/styles';
 
 
 
-const theme = createTheme();
 
-function SignIn(props) {
+function SignUp(props) {
   const {classes} = props;  
-  const [email, setEmail] = React.useState(null);
-  const [password, setPassword] = React.useState(null);
-  const[signInError, setSignInError] = React.useState(null);
-  
   const handleSubmit = (event) => {
-    // event.preventDefault();
-    // const data = new FormData(event.currentTarget);
-    // console.log({
-    //   email: data.get('email'),
-    //   password: data.get('password'),
-    // });
-    // let data={
-    //   email: data.get('email'),
-    //   password: data.get('password'),
-    // }
-    // this.setState({loading:true})
-    // fetch('http://localhost:14011/api/user/'+email)
-    // .then(response=>response.json())
-    // .then(data=>{
-    //     console.log(data)
-    //     this.setState({bonds:data,});
-    // })
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get('email'),
+      password: data.get('password'),
+    });
   };
-  const userTyping=(type,e)=>{
-    switch(type){
-        case 'email':
-            setEmail(e.target.value)
-            break
-        case 'password':
-            setPassword(e.target.value)
-            break      
-        default:
-             break
-    }
-  }
-  const search=()=>{
-    this.setState({loading:true})
-    fetch('http://localhost:14011/api/user/'+email)
-    .then(response=>response.json())
-    .then(data=>{
-        console.log(data)
-        this.setState({bonds:data,});
-    })
-}
+
   return (
     <div >
       <Grid container component="main" sx={{ height: '100vh' }}>
@@ -75,6 +35,7 @@ function SignIn(props) {
           sm={4}
           md={7}
           sx={{
+            // backgroundImage: 'url(/images/login-mobile.svg)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: "rgb(47, 49, 58)",
             backgroundSize: 'cover',
@@ -99,15 +60,8 @@ function SignIn(props) {
             }}
           >
             <Typography component="h1" variant="h4" style={{lineHeight:' 1.37'}}>
-              Sign in
+              Sign Up
             </Typography>
-            {
-              signInError ? 
-              <Typography className={classes.errorText} component='h5' variant='h6'>
-               {signInError}
-              </Typography>:
-              null
-            }
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
@@ -118,7 +72,6 @@ function SignIn(props) {
                 name="email"
                 autoComplete="email"
                 autoFocus
-                onChange={(e)=> this.userTyping('email',e)}
               />
               <TextField
                 margin="normal"
@@ -129,8 +82,17 @@ function SignIn(props) {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                onChange={(e)=> this.userTyping('password',e)}
-              />  
+              /> 
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="confirmPassword"
+                label="Confirm Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              /> 
               <Button
                 type="submit"
                 fullWidth
@@ -139,7 +101,7 @@ function SignIn(props) {
                 className={classes.loginButton}
                 style={{backgroundColor:'rgb(242, 206, 114)',color:'black'}}
               >
-                Sign In
+                Sign Up
               </Button>
               <Grid container>
                 <Grid item>
@@ -155,4 +117,4 @@ function SignIn(props) {
     </div>
   );
 }
-export default withStyles(styles) (SignIn)
+export default withStyles(styles) (SignUp)

@@ -4,20 +4,20 @@ import '../../../styles/styles.css'
 import SecurityInfo from './SecurityInfo'
 import { withStyles } from '@material-ui/core/styles'
 import styles from '../../../styles/styles'
-import Alert from '@material-ui/lab/Alert'
 import AppBar from '@mui/material/AppBar'
 import UploadBond from './UploadBond'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import BondsAudit from '../../BondsAudit/BondsAudit'
+import MuiAlert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
+import CreateBond from './CreateBond';
 
-import {
-    BrowserRouter as Router,
-    Route,
-    Routes,
-    Link,
-  } from "react-router-dom";
+
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 export class Bonds extends Component {
 
@@ -56,7 +56,6 @@ export class Bonds extends Component {
     })
     .then((response) => { 
         this.setState({success:true,bid:'',open:false})
-        setTimeout(()=>this.setState({success:false}),4000)
     })
     .catch((error) => { 
         console.log(error)
@@ -65,6 +64,9 @@ export class Bonds extends Component {
   handleChange = (event, newValue) => {
     this.setState({value:event})
   };
+  handleClose=()=>{
+    this.setState({success:false})
+  }
   render() {
     const {classes} = this.props;
     const {bonds,open}=this.state;
@@ -75,11 +77,14 @@ export class Bonds extends Component {
                   <div className={classes.tabContainer}>
                     <Button color="inherit" onClick={()=>this.setState({view:'one'})}>View</Button>
                     <Button color="inherit" onClick={()=>this.setState({view:'two'})}>Upload</Button>
-                    <Button color="inherit" onClick={()=>this.setState({view:'three'})} >Audit</Button>
+                    <Button color="inherit" onClick={()=>this.setState({view:'three'})} >Create</Button>
                   </div>
                 </AppBar>
-                
-                {this.state.success ? <Alert severity="success" style={{marginTop:70}}>Deleted Successfully</Alert> :''}
+                <Snackbar open={this.state.success} autoHideDuration={6000} onClose={this.handleClose}>
+                  <Alert onClose={this.handleClose} severity="success" sx={{ width: '100%' }}>
+                    Deleted Successfully!!
+                  </Alert>
+                </Snackbar>
                     {this.state.view==='one'?<div style={{overflowX:'auto'}}><table className="mt-4" striped bordered hover size="sm">
                         <thead>
                             <tr>
@@ -94,8 +99,6 @@ export class Bonds extends Component {
                                 <th>Tranding Factor</th>
                                 <th>Credit Rating</th>
                                 <th>Coupon Type</th>
-                                <th>Coupon Frequency</th>
-                                <th>View More</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -113,13 +116,16 @@ export class Bonds extends Component {
                                     <td data-column="Trading Factor">{bond.TradingFactor}</td>
                                     <td data-column="Rating">{bond.PFCreditRating}</td>
                                     <td data-column="Coupon Type">{bond.CouponType}</td>
-                                    <td data-column="Coupon Frequency">{bond.CouponFrequency}</td>
-                                    <td data-column="View More"><Link to={`bond/${bond.BondId}`} className={classes.link}><MoreHorizIcon/></Link></td>
-                                    <td data-column="Actions"><IconButton href={`bond-edit/${bond.BondId}`}><EditIcon/></IconButton><IconButton onClick={()=>this.handleOpen(bond.BondId)}><DeleteIcon /></IconButton></td>
+                                    {/* <td data-column="View More"><Link to={`bond/${bond.BondId}`} className={classes.link}><MoreHorizIcon/></Link></td> */}
+                                    <td data-column="Actions">
+                                        <div style={{display:'flex'}}>
+                                        <IconButton href={`bond/${bond.BondId}`}><MoreHorizIcon/></IconButton><IconButton href={`bond-edit/${bond.BondId}`}><EditIcon/></IconButton><IconButton onClick={()=>this.handleOpen(bond.BondId)}><DeleteIcon /></IconButton>
+                                        </div>
+                                    </td>
                                 </tr>)
                             }
                         </tbody>
-                    </table></div>:this.state.view==='two' ?<UploadBond/>:this.state.view==='three' ?<BondsAudit/>:''}
+                    </table></div>:this.state.view==='two' ?<UploadBond/>:this.state.view==='three' ?<CreateBond/>:''}
                     <Dialog
                         open={this.state.open}
                         onClose={this.handleClose}

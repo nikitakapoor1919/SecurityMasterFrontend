@@ -5,13 +5,13 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NavigationalBar from './Components/NavigationalBar/NavigationBar';
 import Equity from './Pages/Equities/Equity'
 import Bond from './Pages/Bonds/Bonds/Bonds'
-import AuditBond from './Pages/BondsAudit/BondsAudit'
 import BondUpload from './Pages/Bonds/Bonds/UploadBond'
 import EquityUpload from './Pages/Equities/Equities/UploadEquity'
 import BondResponsiveDrawer from './Components/Drawer/BondsResponsiveTabDrawer'
 import NotFoundPage from './Pages/NotFoundPage/NotFoundPage'
 import EditBond from './Pages/Bonds/Bonds/EditBond'
 import SignIn from './Pages/SignIn/SignIn.js'
+import SignUp from './Pages/SignUp/SignUp.js'
 import EditEquity from './Pages/Equities/Equities/EditEquity';
 
 function App() {
@@ -24,6 +24,7 @@ function App() {
         <Switch>
           <Route exact path='/' component={Home}/>
           <Route path='/signin' component={SignIn}/>
+          <Route path='/signup' component={SignUp}/>
           
           <Route path='/bonds' component={Bond}/>
           {/* <Route path='/create-bond' component={CreateBond}/> */}

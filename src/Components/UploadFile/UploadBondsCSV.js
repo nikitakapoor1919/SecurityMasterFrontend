@@ -113,7 +113,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign:'center'
   },
   btn:{
-      backgroundColor:"#6C63FF",
+      backgroundColor:"rgb(47, 49, 58)",
       color:"white",
       fontWeight: 600,
       letterSpacing:"0.1em",
@@ -121,11 +121,11 @@ const useStyles = makeStyles((theme) => ({
       borderRadius:8,
       width:250,
       "&:hover": {
-        backgroundColor:"#5b52ea",
+        backgroundColor:"rgb(77 80 90)",
       }
     },
     btn2:{
-      backgroundColor:"#6C63FF",
+      backgroundColor:"rgb(47, 49, 58)",
       color:"white",
       fontWeight: 600,
       letterSpacing:"0.1em",
@@ -133,7 +133,7 @@ const useStyles = makeStyles((theme) => ({
       borderRadius:8,
       width:250,
       "&:hover": {
-        backgroundColor:"#5b52ea",
+        backgroundColor:"rgb(77 80 90)",
       }
     },
     btn3:{
@@ -149,7 +149,7 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "1.1rem",
       textAlign: "justify",
       letterSpacing:" 0.05em",
-      color: "#6C63FF",
+      color: "rgb(47, 49, 58)",
       '@media screen and (max-width: 1024px)': {
         fontSize: "1.1rem",
         marginTop:20

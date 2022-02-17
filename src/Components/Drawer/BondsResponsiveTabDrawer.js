@@ -15,6 +15,8 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import NavigationBar from '../NavigationalBar/NavigationBar';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 
 const drawerWidth = 240;
 const options = [
@@ -28,13 +30,6 @@ const options = [
   {id: 7, text: 'Put Schedule'},
   {id: 8, text: 'Pricing and Analytics'},
   {id: 9, text: 'Call Schedule'},
-];
-
-
-const uploadExcel = [
-  {id: 1, text: 'Upload',subTopics:[
-    {id:1, text: 'Upload Data', route: '/bonds-upload'},
-  ]},
 ];
 
 function ResponsiveDrawer(props) {
@@ -71,25 +66,6 @@ function ResponsiveDrawer(props) {
         ))}
       </List>
       <Divider/>
-      <List style={{textAlign: "left"}}>
-        {uploadExcel.map((option, index) => (
-          <>
-          <ListItem button onClick={handleClickUpload}>
-            <ListItemText classes={{primary:classes.listItemText}}  primary={option.text}  />
-            {openUpload ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-           <Collapse in={openUpload} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-            {option.subTopics.map((option, index) => (
-              <ListItem button className={classes.nested}>
-                <ListItemText ><Link to={option.route} className={classes.link}><ListItemText classes={{primary:classes.listItemText}} primary={option.text} /></Link></ListItemText>
-              </ListItem>
-            ))}
-            </List>
-          </Collapse>
-          </>
-        ))}
-      </List>
     </div>
   );
   const container = window !== undefined ? () => window().document.body : undefined;
@@ -97,7 +73,15 @@ function ResponsiveDrawer(props) {
     <>
     <div className={classes.root}>
       <CssBaseline />
-      <NavigationBar/>
+      {/* <IconButton
+        color="inherit"
+        aria-label="open drawer"
+        edge="start"
+        onClick={handleDrawerToggle}
+        className={classes.menuButton}
+      >
+        <MenuIcon/>
+      </IconButton> */}
       <nav className={classes.drawer} aria-label="mailbox folders" >
     
         <Hidden smUp implementation="css">
@@ -139,3 +123,4 @@ function ResponsiveDrawer(props) {
   );
 }
 export default withStyles(styles)(ResponsiveDrawer);
+
