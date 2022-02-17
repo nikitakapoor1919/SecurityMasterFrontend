@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Typography } from '@material-ui/core'
-import '../styles/styles.css'
+import '../../../styles/styles.css'
 import { withStyles } from '@material-ui/core/styles';
-import styles from '../styles/styles.js'
+import styles from '../../../styles/styles.js'
 import {List,ListItem,ListItemIcon,ListItemText,ListSubheader} from '@mui/material';
 
 export class CallSchedule extends Component {
@@ -16,7 +16,7 @@ export class CallSchedule extends Component {
                 <Typography variant="h4" className={classes.topHeading} style={{fontWeight:700}}>Call Schedule</Typography>
                 {this.props.bonds.map(bond=>
                         bond.BondId == this.props.bid ?
-                        <List sx={{ width: '100%', margin:'0 auto', bgcolor: 'background.paper' }} className={classes.listTable}>
+                        <List sx={{ width: '100%', margin:'0 auto', background:'#e6e6e6' }} className={classes.listTable}>
                             <ListItem alignItems="flex-start">
                                 <ListItemText className={classes.listFirst}>Call Date</ListItemText>
                                 <ListItemText  className={classes.listSecond}>{bond.CallDate}</ListItemText>

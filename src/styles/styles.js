@@ -12,7 +12,8 @@ const styles = theme => ({
     card:{
         margin:'0 auto',
         marginTop:'100px',
-        padding:'20px'
+        padding:'20px',
+        background:'#e6e6e6'
     },
     saveButton:{
         backgroundColor:"#6C63FF",
@@ -20,7 +21,7 @@ const styles = theme => ({
     },
     security:{
         display:'flex',
-        marginTop:150,
+        color:'rgb(47, 46, 65)',
         '@media screen and (max-width: 1024px)': {
             display:'block',
             marginTop:100,
@@ -29,7 +30,7 @@ const styles = theme => ({
     },
     count:{
         marginBottom:100,
-        color:"#6C63FF"
+        color:'rgb(47, 46, 65)',
     },
     progress:{
         marginTop:150
@@ -92,6 +93,7 @@ const styles = theme => ({
     listTable:{
         margin:'0 auto',
         padding:'20px',
+        background:'#e6e6e6',
         boxShadow:'0px 2px 4px -1px rgb(0 0 0 / 20%),0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);'
     },
     listFirst:{
@@ -100,6 +102,17 @@ const styles = theme => ({
     listSecond:{
         width:'60%',
         marginLeft:'15px'
+    },
+    load:{
+        marginTop:100
+    },
+    input: {
+        "&:invalid": {
+          border: "red solid 2px"
+        }
+      },
+    textField:{
+        marginBottom:20
     }
 
 });

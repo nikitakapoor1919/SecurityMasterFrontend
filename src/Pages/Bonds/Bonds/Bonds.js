@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
 import {Button, Dialog,DialogActions,DialogTitle,DialogContent,DialogContentText,Container, IconButton} from '@material-ui/core';
-import '../styles/styles.css'
-import SecurityInfo from '../SecurityInfo'
+import '../../../styles/styles.css'
+import SecurityInfo from './SecurityInfo'
 import { withStyles } from '@material-ui/core/styles'
-import styles from '../styles/styles'
+import styles from '../../../styles/styles'
 import Alert from '@material-ui/lab/Alert'
 import AppBar from '@mui/material/AppBar'
 import UploadBond from './UploadBond'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import BondsAudit from '../../BondsAudit/BondsAudit'
 
 import {
     BrowserRouter as Router,
@@ -23,8 +24,8 @@ export class Bonds extends Component {
   constructor(props) {
     super(props)
     this.state = {
-        bonds:[], addModalShow:false, editModalShow:false,success:false,open:false,bid:'',view:'one',
-        value:'one',
+        bonds:[], success:false,open:false,bid:'',view:'one',
+        value:'one',len:0
       }
     }
   refreshList(){
@@ -69,13 +70,15 @@ export class Bonds extends Component {
     const {bonds,open}=this.state;
             return(
                 <Container>
-                <AppBar position="static" className={classes.appbar} style={{background:'white',color:'black'}}>
+                {/* <SecurityInfo len={this.state.len}/> */}
+                <AppBar position="static" className={classes.appbar} style={{background:'#e6e6e6',color:'black'}}>
                   <div className={classes.tabContainer}>
                     <Button color="inherit" onClick={()=>this.setState({view:'one'})}>View</Button>
                     <Button color="inherit" onClick={()=>this.setState({view:'two'})}>Upload</Button>
-                    {/* <Button color="inherit" >Create</Button> */}
+                    <Button color="inherit" onClick={()=>this.setState({view:'three'})} >Audit</Button>
                   </div>
                 </AppBar>
+                
                 {this.state.success ? <Alert severity="success" style={{marginTop:70}}>Deleted Successfully</Alert> :''}
                     {this.state.view==='one'?<div style={{overflowX:'auto'}}><table className="mt-4" striped bordered hover size="sm">
                         <thead>
@@ -116,7 +119,7 @@ export class Bonds extends Component {
                                 </tr>)
                             }
                         </tbody>
-                    </table></div>:this.state.view==='two' ?<UploadBond/>:''}
+                    </table></div>:this.state.view==='two' ?<UploadBond/>:this.state.view==='three' ?<BondsAudit/>:''}
                     <Dialog
                         open={this.state.open}
                         onClose={this.handleClose}

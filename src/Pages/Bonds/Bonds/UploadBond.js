@@ -1,6 +1,6 @@
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import styles from '../styles/styles';
+import styles from '../../../styles/styles';
 import UploadCSV from '../../../Components/UploadFile/UploadBondsCSV'
 import Alert from '@material-ui/lab/Alert';
 import React, { Component } from 'react'

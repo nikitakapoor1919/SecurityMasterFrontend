@@ -2,12 +2,19 @@ const styles = theme => ({
     root: {
         display:"flex",
         paddingLeft:40,
+        justifyContent:'space-around',
         '@media screen and (max-width: 1024px)': {
           paddingLeft:15,
           paddingRight:15,
           display:"block"
        } ,
        overflow:"hidden"
+      },
+      content:{
+        marginTop:40,
+        '@media screen and (max-width: 1024px)': {
+          marginBottom:100
+       } ,
       },
       heading: {
           fontWeight: "bold",
@@ -26,7 +33,7 @@ const styles = theme => ({
         marginTop:10,
         marginBottom:10,
         fontWeight:"normal",
-        fontSize: 14,
+        // fontSize: 14,
         marginBottom:40,
         letterSpacing: "0.05em",
         color: "#114433",

@@ -3,9 +3,14 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { Container, Divider, Button,  Dialog,DialogActions,DialogTitle,DialogContent,DialogContentText, Typography } from '@mui/material';
 import { withStyles } from '@material-ui/core/styles';
-import styles from '../styles/styles';
+import styles from '../../../styles/styles';
 import TextField from '@mui/material/TextField';
-import '../styles/styles.css'
+import '../../../styles/styles.css'
+import {CircularProgress} from '@material-ui/core';
+import DateTimePicker from '@mui/lab/DateTimePicker';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import MomentUtils from '@date-io/moment';
 
 export class EditBond extends Component{
   constructor(props) {
@@ -76,77 +81,80 @@ export class EditBond extends Component{
        OpenPrice: "",
        CallDate: "",
        CallPrice: "",
+       loading:false,
     }
   }
   refreshList(){
+      this.setState({loading:true})
       fetch('http://localhost:14011/api/bond/'+this.props.match.params.id)
       .then(response=>response.json())
       .then(data=>{
+          console.log(data)
           this.setState({bonds:data,
-            BondId: data[0].BondId,
-            SecurityName: data[0].SecurityName,
-            SecurityDescription: data[0].SecurityDescription,
-            AssetType: data[0].AssetType,
-            InvestmentType: data[0].InvestmentType,
-            TradingFactor: data[0].TradingFactor,
-            PricingFactor: data[0].PricingFactor,
-            ISIN: data[0].ISIN,
-            BBGTicker: data[0].BBGTicker,
-            BBGUniqueID: data[0].BBGUniqueID,
-            SEDOL: data[0].SEDOL,
-            FirstCouponDate: data[0].FirstCouponDate,
-            CouponCap: data[0].CouponCap,
-            CoupanFloor: data[0].CoupanFloor,
-            CouponFrequency: data[0].CouponFrequency,
-            CouponRate: data[0].CouponRate,
-            CouponType: data[0].CouponType,
-            Spread: data[0].Spread,
-            CallableFlag: data[0].CallableFlag,
-            FixToFloatFlag: data[0].FixToFloatFlag,
-            PutableFlag: data[0].PutableFlag,
-            IssueDate: data[0].IssueDate,
-            LastResetDate:data[0].LastResetDate,
-            Maturity:data[0].Maturity,
-            CallNotificationMaxDays: data[0].CallNotificationMaxDays,
-            PutNotificationMaxDays: data[0].PutNotificationMaxDays,
-            PenultimateCouponDate: data[0].PenultimateCouponDate,
-            ResetFrequency: data[0].ResetFrequency,
-            HasPosition: data[0].HasPosition,
-            MaculayDuration: data[0].MaculayDuration,
-            Volatility30D: data[0].Volatility30D,
-            Volatility90D: data[0].Volatility90D,
-            Convexity:data[0].Convexity,
-            AverageVolume30D: data[0].AverageVolume30D,
-            PFAssetClass: data[0].PFAssetClass,
-            PFCountry: data[0].PFCountry,
-            PFCreditRating: data[0].PFCreditRating,
-            PFCurrency: data[0].PFCurrency,
-            PFInstrument: data[0].PFInstrument,
-            PFLiquidityProfile: data[0].PFLiquidityProfile,
-            PFMaturity: data[0].PFMaturity,
-            PFNAICSCode: data[0].PFNAICSCode,
-            PFRegion: data[0].PFRegion,
-            PFSector: data[0].PFSector,
-            PFSubAssetClass: data[0].PFSubAssetClass,
-            BloombergIndustryGroup: data[0].BloombergIndustryGroup,
-            BloombergIndustrySubGroup: data[0].BloombergIndustrySubGroup,
-            BloombergIndustrySector: data[0].BloombergIndustrySector,
-            CountryOfIssurance: data[0].CountryOfIssurance,
-            IssueCurrency: data[0].IssueCurrency,
-            Issuer: data[0].Issuer,
-            RiskCurrency: data[0].RiskCurrency,
-            PutDate: data[0].PutDate,
-            PutPrice: data[0].PutPrice,
-            AskPrice: data[0].AskPrice,
-            HighPrice: data[0].HighPrice,
-            Volume: data[0].Volume,
-            LowPrice: data[0].LowPrice,
-            BidPrice: data[0].BidPrice,
-            LastPrice: data[0].LastPrice,
-            OpenPrice: data[0].OpenPrice,
-            CallDate: data[0].CallDate,
-            CallPrice:  data[0].CallPrice, 
-          
+            BondId: data.BondId,
+            SecurityName: data.SecurityName,
+            SecurityDescription: data.SecurityDescription,
+            AssetType: data.AssetType,
+            InvestmentType: data.InvestmentType,
+            TradingFactor: data.TradingFactor,
+            PricingFactor: data.PricingFactor,
+            ISIN: data.ISIN,
+            BBGTicker: data.BBGTicker,
+            BBGUniqueID: data.BBGUniqueID,
+            SEDOL: data.SEDOL,
+            FirstCouponDate: data.FirstCouponDate,
+            CouponCap: data.CouponCap,
+            CoupanFloor: data.CoupanFloor,
+            CouponFrequency: data.CouponFrequency,
+            CouponRate: data.CouponRate,
+            CouponType: data.CouponType,
+            Spread: data.Spread,
+            CallableFlag: data.CallableFlag,
+            FixToFloatFlag: data.FixToFloatFlag,
+            PutableFlag: data.PutableFlag,
+            IssueDate: data.IssueDate,
+            LastResetDate:data.LastResetDate,
+            Maturity:data.Maturity,
+            CallNotificationMaxDays: data.CallNotificationMaxDays,
+            PutNotificationMaxDays: data.PutNotificationMaxDays,
+            PenultimateCouponDate: data.PenultimateCouponDate,
+            ResetFrequency: data.ResetFrequency,
+            HasPosition: data.HasPosition,
+            MaculayDuration: data.MaculayDuration,
+            Volatility30D: data.Volatility30D,
+            Volatility90D: data.Volatility90D,
+            Convexity:data.Convexity,
+            AverageVolume30D: data.AverageVolume30D,
+            PFAssetClass: data.PFAssetClass,
+            PFCountry: data.PFCountry,
+            PFCreditRating: data.PFCreditRating,
+            PFCurrency: data.PFCurrency,
+            PFInstrument: data.PFInstrument,
+            PFLiquidityProfile: data.PFLiquidityProfile,
+            PFMaturity: data.PFMaturity,
+            PFNAICSCode: data.PFNAICSCode,
+            PFRegion: data.PFRegion,
+            PFSector: data.PFSector,
+            PFSubAssetClass: data.PFSubAssetClass,
+            BloombergIndustryGroup: data.BloombergIndustryGroup,
+            BloombergIndustrySubGroup: data.BloombergIndustrySubGroup,
+            BloombergIndustrySector: data.BloombergIndustrySector,
+            CountryOfIssurance: data.CountryOfIssurance,
+            IssueCurrency: data.IssueCurrency,
+            Issuer: data.Issuer,
+            RiskCurrency: data.RiskCurrency,
+            PutDate: data.PutDate,
+            PutPrice: data.PutPrice,
+            AskPrice: data.AskPrice,
+            HighPrice: data.HighPrice,
+            Volume: data.Volume,
+            LowPrice: data.LowPrice,
+            BidPrice: data.BidPrice,
+            LastPrice: data.LastPrice,
+            OpenPrice: data.OpenPrice,
+            CallDate: data.CallDate,
+            CallPrice:  data.CallPrice, 
+            loading:false
           });
       });
   }
@@ -174,7 +182,6 @@ export class EditBond extends Component{
         Volume,LowPrice,BidPrice,LastPrice,OpenPrice,CallDate,CallPrice   
         } = event.target.elements;
       let details = {
-        BondId: BondId.value,
         SecurityName: SecurityName.value,
         SecurityDescription: SecurityDescription.value,
         AssetType: AssetType.value,
@@ -239,7 +246,7 @@ export class EditBond extends Component{
         CallPrice: CallPrice.value,   
       }
       console.log(details)
-      fetch('http://localhost:14011/api/bond/',{
+      fetch('http://localhost:14011/api/bond/'+BondId.value,{
           method:'PUT',
           headers:{
               'Accept':'application/json',
@@ -248,11 +255,14 @@ export class EditBond extends Component{
           body:JSON.stringify(details),
         
         }) 
-        alert("Saved Successfull")
-      //   .then((response) => { 
-      //     this.setState({open:true})
-      //     // setTimeout(()=>this.setState({success:false}),4000)
-      // })
+        .then((response) => { 
+          alert("Saved Successfull")
+          // this.setState({open:true})
+          // setTimeout(()=>this.setState({success:false}),4000)
+      })
+      .catch(()=>{
+        alert("Error")
+      })
   }
   handleOpen=()=>{this.setState({open:true})} 
   handleClose=()=>{this.setState({open:false})} 
@@ -260,114 +270,183 @@ export class EditBond extends Component{
     const {classes} = this.props;
     return (
       <Container>
-           <div style={{marginTop:100}}>
+           <div className={classes.load}>
+              {this.state.loading ? <div style={{textAlign:"center"}}> <CircularProgress/></div> :''}
            </div>
-          <Card className={classes.card}>
+          <Card className={classes.card} style={{background:'#e6e6e6'}}>
           <Typography variant="h4" gutterBottom component="div" className={classes.tab}>Edit Bond </Typography>
           <Divider/>
               <CardContent>
                  <form onSubmit={this.handleSubmit}>
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <div>
                             <div className={classes.tabHeading}>
                               <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Security Summary</Typography>
-                              <TextField name="BondId" label="Bond Id" value={this.state.BondId} variant="filled" fullWidth readOnly />
-                              <TextField name="SecurityName" label="Security Name" variant="filled" placeholder value={this.state.SecurityName}  fullWidth onChange={(e)=>this.setState({SecurityName:e.target.value})}/>
-                              <TextField name="SecurityDescription" label="Security Description" variant="filled" value={this.state.SecurityDescription} fullWidth onChange={(e)=>this.setState({SecurityDescription:e.target.value})} />
-                              <TextField name="AssetType" label="AssetType" variant="filled" value={this.state.AssetType} fullWidth onChange={(e)=>this.setState({AssetType:e.target.value})} />
-                              <TextField name="InvestmentType" label="Investment Type" variant="filled" value={this.state.InvestmentType} fullWidth onChange={(e)=>this.setState({InvestmentType:e.target.value})}/>
-                              <TextField name="TradingFactor" label="Trading Factor" variant="filled" value={this.state.TradingFactor} fullWidth onChange={(e)=>this.setState({TradingFactor:e.target.value})} />
-                              <TextField name="PricingFactor" label="PricingPricingFactor Factor" variant="filled" value={this.state.PricingFactor} fullWidth onChange={(e)=>this.setState({PricingFactor:e.target.value})}/>
+                              <div className={classes.textField}><TextField name="BondId" label="Bond Id" value={this.state.BondId} variant="filled" fullWidth disabled /></div>
+                              <div className={classes.textField}><TextField name="SecurityName" label="Security Name" variant="filled" placeholder value={this.state.SecurityName}  fullWidth onChange={(e)=>this.setState({SecurityName:e.target.value})} required/></div>
+                              <div className={classes.textField}><TextField name="SecurityDescription" label="Security Description" variant="filled" value={this.state.SecurityDescription} fullWidth onChange={(e)=>this.setState({SecurityDescription:e.target.value})} required/></div>
+                              <div className={classes.textField}><TextField name="AssetType" label="AssetType" variant="filled" value={this.state.AssetType} fullWidth onChange={(e)=>this.setState({AssetType:e.target.value})} /></div>
+                              <div className={classes.textField}><TextField name="InvestmentType" label="Investment Type" variant="filled" value={this.state.InvestmentType} fullWidth onChange={(e)=>this.setState({InvestmentType:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="TradingFactor" helperText="Only Numbers are allowed"  type='number' label="Trading Factor" variant="filled" value={this.state.TradingFactor} fullWidth onChange={(e)=>this.setState({TradingFactor:e.target.value})} /></div>
+                              <div className={classes.textField}><TextField name="PricingFactor" helperText="Only Numbers are allowed" type='number' label="PricingPricingFactor Factor" variant="filled" value={this.state.PricingFactor} fullWidth onChange={(e)=>this.setState({PricingFactor:e.target.value})}/></div>
                             </div>
                             
                             <div className={classes.tabHeading}>
                               <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Security Identifier</Typography>
-                              <TextField name="ISIN" label="ISIN" variant="filled" fullWidth value={this.state.ISIN} onChange={(e)=>this.setState({ISIN:e.target.value})}/>
-                              <TextField name="BBGTicker" label="BBGTicker" variant="filled" value={this.state.BBGTicker} fullWidth onChange={(e)=>this.setState({BBGTicker:e.target.value})}/>
-                              <TextField name="BBGUniqueID" label="BBGUniqueID" variant="filled" value={this.state.BBGUniqueID} fullWidth onChange={(e)=>this.setState({BBGUniqueID:e.target.value})}/>
-                              <TextField name="SEDOL" label="SEDOL" variant="filled" fullWidth value={this.state.SEDOL} onChange={(e)=>this.setState({SEDOL:e.target.value})}/>
+                              <div className={classes.textField}><TextField name="ISIN" label="ISIN" variant="filled" fullWidth value={this.state.ISIN} onChange={(e)=>this.setState({ISIN:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="BBGTicker" label="BBGTicker" variant="filled" value={this.state.BBGTicker} fullWidth onChange={(e)=>this.setState({BBGTicker:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="BBGUniqueID" label="BBGUniqueID" variant="filled" value={this.state.BBGUniqueID} fullWidth onChange={(e)=>this.setState({BBGUniqueID:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="SEDOL" label="SEDOL" variant="filled" fullWidth value={this.state.SEDOL} onChange={(e)=>this.setState({SEDOL:e.target.value})}/></div>
                             </div>
                             
                             <div className={classes.tabHeading}>
                               <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Security Details</Typography>
-                              <TextField name="FirstCouponDate" label="First Coupon Date" variant="filled" fullWidth value={this.state.FirstCouponDate} onChange={(e)=>this.setState({FirstCouponDate:e.target.value})}/>
-                              <TextField name="CouponCap" label="Coupon Cap" variant="filled" fullWidth value={this.state.CouponCap} onChange={(e)=>this.setState({CouponCap:e.target.value})} />
-                              <TextField name="CoupanFloor" label="Coupon Floor" variant="filled" fullWidth value={this.state.CoupanFloor} onChange={(e)=>this.setState({CoupanFloor:e.target.value})}/>
-                              <TextField name="CouponFrequency" label="Coupon Frequency" variant="filled" fullWidth value={this.state.CouponFrequency} onChange={(e)=>this.setState({CouponFrequency:e.target.value})}/>
-                              <TextField name="CouponRate" label="Coupon Rate" variant="filled" fullWidth value={this.state.CouponRate} onChange={(e)=>this.setState({CouponRate:e.target.value})}/>
-                              <TextField name="CouponType" label="Coupon Type" variant="filled" fullWidth  value={this.state.CouponType} onChange={(e)=>this.setState({CouponType:e.target.value})}/>
-                              <TextField name="Spread" label="Spread" variant="filled" fullWidth value={this.state.Spread} onChange={(e)=>this.setState({Spread:e.target.value})} />
-                              <TextField name="CallableFlag" label="Callable Flag" variant="filled" fullWidth value={this.state.CallableFlag} onChange={(e)=>this.setState({CallableFlag:e.target.value})} />
-                              <TextField name="FixToFloatFlag" label="Fix To Float Flag" variant="filled" fullWidth value={this.state.FixToFloatFlag} onChange={(e)=>this.setState({FixToFloatFlag:e.target.value})}/>
-                              <TextField name="PutableFlag" label="Putable Flag" variant="filled" fullWidth value={this.state.PutableFlag} onChange={(e)=>this.setState({PutableFlag:e.target.value})}/>
-                              <TextField name="IssueDate" label="Issue Date" variant="filled" fullWidth value={this.state.IssueDate} onChange={(e)=>this.setState({IssueDate:e.target.value})}/>
-                              <TextField name="LastResetDate" label="Last Reset Date" variant="filled" fullWidth value={this.state.LastResetDate} onChange={(e)=>this.setState({LastResetDate:e.target.value})}/>
-                              <TextField name="Maturity" label="Maturity" variant="filled" fullWidth value={this.state.Maturity} onChange={(e)=>this.setState({Maturity:e.target.value})}/>
-                              <TextField name="CallNotificationMaxDays" label="Call Notification Max Days" variant="filled" fullWidth value={this.state.CallNotificationMaxDays} onChange={(e)=>this.setState({CallNotificationMaxDays:e.target.value})}/>
-                              <TextField name="PutNotificationMaxDays" label="Put Notification Max Days" variant="filled" fullWidth value={this.state.PutNotificationMaxDays} onChange={(e)=>this.setState({PutNotificationMaxDays:e.target.value})}/>
-                              <TextField name="PenultimateCouponDate" label="Penultimate Coupon Date" variant="filled" fullWidth value={this.state.PenultimateCouponDate} onChange={(e)=>this.setState({PenultimateCouponDate:e.target.value})}/>
-                              <TextField name="ResetFrequency" label="Reset Frequency" variant="filled" fullWidth value={this.state.ResetFrequency} onChange={(e)=>this.setState({ResetFrequency:e.target.value})}/>
-                              <TextField name="HasPosition" label="Has Position" variant="filled" fullWidth value={this.state.HasPosition} onChange={(e)=>this.setState({HasPosition:e.target.value})}/>
+                              {/* <div className={classes.textField}>
+                              <DateTimePicker
+                                label="First Coupon Date"
+                                showTodayButton
+                                fullWidth
+                                value={this.state.FirstCouponDate} 
+                                onChange={(e)=>this.setState({FirstCouponDate:e.target.value})}
+                                renderInput={(params) => <TextField {...params} />}
+                              />
+                            </div> */}
+                              <div className={classes.textField}><TextField name="FirstCouponDate" label="First Coupon Date" variant="filled" fullWidth value={this.state.FirstCouponDate}  onChange={(e)=>this.setState({FirstCouponDate:e.target.value})} /></div>
+                              <div className={classes.textField}><TextField name="CouponCap" label="Coupon Cap" variant="filled" fullWidth value={this.state.CouponCap} onChange={(e)=>this.setState({CouponCap:e.target.value})} /></div>
+                              <div className={classes.textField}><TextField name="CoupanFloor" label="Coupon Floor" variant="filled" fullWidth value={this.state.CoupanFloor} onChange={(e)=>this.setState({CoupanFloor:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="CouponFrequency" label="Coupon Frequency" variant="filled" fullWidth value={this.state.CouponFrequency} onChange={(e)=>this.setState({CouponFrequency:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="CouponRate" type='number' label="Coupon Rate" variant="filled" fullWidth value={this.state.CouponRate} onChange={(e)=>this.setState({CouponRate:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="CouponType" label="Coupon Type" variant="filled" fullWidth  value={this.state.CouponType} onChange={(e)=>this.setState({CouponType:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="Spread" label="Spread" variant="filled" fullWidth value={this.state.Spread} onChange={(e)=>this.setState({Spread:e.target.value})} /></div></div>
+                              <div className={classes.textField}><TextField name="CallableFlag" label="Callable Flag" variant="filled" fullWidth value={this.state.CallableFlag} onChange={(e)=>this.setState({CallableFlag:e.target.value})} /></div>
+                              <div className={classes.textField}><TextField name="FixToFloatFlag" label="Fix To Float Flag" variant="filled" fullWidth value={this.state.FixToFloatFlag} onChange={(e)=>this.setState({FixToFloatFlag:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="PutableFlag" label="Putable Flag" variant="filled" fullWidth value={this.state.PutableFlag} onChange={(e)=>this.setState({PutableFlag:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="IssueDate" label="Issue Date"  variant="filled" fullWidth value={this.state.IssueDate} onChange={(e)=>this.setState({IssueDate:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="LastResetDate" label="Last Reset Date"   variant="filled" fullWidth value={this.state.LastResetDate} onChange={(e)=>this.setState({LastResetDate:e.target.value}) }/></div>
+                              <div className={classes.textField}><TextField name="Maturity" label="Maturity"  variant="filled" fullWidth value={this.state.Maturity} onChange={(e)=>this.setState({Maturity:e.target.value})}/></div>
+                              {/* <div className={classes.textField}>
+                              <DateTimePicker
+                                label="Issue Date" 
+                                showTodayButton
+                                fullWidth
+                                value={this.state.IssueDate} onChange={(e)=>this.setState({IssueDate:e.target.value})}
+                                renderInput={(params) => <TextField {...params} />}
+                              />
+                              </div>
+                              <div className={classes.textField}> 
+                              <DateTimePicker
+                                label="Last Reset Date" 
+                                showTodayButton
+                                fullWidth
+                                value={this.state.LastResetDate}
+                                onChange={(e)=>this.setState({LastResetDate:e.target.value}) }
+                                renderInput={(params) => <TextField {...params} />}
+                              /></div>
+                              <div className={classes.textField}>
+                              <DateTimePicker
+                                label="Maturity"
+                                showTodayButton
+                                fullWidth
+                                value={this.state.Maturity} onChange={(e)=>this.setState({Maturity:e.target.value})}
+                                renderInput={(params) => <TextField {...params} />}
+                              /></div>
+                       */}
+                              <div className={classes.textField}><TextField name="CallNotificationMaxDays" helperText="Only Numbers are allowed" type='number' label="Call Notification Max Days" variant="filled" fullWidth value={this.state.CallNotificationMaxDays} onChange={(e)=>this.setState({CallNotificationMaxDays:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="PutNotificationMaxDays" helperText="Only Numbers are allowed" type='number' label="Put Notification Max Days" variant="filled" fullWidth value={this.state.PutNotificationMaxDays} onChange={(e)=>this.setState({PutNotificationMaxDays:e.target.value})}/></div>
+                              {/* <div className={classes.textField}>
+                                <DateTimePicker
+                                  label="Penultimate Coupon Date"
+                                  showTodayButton
+                                  fullWidth
+                                  value={this.state.PenultimateCouponDate} onChange={(e)=>this.setState({PenultimateCouponDate:e.target.value})}
+                                  renderInput={(params) => <TextField {...params} />}
+                                />
+                              </div> */}
+                              <div className={classes.textField}><TextField name="PenultimateCouponDate" label="Penultimate Coupon Date"  variant="filled" fullWidth value={this.state.PenultimateCouponDate} onChange={(e)=>this.setState({PenultimateCouponDate:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="PenultimateCouponDate" label="Penultimate Coupon Date" variant="filled" fullWidth value={this.state.PenultimateCouponDate} onChange={(e)=>this.setState({PenultimateCouponDate:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="ResetFrequency" label="Reset Frequency" variant="filled" fullWidth value={this.state.ResetFrequency} onChange={(e)=>this.setState({ResetFrequency:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="HasPosition" label="Has Position" variant="filled" fullWidth value={this.state.HasPosition} onChange={(e)=>this.setState({HasPosition:e.target.value})}/>
                             </div>
                             
                             <div className={classes.tabHeading}>
                               <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Risk</Typography>
-                              <TextField name="MaculayDuration" label="Maculay Duration" variant="filled" fullWidth value={this.state.MaculayDuration} onChange={(e)=>this.setState({MaculayDuration:e.target.value})}/>
-                              <TextField name="Volatility30D" label="Volatility30D" variant="filled" fullWidth value={this.state.Volatility30D} onChange={(e)=>this.setState({Volatility30D:e.target.value})}/>
-                              <TextField name="Volatility90D" label="Volatility90D" variant="filled" fullWidth value={this.state.Volatility90D} onChange={(e)=>this.setState({Holatility90D:e.target.value})}/>
-                              <TextField name="Convexity" label="Convexity" variant="filled" fullWidth value={this.state.Convexity} onChange={(e)=>this.setState({Convexity:e.target.value})}/>
-                              <TextField name="AverageVolume30D" label="Average Volume 30D" variant="filled" fullWidth value={this.state.AverageVolume30D} onChange={(e)=>this.setState({AverageVolume30D:e.target.value})}/>
+                              <div className={classes.textField}><TextField name="MaculayDuration" helperText="Only Numbers are allowed" type='number' label="Maculay Duration" variant="filled" fullWidth value={this.state.MaculayDuration} onChange={(e)=>this.setState({MaculayDuration:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="Volatility30D" helperText="Only Numbers are allowed" type='number' label="Volatility30D" variant="filled" fullWidth value={this.state.Volatility30D} onChange={(e)=>this.setState({Volatility30D:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="Volatility90D" helperText="Only Numbers are allowed" type='number' label="Volatility90D" variant="filled" fullWidth value={this.state.Volatility90D} onChange={(e)=>this.setState({Holatility90D:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="Convexity" helperText="Only Numbers are allowed" type='number' label="Convexity" variant="filled" fullWidth value={this.state.Convexity} onChange={(e)=>this.setState({Convexity:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="AverageVolume30D"helperText="Only Numbers are allowed" type='number' label="Average Volume 30D" variant="filled" fullWidth value={this.state.AverageVolume30D} onChange={(e)=>this.setState({AverageVolume30D:e.target.value})}/></div>
                             </div>
                             
                             <div className={classes.tabHeading}>
                               <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Regulatory Details</Typography>
-                              <TextField name="PFAssetClass" label="PF Asset Class" variant="filled" fullWidth value={this.state.PFAssetClass} onChange={(e)=>this.setState({PFAssetClass:e.target.value})}/>
-                              <TextField name="PFCountry" label="PF Country" variant="filled" fullWidth value={this.state.PFCountry} onChange={(e)=>this.setState({PFCountry:e.target.value})}/>
-                              <TextField name="PFCreditRating" label="PF Credit Rating" variant="filled" fullWidth value={this.state.PFCreditRating} onChange={(e)=>this.setState({PFCreditRating:e.target.value})}/>
-                              <TextField name="PFCurrency" label="PF Currency" variant="filled" fullWidth value={this.state.PFCurrency} onChange={(e)=>this.setState({PFCurrency:e.target.value})}/>
-                              <TextField name="PFInstrument" label="PF Instrument" variant="filled" fullWidth value={this.state.PFInstrument} onChange={(e)=>this.setState({PFInstrument:e.target.value})}/>
-                              <TextField name="PFLiquidityProfile" label="PF Liquidity Profile" variant="filled" fullWidth value={this.state.PFLiquidityProfile} onChange={(e)=>this.setState({PFLiquidityProfile:e.target.value})}/>
-                              <TextField name="PFMaturity" label="PF Maturity" variant="filled" fullWidth value={this.state.PFMaturity} onChange={(e)=>this.setState({PFMaturity:e.target.value})}/>
-                              <TextField name="PFNAICSCode" label="PF NAICS Code" variant="filled" fullWidth value={this.state.PFNAICSCode} onChange={(e)=>this.setState({PFNAICSCode:e.target.value})}/>
-                              <TextField name="PFRegion" label="PF Region" variant="filled" fullWidth value={this.state.PFRegion} onChange={(e)=>this.setState({PFRegion:e.target.value})}/>
-                              <TextField name="PFSector" label="PF Sector" variant="filled" fullWidth value={this.state.PFSector} onChange={(e)=>this.setState({PFSector:e.target.value})}/>
-                              <TextField name="PFSubAssetClass" label="PF Sub Asset Class" variant="filled" fullWidth value={this.state.PFSubAssetClass} onChange={(e)=>this.setState({PFSubAssetClass:e.target.value})}/>
+                              <div className={classes.textField}><TextField name="PFAssetClass" label="PF Asset Class" variant="filled" fullWidth value={this.state.PFAssetClass} onChange={(e)=>this.setState({PFAssetClass:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="PFCountry" label="PF Country" variant="filled" fullWidth value={this.state.PFCountry} onChange={(e)=>this.setState({PFCountry:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="PFCreditRating" label="PF Credit Rating" variant="filled" fullWidth value={this.state.PFCreditRating} onChange={(e)=>this.setState({PFCreditRating:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="PFCurrency" label="PF Currency" variant="filled" fullWidth value={this.state.PFCurrency} onChange={(e)=>this.setState({PFCurrency:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="PFInstrument" label="PF Instrument" variant="filled" fullWidth value={this.state.PFInstrument} onChange={(e)=>this.setState({PFInstrument:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="PFLiquidityProfile" label="PF Liquidity Profile" variant="filled" fullWidth value={this.state.PFLiquidityProfile} onChange={(e)=>this.setState({PFLiquidityProfile:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="PFMaturity" label="PF Maturity" variant="filled" fullWidth value={this.state.PFMaturity} onChange={(e)=>this.setState({PFMaturity:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="PFNAICSCode" label="PF NAICS Code" variant="filled" fullWidth value={this.state.PFNAICSCode} onChange={(e)=>this.setState({PFNAICSCode:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="PFRegion" label="PF Region" variant="filled" fullWidth value={this.state.PFRegion} onChange={(e)=>this.setState({PFRegion:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="PFSector" label="PF Sector" variant="filled" fullWidth value={this.state.PFSector} onChange={(e)=>this.setState({PFSector:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="PFSubAssetClass" label="PF Sub Asset Class" variant="filled" fullWidth value={this.state.PFSubAssetClass} onChange={(e)=>this.setState({PFSubAssetClass:e.target.value})}/></div>
                             </div>
                             
                             <div className={classes.tabHeading}>
                               <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Reference Data</Typography>
-                              <TextField name="BloombergIndustryGroup" label="Bloomberg Industry Group" variant="filled" fullWidth value={this.state.BloombergIndustryGroup} onChange={(e)=>this.setState({BloombergIndustryGroup:e.target.value})}/>
-                              <TextField name="BloombergIndustrySubGroup" label="Bloomberg Industry SubGroup" variant="filled" fullWidth value={this.state.BloombergIndustrySubGroup} onChange={(e)=>this.setState({BloombergIndustrySubGroup:e.target.value})}/>
-                              <TextField name="BloombergIndustrySector" label="Bloomberg Industry Sector" variant="filled" fullWidth value={this.state.BloombergIndustrySector} onChange={(e)=>this.setState({BloombergIndustrySector:e.target.value})}/>
-                              <TextField name="CountryOfIssurance" label="Country Of Issurance" variant="filled" fullWidth value={this.state.CountryOfIssurance} onChange={(e)=>this.setState({CountryOfIssurance:e.target.value})}/>
-                              <TextField name="IssueCurrency" label="Issue Currency" variant="filled" fullWidth value={this.state.IssueCurrency} onChange={(e)=>this.setState({IssueCurrency:e.target.value})}/>
-                              <TextField name="Issuer" label="Issuer" variant="filled" fullWidth value={this.state.Issuer} onChange={(e)=>this.setState({Issuer:e.target.value})}/>
-                              <TextField name="RiskCurrency" label="Risk Currency" variant="filled" fullWidth value={this.state.RiskCurrency} onChange={(e)=>this.setState({RiskCurrency:e.target.value})}/>
+                              <div className={classes.textField}><TextField name="BloombergIndustryGroup" label="Bloomberg Industry Group" variant="filled" fullWidth value={this.state.BloombergIndustryGroup} onChange={(e)=>this.setState({BloombergIndustryGroup:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="BloombergIndustrySubGroup" label="Bloomberg Industry SubGroup" variant="filled" fullWidth value={this.state.BloombergIndustrySubGroup} onChange={(e)=>this.setState({BloombergIndustrySubGroup:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="BloombergIndustrySector" label="Bloomberg Industry Sector" variant="filled" fullWidth value={this.state.BloombergIndustrySector} onChange={(e)=>this.setState({BloombergIndustrySector:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="CountryOfIssurance" label="Country Of Issurance" variant="filled" fullWidth value={this.state.CountryOfIssurance} onChange={(e)=>this.setState({CountryOfIssurance:e.target.value})} required/></div>
+                              <div className={classes.textField}><TextField name="IssueCurrency" label="Issue Currency" variant="filled" fullWidth value={this.state.IssueCurrency} onChange={(e)=>this.setState({IssueCurrency:e.target.value})} required/></div>
+                              <div className={classes.textField}><TextField name="Issuer" label="Issuer" variant="filled" fullWidth value={this.state.Issuer} onChange={(e)=>this.setState({Issuer:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="RiskCurrency" label="Risk Currency" variant="filled" fullWidth value={this.state.RiskCurrency} onChange={(e)=>this.setState({RiskCurrency:e.target.value})}/></div>
                             </div>
                             
                             <div className={classes.tabHeading}>
                               <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Put Schedule</Typography>
-                              <TextField name="PutDate" label="Put Date" variant="filled" fullWidth value={this.state.PutDate} onChange={(e)=>this.setState({PutDate:e.target.value})}/>
-                              <TextField name="PutPrice" label="Put Price" variant="filled" fullWidth value={this.state.PutPrice} onChange={(e)=>this.setState({PutPrice:e.target.value})}/>
+                              {/* <div className={classes.textField}>
+                              <DateTimePicker
+                                  label="Put Date"
+                                  showTodayButton
+                                  fullWidth
+                                  value={this.state.PutDate} onChange={(e)=>this.setState({PutDate:e.target.value})}
+                                  renderInput={(params) => <TextField {...params} />}
+                                />
+                              </div> */}
+                              <div className={classes.textField}><TextField name="PutDate" label="Put Date"  variant="filled" fullWidth value={this.state.PutDate} onChange={(e)=>this.setState({PutDate:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="PutPrice" type='number' helperText="Only Numbers are allowed" label="Put Price" variant="filled" fullWidth value={this.state.PutPrice} onChange={(e)=>this.setState({PutPrice:e.target.value})}/></div>
                             </div>
                             
                             <div className={classes.tabHeading}>
                               <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Pricing And Analytics</Typography>
-                              <TextField name="AskPrice" label="Ask Price" variant="filled" fullWidth value={this.state.AskPrice} onChange={(e)=>this.setState({AskPrice:e.target.value})}/>
-                              <TextField name="HighPrice" label="High Price" variant="filled" fullWidth value={this.state.HighPrice} onChange={(e)=>this.setState({HighPrice:e.target.value})}/>
-                              <TextField name="Volume" label="Volume" variant="filled" fullWidth value={this.state.Volume} onChange={(e)=>this.setState({Volume:e.target.value})}/>
-                              <TextField name="LowPrice" label="Low Price" variant="filled" fullWidth value={this.state.LowPrice} onChange={(e)=>this.setState({LowPrice:e.target.value})}/>
-                              <TextField name="BidPrice" label="Bid Price" variant="filled" fullWidth value={this.state.BidPrice} onChange={(e)=>this.setState({BidPrice:e.target.value})}/>
-                              <TextField name="LastPrice" label="Last Price" variant="filled" fullWidth value={this.state.LastPrice} onChange={(e)=>this.setState({LastPrice:e.target.value})}/>
-                              <TextField name="OpenPrice" label="Open Price" variant="filled" fullWidth value={this.state.OpenPrice} onChange={(e)=>this.setState({OpenPrice:e.target.value})}/>
+                              <div className={classes.textField}><TextField name="AskPrice" helperText="Only Numbers are allowed"type='number' label="Ask Price" variant="filled" fullWidth value={this.state.AskPrice} onChange={(e)=>this.setState({AskPrice:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="HighPrice" helperText="Only Numbers are allowed" type='number' label="High Price" variant="filled" fullWidth value={this.state.HighPrice} onChange={(e)=>this.setState({HighPrice:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="Volume" type='number'helperText="Only Numbers are allowed"  label="Volume" variant="filled" fullWidth value={this.state.Volume} onChange={(e)=>this.setState({Volume:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="LowPrice" type='number' helperText="Only Numbers are allowed" type='number'  label="Low Price" variant="filled" fullWidth value={this.state.LowPrice} onChange={(e)=>this.setState({LowPrice:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="BidPrice" type='number' helperText="Only Numbers are allowed" label="Bid Price" variant="filled" fullWidth value={this.state.BidPrice} onChange={(e)=>this.setState({BidPrice:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="LastPrice" type='number' helperText="Only Numbers are allowed" label="Last Price" variant="filled" fullWidth value={this.state.LastPrice} onChange={(e)=>this.setState({LastPrice:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="OpenPrice" type='number' helperText="Only Numbers are allowed" label="Open Price" variant="filled" fullWidth value={this.state.OpenPrice} onChange={(e)=>this.setState({OpenPrice:e.target.value})}/></div>
                             </div>
                             
                             <div className={classes.tabHeading}>
                               <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Call Schedule</Typography>
-                              <TextField name="CallDate" label="Call Date" variant="filled" fullWidth value={this.state.CallDate} onChange={(e)=>this.setState({CallDate:e.target.value})}/>
-                              <TextField name="CallPrice" label="Call Price" variant="filled" fullWidth value={this.state.CallPrice} onChange={(e)=>this.setState({CallPrice:e.target.value})}/>  
+                              {/* <div className={classes.textField}>
+                              <DateTimePicker
+                                  label="Call Date"
+                                  value={this.state.CallDate}
+                                  showTodayButton
+                                  fullWidth
+                                  onChange={(e)=>this.setState({CallDate:e.target.value})}
+                                  renderInput={(params) => <TextField {...params} />}
+                                />
+                              </div> */}
+                              <div className={classes.textField}><TextField name="CallDate" label="Call Date"  variant="filled" fullWidth value={this.state.CallDate} onChange={(e)=>this.setState({CallDate:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField type='number' helperText="Only Numbers are allowed"  name="CallPrice" label="Call Price" variant="filled" fullWidth value={this.state.CallPrice} onChange={(e)=>this.setState({CallPrice:e.target.value})}/>  </div>
                             </div> 
                         </div> 
                     <Button variant="contained" className={classes.saveButton} style={{backgroundColor:"rgb(47, 46, 65)",marginTop:'20px'}} type="submit" fullWidth>SAVE</Button>
+                    </LocalizationProvider>
                  </form>
               </CardContent>
 

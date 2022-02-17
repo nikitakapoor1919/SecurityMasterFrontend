@@ -5,7 +5,9 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NavigationalBar from './Components/NavigationalBar/NavigationBar';
 import Equity from './Pages/Equities/Equity'
 import Bond from './Pages/Bonds/Bonds/Bonds'
+import AuditBond from './Pages/BondsAudit/BondsAudit'
 import BondUpload from './Pages/Bonds/Bonds/UploadBond'
+import EquityUpload from './Pages/Equities/Equities/UploadEquity'
 import BondResponsiveDrawer from './Components/Drawer/BondsResponsiveTabDrawer'
 import NotFoundPage from './Pages/NotFoundPage/NotFoundPage'
 import EditBond from './Pages/Bonds/Bonds/EditBond'
@@ -29,6 +31,10 @@ function App() {
           <Route path='/bond-edit/:id' component={EditBond}/>
           
           <Route path='/equities' component={Equity}/>
+          <Route path='/equity-upload' component={EquityUpload}/>
+          
+          {/* <Route path='/audit-bonds' component={AuditBond}/> */}
+          
           <Route component={NotFoundPage} />
         </Switch>
       </Router>

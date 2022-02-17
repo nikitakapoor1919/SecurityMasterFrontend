@@ -1,8 +1,8 @@
 import { Typography } from '@material-ui/core'
 import React, { Component } from 'react'
-import '../styles/styles.css'
+import '../../../styles/styles.css'
 import { withStyles } from '@material-ui/core/styles';
-import styles from '../styles/styles.js'
+import styles from '../../../styles/styles.js'
 import {List,ListItem,ListItemIcon,ListItemText,ListSubheader} from '@mui/material';
 
 
@@ -17,7 +17,7 @@ export class PutSchedule extends Component {
                 <Typography variant="h4" className={classes.topHeading}  style={{fontWeight:700}}>Put Schedule</Typography>
                 {this.props.bonds.map(bond=>
                 bond.BondId == this.props.bid ?
-                <List sx={{ width: '100%', margin:'0 auto', bgcolor: 'background.paper' }} className={classes.listTable}>
+                <List sx={{ width: '100%', margin:'0 auto', background:'#e6e6e6' }} className={classes.listTable}>
                     <ListItem alignItems="flex-start">
                         <ListItemText className={classes.listFirst}>Put Date</ListItemText>
                         <ListItemText  className={classes.listSecond}>{bond.PutDate}</ListItemText>

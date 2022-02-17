@@ -247,3 +247,8 @@ let details = {
   OpenPrice: OpenPrice.value,
   CallDate: CallDate.value,
   CallPrice: CallPrice.value,    
+  
+  
+  
+  
+  

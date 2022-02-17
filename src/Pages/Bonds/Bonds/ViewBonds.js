@@ -1,6 +1,6 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import '../styles/styles.css'
+import '../../../styles/styles.css'
 import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
@@ -40,14 +40,9 @@ class ViewBonds extends React.Component {
       .then(response=>response.json())
       .then(data=>{
           this.setState({bonds:data});
-          // show()
       });
   }
-  show(){
-    this.setState({showBond:this.state.bonds.filter((item) => item.BondId === this.props.bid )})  
-  }
 
-    
     _next = () => {
       let currentStep = this.state.currentStep
       currentStep = currentStep >= 8? 9: currentStep + 1
@@ -94,7 +89,7 @@ class ViewBonds extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    this.refreshList();
+    // this.refreshList();
     if (this.state.currentStep !==this.props.step) {
       this.setState({currentStep:this.props.step  });
     }

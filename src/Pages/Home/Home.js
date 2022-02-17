@@ -7,17 +7,12 @@ function Home(props) {
     const {classes} = props;  
     return (
       <div className={classes.root}>
-      <div>
-      <Typography className={classes.heading} variant="h3" >
+      <div className={classes.content}>
+      <Typography className={classes.heading} variant="h2" >
           SECURITY MASTER
         </Typography>
-        <Typography className={classes.heading3} align="justify">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-        when an unknown printer took a galley of type and scrambled it to make a type 
-        specimen book. It has survived not only five centuries, but also the leap 
-        into electronic typesetting, remaining essentially unchanged. It was popularised
-        in the 1960s with the release 
+        <Typography className={classes.heading3} align="center" variant="h6">
+          What Security Type You want to explore?
         </Typography>
         <div className={classes.btnGroup}>
             <Typography variant="h6" component="div">
@@ -28,7 +23,7 @@ function Home(props) {
             </Typography>
         </div>
       </div>
-      <div><img src='/images/reading.svg' className={classes.responsive}></img></div>
+      <div><img src='/images/home.svg' className={classes.responsive}></img></div>
       </div>
     );
 }

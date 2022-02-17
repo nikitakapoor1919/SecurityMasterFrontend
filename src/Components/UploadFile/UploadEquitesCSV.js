@@ -51,7 +51,7 @@ export default function FormDialog(props) {
     props.onUploadFile(SelectedFile)
     const formData = new FormData();
     formData.append('file', SelectedFile);
-    axios.post("http://localhost:14011/api/bond/", formData, {
+    axios.post("http://localhost:14011/api/equity/", formData, {
     onUploadProgress: progressEvent => {
         props.onProgressChange(true)
       }
