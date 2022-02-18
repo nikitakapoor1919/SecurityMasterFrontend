@@ -285,7 +285,7 @@ export class EditBond extends Component{
                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <div>
                             <div className={classes.tabHeading}>
-                              <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Security Summary</Typography>
+                              <div className={classes.tabSubHeading}><Typography variant="h6" gutterBottom component="div" className={classes.tab}>Security Summary</Typography></div>
                               <Divider/>
                               <div className={classes.textField}><TextField name="BondId" label="Bond Id" value={this.state.BondId} variant="outlined" fullWidth disabled /></div>
                               <div className={classes.textField}><TextField name="SecurityName" label="Security Name" variant="outlined" placeholder value={this.state.SecurityName}  fullWidth onChange={(e)=>this.setState({SecurityName:e.target.value})} required/></div>
@@ -297,7 +297,7 @@ export class EditBond extends Component{
                             </div>
                             
                             <div className={classes.tabHeading}>
-                              <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Security Identifier</Typography>
+                              <div className={classes.tabSubHeading}><Typography variant="h6" gutterBottom component="div" className={classes.tab}>Security Identifier</Typography></div>
                               <Divider/>
                               <div className={classes.textField}><TextField name="ISIN" label="ISIN" variant="outlined" fullWidth value={this.state.ISIN} onChange={(e)=>this.setState({ISIN:e.target.value})}/></div>
                               <div className={classes.textField}><TextField name="BBGTicker" label="BBGTicker" variant="outlined" value={this.state.BBGTicker} fullWidth onChange={(e)=>this.setState({BBGTicker:e.target.value})}/></div>
@@ -306,7 +306,7 @@ export class EditBond extends Component{
                             </div>
                             
                             <div className={classes.tabHeading}>
-                              <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Security Details</Typography>
+                              <div className={classes.tabSubHeading}><Typography variant="h6" gutterBottom component="div" className={classes.tab}>Security Details</Typography></div>
                               <Divider/>
                               <div className={classes.textField}>
                               <TextField
@@ -321,7 +321,6 @@ export class EditBond extends Component{
                                 }}
                               />
                             </div>
-                              {/* <div className={classes.textField}><TextField name="FirstCouponDate" label="First Coupon Date" variant="outlined" fullWidth value={this.state.FirstCouponDate}  onChange={(e)=>this.setState({FirstCouponDate:e.target.value})} /></div> */}
                               <div className={classes.textField}><TextField name="CouponCap" label="Coupon Cap" variant="outlined" fullWidth value={this.state.CouponCap} onChange={(e)=>this.setState({CouponCap:e.target.value})} /></div>
                               <div className={classes.textField}><TextField name="CoupanFloor" label="Coupon Floor" variant="outlined" fullWidth value={this.state.CoupanFloor} onChange={(e)=>this.setState({CoupanFloor:e.target.value})}/></div>
                               <div className={classes.textField}><TextField name="CouponFrequency" label="Coupon Frequency" variant="outlined" fullWidth value={this.state.CouponFrequency} onChange={(e)=>this.setState({CouponFrequency:e.target.value})}/></div>
@@ -331,9 +330,6 @@ export class EditBond extends Component{
                               <div className={classes.textField}><TextField name="CallableFlag" label="Callable Flag" variant="outlined" fullWidth value={this.state.CallableFlag} onChange={(e)=>this.setState({CallableFlag:e.target.value})} /></div>
                               <div className={classes.textField}><TextField name="FixToFloatFlag" label="Fix To Float Flag" variant="outlined" fullWidth value={this.state.FixToFloatFlag} onChange={(e)=>this.setState({FixToFloatFlag:e.target.value})}/></div>
                               <div className={classes.textField}><TextField name="PutableFlag" label="Putable Flag" variant="outlined" fullWidth value={this.state.PutableFlag} onChange={(e)=>this.setState({PutableFlag:e.target.value})}/></div>
-                              {/* <div className={classes.textField}><TextField name="IssueDate" label="Issue Date"  variant="outlined" fullWidth value={this.state.IssueDate} onChange={(e)=>this.setState({IssueDate:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="LastResetDate" label="Last Reset Date"   variant="outlined" fullWidth value={this.state.LastResetDate} onChange={(e)=>this.setState({LastResetDate:e.target.value}) }/></div>
-                              <div className={classes.textField}><TextField name="Maturity" label="Maturity"  variant="outlined" fullWidth value={this.state.Maturity} onChange={(e)=>this.setState({Maturity:e.target.value})}/></div> */}
                               <div className={classes.textField}>
                                  <TextField
                                   label="Issue Date" 
@@ -386,14 +382,13 @@ export class EditBond extends Component{
                                   }}
                                 />
                               </div>
-                              {/* <div className={classes.textField}><TextField name="PenultimateCouponDate" label="Penultimate Coupon Date"  variant="outlined" fullWidth value={this.state.PenultimateCouponDate} onChange={(e)=>this.setState({PenultimateCouponDate:e.target.value})}/></div> */}
                               <div className={classes.textField}><TextField name="PenultimateCouponDate" label="Penultimate Coupon Date" variant="outlined" fullWidth value={this.state.PenultimateCouponDate} onChange={(e)=>this.setState({PenultimateCouponDate:e.target.value})}/></div>
                               <div className={classes.textField}><TextField name="ResetFrequency" label="Reset Frequency" variant="outlined" fullWidth value={this.state.ResetFrequency} onChange={(e)=>this.setState({ResetFrequency:e.target.value})}/></div>
                               <div className={classes.textField}><TextField name="HasPosition" label="Has Position" variant="outlined" fullWidth value={this.state.HasPosition} onChange={(e)=>this.setState({HasPosition:e.target.value})}/>
                             </div>
                             
                             <div className={classes.tabHeading}>
-                              <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Risk</Typography>
+                              <div className={classes.tabSubHeading}><Typography variant="h6" gutterBottom component="div" className={classes.tab}>Risk</Typography></div>
                               <Divider/>
                               <div className={classes.textField}><TextField name="MaculayDuration" helperText="Only Numbers are allowed" type='number' label="Maculay Duration" variant="outlined" fullWidth value={this.state.MaculayDuration} onChange={(e)=>this.setState({MaculayDuration:e.target.value})}/></div>
                               <div className={classes.textField}><TextField name="Volatility30D" helperText="Only Numbers are allowed" type='number' label="Volatility30D" variant="outlined" fullWidth value={this.state.Volatility30D} onChange={(e)=>this.setState({Volatility30D:e.target.value})}/></div>
@@ -403,7 +398,7 @@ export class EditBond extends Component{
                             </div>
                             
                             <div className={classes.tabHeading}>
-                              <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Regulatory Details</Typography>
+                              <div className={classes.tabSubHeading}><Typography variant="h6" gutterBottom component="div" className={classes.tab}>Regulatory Details</Typography></div>
                               <Divider/>
                               <div className={classes.textField}><TextField name="PFAssetClass" label="PF Asset Class" variant="outlined" fullWidth value={this.state.PFAssetClass} onChange={(e)=>this.setState({PFAssetClass:e.target.value})}/></div>
                               <div className={classes.textField}><TextField name="PFCountry" label="PF Country" variant="outlined" fullWidth value={this.state.PFCountry} onChange={(e)=>this.setState({PFCountry:e.target.value})}/></div>
@@ -419,7 +414,7 @@ export class EditBond extends Component{
                             </div>
                             
                             <div className={classes.tabHeading}>
-                              <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Reference Data</Typography>
+                              <div className={classes.tabSubHeading}><Typography variant="h6" gutterBottom component="div" className={classes.tab}>Reference Data</Typography></div>
                               <Divider/>
                               <div className={classes.textField}><TextField name="BloombergIndustryGroup" label="Bloomberg Industry Group" variant="outlined" fullWidth value={this.state.BloombergIndustryGroup} onChange={(e)=>this.setState({BloombergIndustryGroup:e.target.value})}/></div>
                               <div className={classes.textField}><TextField name="BloombergIndustrySubGroup" label="Bloomberg Industry SubGroup" variant="outlined" fullWidth value={this.state.BloombergIndustrySubGroup} onChange={(e)=>this.setState({BloombergIndustrySubGroup:e.target.value})}/></div>
@@ -431,7 +426,7 @@ export class EditBond extends Component{
                             </div>
                             
                             <div className={classes.tabHeading}>
-                              <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Put Schedule</Typography>
+                             <div className={classes.tabSubHeading}> <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Put Schedule</Typography></div>
                               <Divider/>
                               <div className={classes.textField}>
                                 <TextField
@@ -445,12 +440,11 @@ export class EditBond extends Component{
                                   }}
                                 />
                               </div>
-                              {/* <div className={classes.textField}><TextField name="PutDate" label="Put Date"  variant="outlined" fullWidth value={this.state.PutDate} onChange={(e)=>this.setState({PutDate:e.target.value})}/></div> */}
                               <div className={classes.textField}><TextField name="PutPrice" type='number' helperText="Only Numbers are allowed" label="Put Price" variant="outlined" fullWidth value={this.state.PutPrice} onChange={(e)=>this.setState({PutPrice:e.target.value})}/></div>
                             </div>
                             
                             <div className={classes.tabHeading}>
-                              <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Pricing And Analytics</Typography>
+                              <div className={classes.tabSubHeading}><Typography variant="h6" gutterBottom component="div" className={classes.tab}>Pricing And Analytics</Typography></div>
                               <Divider/>
                               <div className={classes.textField}><TextField name="AskPrice" helperText="Only Numbers are allowed"type='number' label="Ask Price" variant="outlined" fullWidth value={this.state.AskPrice} onChange={(e)=>this.setState({AskPrice:e.target.value})}/></div>
                               <div className={classes.textField}><TextField name="HighPrice" helperText="Only Numbers are allowed" type='number' label="High Price" variant="outlined" fullWidth value={this.state.HighPrice} onChange={(e)=>this.setState({HighPrice:e.target.value})}/></div>
@@ -462,7 +456,7 @@ export class EditBond extends Component{
                             </div>
                             
                             <div className={classes.tabHeading}>
-                              <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Call Schedule</Typography>
+                              <div className={classes.tabSubHeading}><Typography variant="h6" gutterBottom component="div" className={classes.tab}>Call Schedule</Typography></div>
                               <Divider/>
                               <div className={classes.textField}>
                                 <TextField
@@ -476,7 +470,6 @@ export class EditBond extends Component{
                                   }}
                                 />
                               </div>
-                              {/* <div className={classes.textField}><TextField name="CallDate" label="Call Date"  variant="outlined" fullWidth value={this.state.CallDate} onChange={(e)=>this.setState({CallDate:e.target.value})}/></div> */}
                               <div className={classes.textField}><TextField type='number' helperText="Only Numbers are allowed"  name="CallPrice" label="Call Price" variant="outlined" fullWidth value={this.state.CallPrice} onChange={(e)=>this.setState({CallPrice:e.target.value})}/>  </div>
                             </div> 
                         </div> 

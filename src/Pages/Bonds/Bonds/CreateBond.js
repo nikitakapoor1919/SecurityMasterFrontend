@@ -207,7 +207,7 @@ export class CreateBond extends Component{
                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <div>
                             <div className={classes.tabHeading}>
-                              <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Security Summary</Typography>
+                              <div className={classes.tabSubHeading}><Typography variant="h6" gutterBottom component="div" className={classes.tab}>Security Summary</Typography></div>
                               <Divider/>
                               <div className={classes.textField}><TextField name="SecurityName" label="Security Name" variant="outlined" fullWidth placeholder required/></div>
                               <div className={classes.textField}><TextField name="SecurityDescription" label="Security Description" variant="outlined"  fullWidth onChange={(e)=>this.setState({SecurityDescription:e.target.value})} required/></div>
@@ -218,7 +218,7 @@ export class CreateBond extends Component{
                             </div>
                             
                             <div className={classes.tabHeading}>
-                              <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Security Identifier</Typography>
+                              <div className={classes.tabSubHeading}><Typography variant="h6" gutterBottom component="div" className={classes.tab}>Security Identifier</Typography></div>
                               <Divider/>
                               <div className={classes.textField}><TextField name="ISIN" label="ISIN" variant="outlined" fullWidth  onChange={(e)=>this.setState({ISIN:e.target.value})}/></div>
                               <div className={classes.textField}><TextField name="BBGTicker" label="BBGTicker" variant="outlined"  fullWidth onChange={(e)=>this.setState({BBGTicker:e.target.value})}/></div>
@@ -227,7 +227,7 @@ export class CreateBond extends Component{
                             </div>
                             
                             <div className={classes.tabHeading}>
-                              <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Security Details</Typography>
+                              <div className={classes.tabSubHeading}><Typography variant="h6" gutterBottom component="div" className={classes.tab}>Security Details</Typography></div>
                               <Divider/>
                               <div className={classes.textField}>
                               <TextField
@@ -308,7 +308,7 @@ export class CreateBond extends Component{
                             </div>
                             
                             <div className={classes.tabHeading}>
-                              <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Risk</Typography>
+                              <div className={classes.tabSubHeading}><Typography variant="h6" gutterBottom component="div" className={classes.tab}>Risk</Typography></div>
                               <Divider/>
                               <div className={classes.textField}><TextField name="MaculayDuration" helperText="Only Numbers are allowed" type='number' label="Maculay Duration" variant="outlined" fullWidth onChange={(e)=>this.setState({MaculayDuration:e.target.value})}/></div>
                               <div className={classes.textField}><TextField name="Volatility30D" helperText="Only Numbers are allowed" type='number' label="Volatility30D" variant="outlined" fullWidth onChange={(e)=>this.setState({Volatility30D:e.target.value})}/></div>
@@ -318,7 +318,7 @@ export class CreateBond extends Component{
                             </div>
                             
                             <div className={classes.tabHeading}>
-                              <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Regulatory Details</Typography>
+                              <div className={classes.tabSubHeading}><Typography variant="h6" gutterBottom component="div" className={classes.tab}>Regulatory Details</Typography></div>
                               <Divider/>
                               <div className={classes.textField}><TextField name="PFAssetClass" label="PF Asset Class" variant="outlined" fullWidth onChange={(e)=>this.setState({PFAssetClass:e.target.value})}/></div>
                               <div className={classes.textField}><TextField name="PFCountry" label="PF Country" variant="outlined" fullWidth onChange={(e)=>this.setState({PFCountry:e.target.value})}/></div>
@@ -334,7 +334,7 @@ export class CreateBond extends Component{
                             </div>
                             
                             <div className={classes.tabHeading}>
-                              <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Reference Data</Typography>
+                              <div className={classes.tabSubHeading}><Typography variant="h6" gutterBottom component="div" className={classes.tab}>Reference Data</Typography></div>
                               <Divider/>
                               <div className={classes.textField}><TextField name="BloombergIndustryGroup" label="Bloomberg Industry Group" variant="outlined" fullWidth onChange={(e)=>this.setState({BloombergIndustryGroup:e.target.value})}/></div>
                               <div className={classes.textField}><TextField name="BloombergIndustrySubGroup" label="Bloomberg Industry SubGroup" variant="outlined" fullWidth onChange={(e)=>this.setState({BloombergIndustrySubGroup:e.target.value})}/></div>
@@ -346,7 +346,7 @@ export class CreateBond extends Component{
                             </div>
                             
                             <div className={classes.tabHeading}>
-                              <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Put Schedule</Typography>
+                              <div className={classes.tabSubHeading}><Typography variant="h6" gutterBottom component="div" className={classes.tab}>Put Schedule</Typography></div>
                               <Divider/>
                               <div className={classes.textField}>
                                 <TextField
@@ -364,7 +364,7 @@ export class CreateBond extends Component{
                             </div>
                             
                             <div className={classes.tabHeading}>
-                              <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Pricing And Analytics</Typography>
+                              <div className={classes.tabSubHeading}><Typography variant="h6" gutterBottom component="div" className={classes.tab}>Pricing And Analytics</Typography></div>
                               <Divider/>
                               <div className={classes.textField}><TextField name="AskPrice" helperText="Only Numbers are allowed"type='number' label="Ask Price" variant="outlined" fullWidth onChange={(e)=>this.setState({AskPrice:e.target.value})}/></div>
                               <div className={classes.textField}><TextField name="HighPrice" helperText="Only Numbers are allowed" type='number' label="High Price" variant="outlined" fullWidth onChange={(e)=>this.setState({HighPrice:e.target.value})}/></div>
@@ -376,7 +376,7 @@ export class CreateBond extends Component{
                             </div>
                             
                             <div className={classes.tabHeading}>
-                              <Typography variant="h6" gutterBottom component="div" className={classes.tab}>Call Schedule</Typography>
+                              <div className={classes.tabSubHeading}><Typography variant="h6" gutterBottom component="div" className={classes.tab}>Call Schedule</Typography></div>
                               <Divider/>
                               <div className={classes.textField}>
                                 <TextField

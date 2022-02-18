@@ -243,6 +243,9 @@ const styles = theme => ({
         '@media screen and (max-width: 1024px)': {
             padding:0,
          } 
+    },
+    tabSubHeading:{
+        marginBottom:20
     }
 });
   
