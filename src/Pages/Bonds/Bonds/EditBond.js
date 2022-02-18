@@ -162,6 +162,7 @@ export class EditBond extends Component{
             loading:false
           });
       });
+      this.handleSubmit = this.handleSubmit.bind(this)
   }
   componentDidMount(){
     this.refreshList();
@@ -261,7 +262,6 @@ export class EditBond extends Component{
         
         }) 
         .then((response) => { 
-          alert("Saved Successfull")
           this.setState({open:true})
       })
       .catch((error) => { 

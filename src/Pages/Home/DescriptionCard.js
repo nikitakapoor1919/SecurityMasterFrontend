@@ -7,7 +7,7 @@ function DescriptionCard(props) {
   return (
     <div>
         <div  className={classes.cardDescription}>
-          <div>
+          <div className={classes.cardInner}>
             <p className={classes.headingCard}>
                 IVP SECURITY MASTER
             </p>

@@ -86,6 +86,7 @@ export class CreateBond extends Component{
        CallPrice: "",
        loading:false,
     }
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount(){
@@ -186,7 +187,6 @@ export class CreateBond extends Component{
         
         }) 
         .then((response) => { 
-          alert("Bond Added Successfully")
           this.setState({open:true})
       })
   }

@@ -237,6 +237,12 @@ const styles = theme => ({
     },
     errorText:{
      color:'red'
+    },
+    cardInner:{
+        padding:50,
+        '@media screen and (max-width: 1024px)': {
+            padding:0,
+         } 
     }
 });
   
