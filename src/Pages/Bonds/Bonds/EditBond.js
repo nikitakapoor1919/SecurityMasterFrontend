@@ -36,7 +36,7 @@ export class EditBond extends Component{
        SEDOL: "",
        FirstCouponDate: "",
        CouponCap: "",
-       CoupanFloor: "",
+       CouponFloor: "",
        CouponFrequency: "",
        CouponRate: "",
        CouponType: "",
@@ -109,7 +109,7 @@ export class EditBond extends Component{
             SEDOL: data.SEDOL,
             FirstCouponDate: data.FirstCouponDate,
             CouponCap: data.CouponCap,
-            CoupanFloor: data.CoupanFloor,
+            CouponFloor: data.CouponFloor,
             CouponFrequency: data.CouponFrequency,
             CouponRate: data.CouponRate,
             CouponType: data.CouponType,
@@ -173,7 +173,7 @@ export class EditBond extends Component{
 
        const { BondId,SecurityName, SecurityDescription, AssetType, InvestmentType, TradingFactor,PricingFactor
         ,ISIN,BBGTicker, BBGUniqueID,SEDOL,FirstCouponDate
-        ,CouponCap,CoupanFloor,CouponFrequency,CouponRate,
+        ,CouponCap,CouponFloor,CouponFrequency,CouponRate,
         CouponType,Spread,CallableFlag,FixToFloatFlag,
         PutableFlag,IssueDate,LastResetDate,Maturity,
         CallNotificationMaxDays,PutNotificationMaxDays,
@@ -200,7 +200,7 @@ export class EditBond extends Component{
         SEDOL: SEDOL.value,
         FirstCouponDate: FirstCouponDate.value,
         CouponCap: CouponCap.value,
-        CoupanFloor: CoupanFloor.value,
+        CouponFloor: CouponFloor.value,
         CouponFrequency: CouponFrequency.value,
         CouponRate: CouponRate.value,
         CouponType: CouponType.value,
@@ -322,9 +322,9 @@ export class EditBond extends Component{
                               />
                             </div>
                               <div className={classes.textField}><TextField name="CouponCap" label="Coupon Cap" variant="outlined" fullWidth value={this.state.CouponCap} onChange={(e)=>this.setState({CouponCap:e.target.value})} /></div>
-                              <div className={classes.textField}><TextField name="CoupanFloor" label="Coupon Floor" variant="outlined" fullWidth value={this.state.CoupanFloor} onChange={(e)=>this.setState({CoupanFloor:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="CouponFloor" label="Coupon Floor" variant="outlined" fullWidth value={this.state.CouponFloor} onChange={(e)=>this.setState({CouponFloor:e.target.value})}/></div>
                               <div className={classes.textField}><TextField name="CouponFrequency" label="Coupon Frequency" variant="outlined" fullWidth value={this.state.CouponFrequency} onChange={(e)=>this.setState({CouponFrequency:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="CouponRate" type='number' label="Coupon Rate" variant="outlined" fullWidth value={this.state.CouponRate} onChange={(e)=>this.setState({CouponRate:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="CouponRate" inputProps={{ min: "0"}} type='number' label="Coupon Rate" variant="outlined" fullWidth value={this.state.CouponRate} onChange={(e)=>this.setState({CouponRate:e.target.value})}/></div>
                               <div className={classes.textField}><TextField name="CouponType" label="Coupon Type" variant="outlined" fullWidth  value={this.state.CouponType} onChange={(e)=>this.setState({CouponType:e.target.value})}/></div>
                               <div className={classes.textField}><TextField name="Spread" label="Spread" variant="outlined" fullWidth value={this.state.Spread} onChange={(e)=>this.setState({Spread:e.target.value})} /></div></div>
                               <div className={classes.textField}><TextField name="CallableFlag" label="Callable Flag" variant="outlined" fullWidth value={this.state.CallableFlag} onChange={(e)=>this.setState({CallableFlag:e.target.value})} /></div>
@@ -368,8 +368,8 @@ export class EditBond extends Component{
                               />
                              </div>
                       
-                              <div className={classes.textField}><TextField name="CallNotificationMaxDays" helperText="Only Numbers are allowed" type='number' label="Call Notification Max Days" variant="outlined" fullWidth value={this.state.CallNotificationMaxDays} onChange={(e)=>this.setState({CallNotificationMaxDays:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="PutNotificationMaxDays" helperText="Only Numbers are allowed" type='number' label="Put Notification Max Days" variant="outlined" fullWidth value={this.state.PutNotificationMaxDays} onChange={(e)=>this.setState({PutNotificationMaxDays:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="CallNotificationMaxDays" helperText="Only Numbers are allowed" inputProps={{ min: "0"}} type='number' label="Call Notification Max Days" variant="outlined" fullWidth value={this.state.CallNotificationMaxDays} onChange={(e)=>this.setState({CallNotificationMaxDays:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="PutNotificationMaxDays" helperText="Only Numbers are allowed" inputProps={{ min: "0"}}type='number' label="Put Notification Max Days" variant="outlined" fullWidth value={this.state.PutNotificationMaxDays} onChange={(e)=>this.setState({PutNotificationMaxDays:e.target.value})}/></div>
                               <div className={classes.textField}>
                                  <TextField
                                   label="Penultimate Coupon Date"
@@ -390,11 +390,11 @@ export class EditBond extends Component{
                             <div className={classes.tabHeading}>
                               <div className={classes.tabSubHeading}><Typography variant="h6" gutterBottom component="div" className={classes.tab}>Risk</Typography></div>
                               <Divider/>
-                              <div className={classes.textField}><TextField name="MaculayDuration" helperText="Only Numbers are allowed" type='number' label="Maculay Duration" variant="outlined" fullWidth value={this.state.MaculayDuration} onChange={(e)=>this.setState({MaculayDuration:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="Volatility30D" helperText="Only Numbers are allowed" type='number' label="Volatility30D" variant="outlined" fullWidth value={this.state.Volatility30D} onChange={(e)=>this.setState({Volatility30D:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="Volatility90D" helperText="Only Numbers are allowed" type='number' label="Volatility90D" variant="outlined" fullWidth value={this.state.Volatility90D} onChange={(e)=>this.setState({Holatility90D:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="Convexity" helperText="Only Numbers are allowed" type='number' label="Convexity" variant="outlined" fullWidth value={this.state.Convexity} onChange={(e)=>this.setState({Convexity:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="AverageVolume30D"helperText="Only Numbers are allowed" type='number' label="Average Volume 30D" variant="outlined" fullWidth value={this.state.AverageVolume30D} onChange={(e)=>this.setState({AverageVolume30D:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="MaculayDuration" inputProps={{ min: "0"}} helperText="Only Numbers are allowed" type='number' label="Maculay Duration" variant="outlined" fullWidth value={this.state.MaculayDuration} onChange={(e)=>this.setState({MaculayDuration:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="Volatility30D" inputProps={{ min: "0"}} helperText="Only Numbers are allowed" type='number' label="Volatility30D" variant="outlined" fullWidth value={this.state.Volatility30D} onChange={(e)=>this.setState({Volatility30D:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="Volatility90D" inputProps={{ min: "0"}} helperText="Only Numbers are allowed" type='number' label="Volatility90D" variant="outlined" fullWidth value={this.state.Volatility90D} onChange={(e)=>this.setState({Holatility90D:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="Convexity" inputProps={{ min: "0"}} helperText="Only Numbers are allowed" type='number' label="Convexity" variant="outlined" fullWidth value={this.state.Convexity} onChange={(e)=>this.setState({Convexity:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="AverageVolume30D" inputProps={{ min: "0"}} helperText="Only Numbers are allowed" type='number' label="Average Volume 30D" variant="outlined" fullWidth value={this.state.AverageVolume30D} onChange={(e)=>this.setState({AverageVolume30D:e.target.value})}/></div>
                             </div>
                             
                             <div className={classes.tabHeading}>
@@ -440,19 +440,19 @@ export class EditBond extends Component{
                                   }}
                                 />
                               </div>
-                              <div className={classes.textField}><TextField name="PutPrice" type='number' helperText="Only Numbers are allowed" label="Put Price" variant="outlined" fullWidth value={this.state.PutPrice} onChange={(e)=>this.setState({PutPrice:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="PutPrice" inputProps={{ min: "0"}} type='number' helperText="Only Numbers are allowed" label="Put Price" variant="outlined" fullWidth value={this.state.PutPrice} onChange={(e)=>this.setState({PutPrice:e.target.value})}/></div>
                             </div>
                             
                             <div className={classes.tabHeading}>
                               <div className={classes.tabSubHeading}><Typography variant="h6" gutterBottom component="div" className={classes.tab}>Pricing And Analytics</Typography></div>
                               <Divider/>
-                              <div className={classes.textField}><TextField name="AskPrice" helperText="Only Numbers are allowed"type='number' label="Ask Price" variant="outlined" fullWidth value={this.state.AskPrice} onChange={(e)=>this.setState({AskPrice:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="HighPrice" helperText="Only Numbers are allowed" type='number' label="High Price" variant="outlined" fullWidth value={this.state.HighPrice} onChange={(e)=>this.setState({HighPrice:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="Volume" type='number'helperText="Only Numbers are allowed"  label="Volume" variant="outlined" fullWidth value={this.state.Volume} onChange={(e)=>this.setState({Volume:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="LowPrice" type='number' helperText="Only Numbers are allowed" type='number'  label="Low Price" variant="outlined" fullWidth value={this.state.LowPrice} onChange={(e)=>this.setState({LowPrice:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="BidPrice" type='number' helperText="Only Numbers are allowed" label="Bid Price" variant="outlined" fullWidth value={this.state.BidPrice} onChange={(e)=>this.setState({BidPrice:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="LastPrice" type='number' helperText="Only Numbers are allowed" label="Last Price" variant="outlined" fullWidth value={this.state.LastPrice} onChange={(e)=>this.setState({LastPrice:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="OpenPrice" type='number' helperText="Only Numbers are allowed" label="Open Price" variant="outlined" fullWidth value={this.state.OpenPrice} onChange={(e)=>this.setState({OpenPrice:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="AskPrice" inputProps={{ min: "0"}} helperText="Only Numbers are allowed"type='number' label="Ask Price" variant="outlined" fullWidth value={this.state.AskPrice} onChange={(e)=>this.setState({AskPrice:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="HighPrice" inputProps={{ min: "0"}} helperText="Only Numbers are allowed" type='number' label="High Price" variant="outlined" fullWidth value={this.state.HighPrice} onChange={(e)=>this.setState({HighPrice:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="Volume" inputProps={{ min: "0"}} type='number'helperText="Only Numbers are allowed"  label="Volume" variant="outlined" fullWidth value={this.state.Volume} onChange={(e)=>this.setState({Volume:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="LowPrice"inputProps={{ min: "0"}} type='number' helperText="Only Numbers are allowed" type='number'  label="Low Price" variant="outlined" fullWidth value={this.state.LowPrice} onChange={(e)=>this.setState({LowPrice:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="BidPrice" inputProps={{ min: "0"}} type='number' helperText="Only Numbers are allowed" label="Bid Price" variant="outlined" fullWidth value={this.state.BidPrice} onChange={(e)=>this.setState({BidPrice:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="LastPrice" inputProps={{ min: "0"}} type='number' helperText="Only Numbers are allowed" label="Last Price" variant="outlined" fullWidth value={this.state.LastPrice} onChange={(e)=>this.setState({LastPrice:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="OpenPrice"inputProps={{ min: "0"}} type='number' helperText="Only Numbers are allowed" label="Open Price" variant="outlined" fullWidth value={this.state.OpenPrice} onChange={(e)=>this.setState({OpenPrice:e.target.value})}/></div>
                             </div>
                             
                             <div className={classes.tabHeading}>
@@ -470,7 +470,7 @@ export class EditBond extends Component{
                                   }}
                                 />
                               </div>
-                              <div className={classes.textField}><TextField type='number' helperText="Only Numbers are allowed"  name="CallPrice" label="Call Price" variant="outlined" fullWidth value={this.state.CallPrice} onChange={(e)=>this.setState({CallPrice:e.target.value})}/>  </div>
+                              <div className={classes.textField}><TextField inputProps={{ min: "0"}} type='number' helperText="Only Numbers are allowed"  name="CallPrice" label="Call Price" variant="outlined" fullWidth value={this.state.CallPrice} onChange={(e)=>this.setState({CallPrice:e.target.value})}/>  </div>
                             </div> 
                         </div> 
                     <div style={{textAlign:'center'}}><Button variant="contained" className={classes.saveButton} style={{backgroundColor:"rgb(47, 46, 65)",marginTop:'20px'}} type="submit">SAVE</Button></div>

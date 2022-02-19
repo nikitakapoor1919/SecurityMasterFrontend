@@ -10,11 +10,11 @@ const styles = theme => ({
     },
     button:{
         float:'right',
-        color: 'rgb(47, 46, 65)'
+        color: 'white'
     },
     navbar: {
         position:"fixed",    
-        backgroundColor: "#F8F6F6",
+        backgroundColor: "rgb(47, 49, 58)",
         display:'flex',
     },
     list: {
@@ -29,6 +29,14 @@ const styles = theme => ({
     link:{
         textDecoration:'none',
         color: 'rgb(47, 46, 65)'
+    },
+    menuIcon:{
+        position: 'absolute',
+        left: 10,
+        display:'none',
+        '@media screen and (max-width: 500px)': {
+            display:'block',
+         } 
     }
 });
   

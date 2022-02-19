@@ -1,8 +1,8 @@
 import React from 'react';
-import {Toolbar, Typography, Button, AppBar} from '@material-ui/core';
+import {Toolbar, Typography, Button, AppBar,IconButton} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
-import Drawer from './Drawer'
+import MenuIcon from '@material-ui/icons/Menu';
 
 function NavigationalBar(props) {
   const {classes} = props;  
@@ -10,9 +10,18 @@ function NavigationalBar(props) {
     <div className={classes.root}>
       <AppBar className={classes.navbar}>
         <Toolbar className={classes.toolbar}>
-          {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <Drawer/>
-          </IconButton> */}
+           {
+            props.show ?
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={props.handleDrawerToggle}
+              className={classes.menuIcon}
+            >
+              <MenuIcon/>
+            </IconButton>:null
+           }
           <Typography variant="h6" component="div">
             <a href='\' className={classes.link}><Button className={classes.button} color="inherit">Home</Button></a>
           </Typography>

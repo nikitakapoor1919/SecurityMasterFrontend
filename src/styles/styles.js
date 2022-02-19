@@ -19,7 +19,7 @@ const styles = theme => ({
     cardDescription:{
         margin:'0 auto',
         marginTop:'100px',
-        padding:'20px',
+        padding:'70px',
         background:'#f5f4f4',
         textAlign:'center',
         marginLeft:50,
@@ -30,6 +30,7 @@ const styles = theme => ({
         '@media screen and (max-width: 1024px)': {
             marginLeft:0,
             marginRight:0,
+            padding:20
          }
     },
     saveButton:{
@@ -119,6 +120,7 @@ const styles = theme => ({
     },
     listFirst:{
         width:'40%',
+        fontWeight:'bold !important '
     },
     listSecond:{
         width:'60%',
@@ -246,6 +248,20 @@ const styles = theme => ({
     },
     tabSubHeading:{
         marginBottom:20
+    },
+    rowField:{
+        justifyContent:'space-between',
+        marginTop:20,
+        marginBottom:20,
+        display:'flex',
+        '@media screen and (max-width: 1024px)': {
+            display:'block',
+            textAlign:'center'
+         } 
+    },
+    rowHeading:{
+        marginTop:20,
+        marginBottom:20,
     }
 });
   

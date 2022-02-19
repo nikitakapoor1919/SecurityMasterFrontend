@@ -5,6 +5,12 @@ import UploadCSV from '../../../Components/UploadFile/UploadBondsCSV'
 import Alert from '@material-ui/lab/Alert';
 import React, { Component } from 'react'
 import {CircularProgress} from '@material-ui/core';
+import MuiAlert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
+
+const MyAlert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 export class UploadBond extends Component {
     constructor(props) {
@@ -20,6 +26,7 @@ export class UploadBond extends Component {
     onUploadFile=(val)=> { this.setState({file:val})}
     onUploadError=(val)=>{ this.setState({error:val})}
     onSuccessfullyUpload=(val)=>{this.setState({successUpload:val})}
+    handleClose=()=>{this.setState({successUpload:false})}
   render() {
     const {classes} = this.props;  
     return (
@@ -30,7 +37,11 @@ export class UploadBond extends Component {
             {this.state.success ? <Alert severity="success">Please Click on Upload</Alert> :''}
             {this.state.error ? <Alert severity="warning">File Format not Supported</Alert> :''}
             {this.state.errorNotCSV ? <Alert severity="error">Only CSV Files Can Be Uploaded</Alert> :''}
-            {this.state.successUpload ? <Alert severity="success">Successfully Uploaded</Alert>:''}
+            <Snackbar open={this.state.successUpload} autoHideDuration={6000} onClose={this.handleClose}>
+              <MyAlert onClose={this.handleClose} severity="success" sx={{ width: '100%' }}>
+                  Successfully Uploaded
+              </MyAlert>
+            </Snackbar>
           </div>
             <Typography className={classes.heading}>
                  <UploadCSV onProgressChange={this.onChange} onSuccessChange={this.onChangeSuccess} onSuccessfullyUpload={this.onSuccessfullyUpload}

@@ -17,12 +17,12 @@ const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
   
-export class EditEquity extends Component{
+export class CreateEquity extends Component{
   constructor(props) {
     super(props)
   
     this.state = {
-       equities:[],success:false,error:false,open:false,openError:false,
+       equities:[],success:false,error:false,open:false,openError:false,show:false,
        EquityId: "",
        SecurityName: "",
        SecurityDescription: "",
@@ -85,88 +85,17 @@ export class EditEquity extends Component{
        DividentAmount: "",
        Frequency: "",
        DividentType: "",
-       errorText: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
-  refreshList(){
-      this.setState({loading:true})
-      fetch('http://localhost:14011/api/equity/'+this.props.match.params.id)
-      .then(response=>response.json())
-      .then(data=>{
-          console.log(data)
-          this.setState({equities:data,
-             EquityId: data.EquityId,
-             SecurityName: data.SecurityName,
-             SecurityDescription: data.SecurityDescription,
-             HasPosition:data.HasPosition,
-             IsActive: data.IsActive,
-             LotSize: data.LotSize,
-             BBGUniqueName: data.BBGUniqueName,
-             CUSIP:data.CUSIP,
-             ISIN : data.ISIN,
-             SEDOL: data.SEDOL,
-             BloombergTicket:data.BloombergTicket,
-             BloombergUniqueID: data.BloombergUniqueID,
-             BloombergGlobalID:data.BloombergGlobalID,
-             TickerAndExchange:data.TickerAndExchange,
-             IsADR: data.IsADR,
-             ADRUnderlyingTicker: data.ADRUnderlyingTicker,
-             ADRUnderlyingCurrency: data.ADRUnderlyingCurrency,
-             SharesPerADR:data.SharesPerADR,
-             IPODate: data.IPODate,
-             PricingCurrency: data.PricingCurrency,
-             SettleDays: data.SettleDays,
-             TotalSharesOutstanding: data.TotalSharesOutstanding,
-             VotingRightsPerShare:data.VotingRightsPerShare,
-             AverageVolume20D:data.AverageVolume20D,
-             Beta: data.Beta,
-             ShortInterest: data.ShortInterest,
-             Volatility90D:data.Volatility90D,
-             ReturnYTD: data.ReturnYTD,
-             PFAssetClass: data.PFAssetClass,
-             PFCountry: data.PFCountry,
-             PFCreditRating : data.PFCreditRating,
-             PFCurrency  : data.PFCurrency,
-             PFInstrument:data.PFInstrument,
-             PFLiquidityProfile: data.PFLiquidityProfile,
-             PFMaturity: data.PFMaturity,
-             PFNAICSCode: data.PFNAICSCode,
-             PFRegion:data.PFRegion,
-             PFSector: data.PFSector,
-             PFSubAssetClass: data.PFSubAssetClass,
-             CountryOfIssurance: data.CountryOfIssurance,
-             Exchange: data.Exchange,
-             Issurer: data.Issurer,
-             IssueCurrency:data.IssueCurrency,
-             TradingCurrency:data.TradingCurrency,
-             BBGIndustrySubGroup: data.BBGIndustrySubGroup,
-             BBloombergIndustryGroup: data.BBloombergIndustryGroup,
-             BloombergSector: data.BloombergSector,
-             CountryOfIncorporation: data.CountryOfIncorporation,
-             RiskCurrency: data.RiskCurrency,
-             OpenPrice: data.OpenPrice,
-             ClosePrice:data.ClosePrice,
-             Volume: data.Volume,
-             LastPrice: data.LastPrice,
-             AskPrice:data.AskPrice,
-             BidRatio:data.BidRatio,
-             PERatio: data.PERatio,
-             DividentDeclaredDate: data.DividentDeclaredDate,
-             DividentExDate: data.DividentExDate,
-             DividentPayDate: data.DividentPayDate,
-             DividentAmount: data.DividentAmount,
-             Frequency:data.Frequency,
-             DividentType: data.DividentType, 
-            loading:false
-          });
-      });
+  componentDidUpdate(){
+      // if(this.state.SecurityName && this.state.SecurityDescription 
+      // && this.state.BloombergUniqueID && this.state.LastPrice && this.state.AskPrice
+      // && this.state.DividentPayDate){ 
+      //   this.setState({show:true})
+      // }
   }
-  componentDidMount(){
-    this.refreshList();
-  }
-    
-    async handleSubmit(event){
+    handleSubmit(event){
       event.preventDefault();
 
        const {EquityId,SecurityName,SecurityDescription,HasPosition,IsActive,LotSize,BBGUniqueName,CUSIP,ISIN ,SEDOL,
@@ -244,8 +173,8 @@ export class EditEquity extends Component{
         DividentType: DividentType.value,
       }
       console.log(details)
-      fetch('http://localhost:14011/api/equity/'+this.state.EquityId,{
-          method:'PUT',
+      fetch('http://localhost:14011/api/equity/post',{
+          method:'POST',
           headers:{
               'Accept':'application/json',
               'Content-Type':'application/json'
@@ -271,8 +200,9 @@ export class EditEquity extends Component{
            <div className={classes.load}>
               {this.state.loading ? <div style={{textAlign:"center"}}> <CircularProgress/></div> :''}
            </div>
+           
           <Card className={classes.card} style={{background:'rgb(228 228 228)'}}>
-          <Typography variant="h4" gutterBottom component="div" className={classes.tab}>Edit Equity</Typography>
+          <Typography variant="h4" gutterBottom component="div" className={classes.tab}>Create Equity</Typography>
           <Divider/>
               <CardContent>
                  <form onSubmit={this.handleSubmit}>
@@ -281,8 +211,7 @@ export class EditEquity extends Component{
                             <div className={classes.tabHeading}>
                               <div className={classes.tabSubHeading}><Typography variant="h6" gutterBottom component="div" className={classes.tab}>Security Summary</Typography></div>
                               <Divider/>  
-                              <div className={classes.textField}><TextField name="SecurityName" label="Equity Id" variant="outlined" placeholder value={this.state.EquityId}  fullWidth disabled/></div>
-                              <div className={classes.textField}><TextField name="SecurityName" label="Security Name" variant="outlined" placeholder value={this.state.SecurityName}  fullWidth onChange={(e)=>this.setState({SecurityName:e.target.value})} required/></div>
+                              <div className={classes.textField}><TextField name="SecurityName" label="Security Name" variant="outlined" placeholder value={this.state.SecurityName}  fullWidth onChange={(e)=>this.setState({SecurityName:e.target.value})} autoFocus required/></div>
                               <div className={classes.textField}><TextField name="SecurityDescription" label="Security Description" variant="outlined" value={this.state.SecurityDescription} fullWidth onChange={(e)=>this.setState({SecurityDescription:e.target.value})} required/></div>
                               <div className={classes.textField}><TextField name="HasPosition" label="Has Position" variant="outlined" value={this.state.HasPosition} fullWidth onChange={(e)=>this.setState({HasPosition:e.target.value})} /></div>
                               <div className={classes.textField}><TextField name="IsActive" label="Is Active" variant="outlined" value={this.state.IsActive} fullWidth onChange={(e)=>this.setState({IsActive:e.target.value})}/></div>
@@ -291,13 +220,13 @@ export class EditEquity extends Component{
                             </div>
                             
                             <div className={classes.tabHeading}>
-                            <div className={classes.tabSubHeading}><Typography variant="h6" gutterBottom component="div" className={classes.tab}>Security Identifier</Typography></div>
+                              <div className={classes.tabSubHeading}><Typography variant="h6" gutterBottom component="div" className={classes.tab}>Security Identifier</Typography></div>
                               <Divider/>   
                               <div className={classes.textField}><TextField name="CUSIP" label="CUSIP" variant="outlined" fullWidth value={this.state.CUSIP} onChange={(e)=>this.setState({CUSIP:e.target.value})}/></div>
                               <div className={classes.textField}><TextField name="ISIN" label="ISIN" variant="outlined" fullWidth value={this.state.ISIN} onChange={(e)=>this.setState({ISIN:e.target.value})} /></div>
                               <div className={classes.textField}><TextField name='SEDOL' label="SEDOL" variant="outlined" fullWidth value={this.state.SEDOL} onChange={(e)=>this.setState({SEDOL:e.target.value})} /></div>
                               <div className={classes.textField}><TextField label="Bloomberg Ticket" variant="outlined" fullWidth name="BloombergTicket" value={this.state.BloombergTicket} onChange={(e)=>this.setState({BloombergTicket:e.target.value})} /></div>
-                              <div className={classes.textField}><TextField label="Bloomberg Unique ID" variant="outlined" fullWidth name="BloombergUniqueID" value={this.state.BloombergUniqueID} onChange={(e)=>this.setState({BloombergUniqueID:e.target.value})}  /></div>
+                              <div className={classes.textField}><TextField label="Bloomberg Unique ID" variant="outlined" fullWidth name="BloombergUniqueID" value={this.state.BloombergUniqueID} onChange={(e)=>this.setState({BloombergUniqueID:e.target.value})} required /></div>
                               <div className={classes.textField}><TextField label="Bloomberg Global ID" variant="outlined" fullWidth name="BloombergGlobalID" value={this.state.BloombergGlobalID} onChange={(e)=>this.setState({BloombergGlobalID:e.target.value})} /></div>
                               <div className={classes.textField}><TextField label="Ticker And Exchange" variant="outlined" fullWidth name="TickerAndExchange" value={this.state.TickerAndExchange} onChange={(e)=>this.setState({TickerAndExchange:e.target.value})} /></div>
                             </div>
@@ -314,8 +243,8 @@ export class EditEquity extends Component{
                                 <TextField
                                 label="IPO Date"
                                 fullWidth 
-                                name="IPODate"
                                 type="datetime-local"
+                                name="IPODate"
                                 value={this.state.IPODate}
                                 onChange={(e)=>this.setState({IPODate:e.target.value})}
                                 InputLabelProps={{
@@ -327,6 +256,7 @@ export class EditEquity extends Component{
                                 <TextField
                                 label="Pricing Details"
                                 fullWidth 
+                                type="datetime-local"
                                 variant="outlined"
                                 name="PricingCurrency"
                                 value={this.state.PricingCurrency}
@@ -337,28 +267,18 @@ export class EditEquity extends Component{
                                 />
                               </div>
                               <div className={classes.textField}><TextField  label="Settle Days " variant="outlined" fullWidth name="SettleDays" value={this.state.SettleDays} onChange={(e)=>this.setState({SettleDays:e.target.value})} /></div>
-                              <div className={classes.textField}>
-                                <TextField  label="Shares Outstanding" 
-                                helperText="Only Numbers are allowed"  
-                                type='number' 
-                                variant="outlined" 
-                                fullWidth 
-                                name="TotalSharesOutstanding" 
-                                value={this.state.TotalSharesOutstanding} 
-                                inputProps={{ min: "0"}}
-                                onChange={(e)=>this.setState({TotalSharesOutstanding:e.target.value})} />
-                                </div>
-                              <div className={classes.textField}><TextField  label="Voting Rights Per Share " helperText="Only Numbers are allowed" inputProps={{ min: "0"}}  type='number' variant="outlined" fullWidth name="VotingRightsPerShare" value={this.state.VotingRightsPerShare} onChange={(e)=>this.setState({VotingRightsPerShare:e.target.value})} /></div>
+                              <div className={classes.textField}><TextField  label="Shares Outstanding" helperText="Only Numbers are allowed" inputProps={{ min: "0"}}  type='number' variant="outlined" fullWidth name="TotalSharesOutstanding" value={this.state.TotalSharesOutstanding} onChange={(e)=>this.setState({TotalSharesOutstanding:e.target.value})} /></div>
+                              <div className={classes.textField}><TextField  label="Voting Rights Per Share " helperText="Only Numbers are allowed"inputProps={{ min: "0"}}  type='number' variant="outlined" fullWidth name="VotingRightsPerShare" value={this.state.VotingRightsPerShare} onChange={(e)=>this.setState({VotingRightsPerShare:e.target.value})} /></div>
                             </div>
                             
                             <div className={classes.tabHeading}>
                               <div className={classes.tabSubHeading}><Typography variant="h6" gutterBottom component="div" className={classes.tab}>Risk</Typography></div>
                               <Divider/>
-                              <div className={classes.textField}><TextField name="AverageVolume20D" helperText="Only Numbers are allowed"  type='number'  inputProps={{ min: "0"}} label="20 Day Average Volume" variant="outlined" fullWidth value={this.state.AverageVolume20D} onChange={(e)=>this.setState({AverageVolume20D:e.target.value})} /></div>
-                              <div className={classes.textField}><TextField name="Beta" helperText="Only Numbers are allowed"  type='number' inputProps={{ min: "0"}}  label="Beta" variant="outlined" fullWidth value={this.state.Beta} onChange={(e)=>this.setState({Beta:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="ShortInterest" helperText="Only Numbers are allowed"  type='number' inputProps={{ min: "0"}} label="Short Interest" variant="outlined" fullWidth value={this.state.ShortInterest} onChange={(e)=>this.setState({ShortInterest:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="ReturnYTD" helperText="Only Numbers are allowed"  type='number' type='number'inputProps={{ min: "0"}}  label="YTD Return" variant="outlined" fullWidth value={this.state.ReturnYTD} onChange={(e)=>this.setState({ReturnYTD:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="Volatility90D" helperText="Only Numbers are allowed"  type='number' label="90 Day Price Volatility" inputProps={{ min: "0"}} variant="outlined" fullWidth  value={this.state.Volatility90D} onChange={(e)=>this.setState({Volatility90D:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="AverageVolume20D" helperText="Only Numbers are allowed" inputProps={{ min: "0"}}  type='number' label="20 Day Average Volume" variant="outlined" fullWidth value={this.state.AverageVolume20D} onChange={(e)=>this.setState({AverageVolume20D:e.target.value})} /></div>
+                              <div className={classes.textField}><TextField name="Beta" helperText="Only Numbers are allowed" inputProps={{ min: "0"}}  type='number' label="Beta" variant="outlined" fullWidth value={this.state.Beta} onChange={(e)=>this.setState({Beta:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="ShortInterest" helperText="Only Numbers are allowed" inputProps={{ min: "0"}} type='number' label="Short Interest" variant="outlined" fullWidth value={this.state.ShortInterest} onChange={(e)=>this.setState({ShortInterest:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="ReturnYTD" helperText="Only Numbers are allowed" inputProps={{ min: "0"}} type='number' type='number' label="YTD Return" variant="outlined" fullWidth value={this.state.ReturnYTD} onChange={(e)=>this.setState({ReturnYTD:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="Volatility90D" helperText="Only Numbers are allowed" inputProps={{ min: "0"}} type='number' label="90 Day Price Volatility" variant="outlined" fullWidth  value={this.state.Volatility90D} onChange={(e)=>this.setState({Volatility90D:e.target.value})}/></div>
                             </div>
                             
                             <div className={classes.tabHeading}>
@@ -397,7 +317,7 @@ export class EditEquity extends Component{
                               <Divider/>
                               <div className={classes.textField}><TextField name="OpenPrice" label="Open Price " helperText="Only Numbers are allowed" inputProps={{ min: "0"}}  type='number' variant="outlined" fullWidth value={this.state.OpenPrice} onChange={(e)=>this.setState({OpenPrice:e.target.value})}/></div>
                               <div className={classes.textField}><TextField name="ClosePrice" label="Close Price" helperText="Only Numbers are allowed" inputProps={{ min: "0"}}  type='number' variant="outlined" fullWidth value={this.state.ClosePrice} onChange={(e)=>this.setState({ClosePrice:e.target.value})}/></div>
-                              <div className={classes.textField}><TextField name="Volume" label="Volume " variant="outlined" helperText="Only Numbers are allowed" inputProps={{ min: "0"}}  type='number' fullWidth value={this.state.Volume} onChange={(e)=>this.setState({Volume:e.target.value})}/></div>
+                              <div className={classes.textField}><TextField name="Volume" label="Volume " variant="outlined" helperText="Only Numbers are allowed" inputProps={{ min: "0"}} type='number' fullWidth value={this.state.Volume} onChange={(e)=>this.setState({Volume:e.target.value})}/></div>
                               <div className={classes.textField}><TextField name="LastPrice" label="Last Price " variant="outlined" helperText="Only Numbers are allowed" inputProps={{ min: "0"}}  type='number' fullWidth value={this.state.LastPrice} onChange={(e)=>this.setState({LastPrice:e.target.value})} required/></div>
                               <div className={classes.textField}><TextField name="AskPrice" label="Ask Price " variant="outlined" helperText="Only Numbers are allowed" inputProps={{ min: "0"}}  type='number' fullWidth value={this.state.AskPrice} onChange={(e)=>this.setState({AskPrice:e.target.value})} required/></div>
                               <div className={classes.textField}><TextField name="BidRatio" label="Bid Price " variant="outlined" helperText="Only Numbers are allowed" inputProps={{ min: "0"}}  type='number' fullWidth value={this.state.BidRatio} onChange={(e)=>this.setState({BidRatio:e.target.value})}/></div>
@@ -437,8 +357,8 @@ export class EditEquity extends Component{
                               <TextField
                               label="Record Date"
                               fullWidth 
-                              type="datetime-local"
                               name="DividentRecordDate"
+                              type="datetime-local"
                               value={this.state.DividentRecordDate}
                               onChange={(e)=>this.setState({DividentRecordDate:e.target.value})}
                               InputLabelProps={{
@@ -449,11 +369,12 @@ export class EditEquity extends Component{
                               <div className={classes.textField}>
                               <TextField
                               label="Pay Date"
-                              fullWidth 
                               type="datetime-local"
+                              fullWidth 
                               name="DividentPayDate"
                               value={this.state.DividentPayDate}
                               onChange={(e)=>this.setState({DividentPayDate:e.target.value})}
+                              required
                               InputLabelProps={{
                                 shrink: true,
                               }}
@@ -464,7 +385,13 @@ export class EditEquity extends Component{
                               <div className={classes.textField}><TextField name="DividentType" label="Divident Type" variant="outlined" fullWidth value={this.state.DividentType} onChange={(e)=>this.setState({DividentType:e.target.value})}/></div>
                             </div>
                         </div> 
-                    <div style={{textAlign:'center'}}><Button variant="contained" className={classes.saveButton} style={{backgroundColor:"rgb(47, 46, 65)",marginTop:'20px'}} type="submit">SAVE</Button></div>
+                    <div style={{textAlign:'center'}}>
+                       {/* {this.state.show ?  */}
+                       <Button variant="contained" className={classes.saveButton} style={{backgroundColor:"rgb(47, 46, 65)",marginTop:'20px'}} type="submit">SAVE</Button>
+                       {/* :
+                       <Button variant="contained" className={classes.saveButton} style={{backgroundColor:"gray",marginTop:'20px'}} type="submit" disabled>SAVE</Button>
+                       } */}
+                    </div>
                     </MuiPickersUtilsProvider>  
                  </form>
               </CardContent>
@@ -472,7 +399,7 @@ export class EditEquity extends Component{
           </Card>
           <Snackbar open={this.state.open} autoHideDuration={6000} onClose={this.handleClose}>
           <Alert onClose={this.handleClose} severity="success" sx={{ width: '100%' }}>
-             Equity Edited Successfully !!
+             Equity Created Successfully !!
           </Alert>
         </Snackbar>
         <Snackbar open={this.state.openError} autoHideDuration={6000} onClose={this.handleCloseError}>
@@ -485,4 +412,4 @@ export class EditEquity extends Component{
   }
 }
 
-export default withStyles(styles) (EditEquity)
+export default withStyles(styles) (CreateEquity)

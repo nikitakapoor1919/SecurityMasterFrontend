@@ -3,13 +3,13 @@ import {Button, Dialog,DialogActions,DialogTitle,DialogContent,DialogContentText
 import '../../../styles/styles.css'
 import styles from '../../../styles/styles'
 import AppBar from '@mui/material/AppBar'
-import UploadBond from './UploadBond'
+import UploadEquity from './UploadEquity'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import MuiAlert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
-import CreateBond from './CreateBond';
+import CreateEquity from './CreateEquity';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import { withStyles } from '@material-ui/core/styles';
@@ -19,20 +19,20 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export class Bonds extends Component {
+export class Equities extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
-        bonds:[], success:false,open:false,bid:'',view:'one',
-        value:'one',len:0,perPage:10,currentPage:1,pages:0,time:null,rowAlert:false
+        Equities:[], success:false,open:false,bid:'',view:'one',
+        value:'one',len:0,perPage:10,currentPage:1,pages:0,time:null,rowALert:false
       }
     }
   refreshList(){
-      fetch('http://localhost:14011/api/bond?per_page='+this.state.perPage+'+&current_page='+this.state.currentPage)
+      fetch('http://localhost:14011/api/equity?per_page='+this.state.perPage+'+&current_page='+this.state.currentPage)
       .then(response=>response.json())
       .then(data=>{
-          this.setState({bonds:data,len:data.length});
+          this.setState({Equities:data,len:data.length});
       });
   }
   handleChange = (event, newValue) => {
@@ -41,7 +41,6 @@ export class Bonds extends Component {
   componentDidMount(){
       this.refreshList();
       this.getCount();
-      // setInterval(() => this.setState({ time: Date.now()}), 2000)
   }
   
   componentDidUpdate(){
@@ -50,8 +49,8 @@ export class Bonds extends Component {
   handleOpen = (bid) => this.setState({open:true,bid:bid})
   handleCloseDialog = () => this.setState({open:false})
   
-  deleteBond=(bondId)=>{
-    fetch('http://localhost:14011/api/bond/'+bondId,{
+  deleteEquity=(equityId)=>{
+    fetch('http://localhost:14011/api/equity/'+equityId,{
           method:'DELETE',
           header:{'Accept':'application/json',
       'Content-Type':'application/json'}
@@ -64,7 +63,7 @@ export class Bonds extends Component {
     })
   }
   getCount=()=>{
-    fetch('http://localhost:14011/api/bond/count',{
+    fetch('http://localhost:14011/api/equity/count',{
           method:'GET',
           header:{'Accept':'application/json',
       'Content-Type':'application/json'}
@@ -80,6 +79,9 @@ export class Bonds extends Component {
   handleClose=()=>{
     this.setState({success:false})
   }
+  handleRowAlertClose=()=>{
+    this.setState({rowAlert:false})
+  }
   previousButton() {
     let currentPage = this.state.currentPage;
     if(currentPage !==1){
@@ -92,7 +94,7 @@ export class Bonds extends Component {
     return null;
   }
   
-  nextButton=()=>{
+  nextButton(){
     if(this.state.currentPage <this.state.pages){
       return (
         <Typography variant="h6"  style={{cursor: "pointer"}}>
@@ -126,12 +128,9 @@ export class Bonds extends Component {
       this.setState({rowAlert:true})
     }
   }
-  handleRowAlertClose=()=>{
-    this.setState({rowAlert:false})
-  }
   render() {
     const {classes} = this.props;
-    const {bonds,open}=this.state;
+    const {Equities,open}=this.state;
             return(
                 <Container>
                 <AppBar position="static" className={classes.appbar} style={{background:'#f5f4f4',color:'black'}}>
@@ -147,50 +146,48 @@ export class Bonds extends Component {
                   </Alert>
                 </Snackbar>
                 <Snackbar open={this.state.rowAlert} autoHideDuration={6000} onClose={this.handleRowAlertClose}>
-                    <Alert onClose={this.handleRowAlertClose} severity="error" sx={{ width: '100%' }}>
-                      Rows Per Page can't be less than one !!
-                    </Alert>
+                      <Alert onClose={this.handleRowAlertClose} severity="error" sx={{ width: '100%' }}>
+                        Rows Per Page can't be less than one !!
+                      </Alert>
                 </Snackbar>
                     {this.state.view==='one'?<div style={{overflowX:'auto'}}>
                     <div className={classes.rowField}>
                       <div><TextField label="Current Page Number" value={this.state.currentPage} type='number' variant="outlined" disabled/></div>
-                      <div className={classes.rowHeading}><Typography variant='h4' style={{fontWeight:'bold'}}>BONDS LIST</Typography></div>
+                      <div className={classes.rowHeading}><Typography variant='h4' style={{fontWeight:'bold'}}>EQUITIES LIST</Typography></div>
                       <div><TextField label="Rows Per Page" value={this.state.perPage} type='number' variant="outlined" onChange={(e)=>this.onRowChange(e)}/></div>
                     </div>
                     <table className="mt-4" striped bordered hover size="sm">
-                        <thead>
+                    <thead>
                             <tr>
-                                <th>SNo</th>
+                                <th>SNo.</th>
                                 <th>Name</th>
                                 <th>Description</th>
-                                <th>Asset</th>
-                                <th>First Coupon Date</th>
-                                <th>Issue Date</th>
-                                <th>Investment Type</th>
                                 <th>Country Of Issurance</th>
-                                <th>Issue Currency</th>
-                                <th>Credit Rating</th>
-                                <th>Coupon Type</th>
+                                <th>Divident Type</th>
+                                <th>CUSIP</th>
+                                <th>ISIN</th>
+                                <th>SEDOL</th>
+                                <th>Bloomberg Ticker</th>
+                                <th>Trading Currency</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {bonds.map((bond,index)=>
-                                <tr key={bond.BondId}>
-                                     <td data-column="SNo.">{index+1}</td>
-                                    <td data-column="Name">{bond.SecurityName ? bond.SecurityName : '...'}</td>
-                                    <td data-column="Description">{bond.SecurityDescription ? bond.SecurityDescription:  '...'}</td>
-                                    <td data-column="Asset">{bond.AssetType ? bond.AssetType : '...'}</td>
-                                    <td data-column="First Coupan Date">{bond.FirstCouponDate ? bond.FirstCouponDate.substring(0,10) : '...'}</td>
-                                    <td data-column="Issue Date">{bond.IssueDate ?bond.IssueDate.substring(0,10): '...'}</td>
-                                    <td data-column="Investment Type">{bond.InvestmentType? bond.InvestmentType : '...'}</td>
-                                    <td data-column="Country Of Issurance">{bond.CountryOfIssurance? bond.CountryOfIssurance : '...'}</td>
-                                    <td data-column="Issuer Currency">{bond.IssueCurrency? bond.IssueCurrency : '...'}</td>   
-                                    <td data-column="Rating">{bond.PFCreditRating? bond.PFCreditRating : '...'}</td>
-                                    <td data-column="Coupon Type">{bond.CouponType? bond.CouponType : '...'}</td> 
+                            {Equities.map((Equity,index) =>
+                                <tr key={Equity.EquityId}>
+                                    <td data-column="SNo.">{index+1}</td>
+                                    <td data-column="Name">{Equity.SecurityName ? Equity.SecurityName :'---' }</td>
+                                    <td data-column="Description">{Equity.SecurityDescription ? Equity.SecurityDescription:'---'}</td>
+                                    <td data-column="Country">{Equity.CountryOfIssurance ? Equity.CountryOfIssurance:'---'}</td>
+                                    <td data-column="DividentType">{Equity.DividentType ? Equity.DividentType:'---'}</td>
+                                    <td data-column="CUSIP">{Equity.CUSIP ? Equity.CUSIP:'---'}</td>
+                                    <td data-column="ISIN">{Equity.ISIN ? Equity.ISIN: '---'}</td>
+                                    <td data-column="SEDOL">{Equity.SEDOL ? Equity.SEDOL:'---'}</td>
+                                    <td data-column="Bloomberg Ticker">{Equity.BloombergTicket ? Equity.BloombergTicket:'---'}</td>
+                                    <td data-column="Trading Currency">{Equity.TradingCurrency ? Equity.TradingCurrency:'---'}</td>
                                     <td data-column="Actions">
-                                        <div style={{display:'flex'}}>
-                                        <IconButton href={`bond/${bond.BondId}`}><MoreHorizIcon/></IconButton><IconButton href={`bond-edit/${bond.BondId}`}><EditIcon/></IconButton><IconButton onClick={()=>this.handleOpen(bond.BondId)}><DeleteIcon /></IconButton>
+                                        <div style={{ display: 'flex' }}>
+                                            <IconButton href={`equity/${Equity.EquityId}`}><MoreHorizIcon /></IconButton><IconButton href={`Equity-edit/${Equity.EquityId}`}><EditIcon /></IconButton><IconButton onClick={() => this.handleOpen(Equity.EquityId)}><DeleteIcon /></IconButton>
                                         </div>
                                     </td>
                                 </tr>)
@@ -201,7 +198,7 @@ export class Bonds extends Component {
                         {this.previousButton()}
                         {this.nextButton()}
                     </div>
-                    </div>:this.state.view==='two' ?<UploadBond/>:this.state.view==='three' ?<CreateBond/>:''}
+                    </div>:this.state.view==='two' ?<UploadEquity/>:this.state.view==='three' ?<CreateEquity/>:''}
                     <Dialog
                         open={this.state.open}
                         onClose={this.handleCloseDialog}
@@ -219,7 +216,7 @@ export class Bonds extends Component {
                         </DialogContent>
                         <DialogActions>
                           <Button onClick={this.handleCloseDialog}>NO</Button>
-                          <Button onClick={()=>this.deleteBond(this.state.bid)} autoFocus>
+                          <Button onClick={()=>this.deleteEquity(this.state.bid)} autoFocus>
                             YES
                           </Button>
                         </DialogActions>
@@ -229,4 +226,4 @@ export class Bonds extends Component {
   }
 }
 
-export default withStyles(styles) (Bonds)
+export default withStyles(styles) (Equities)

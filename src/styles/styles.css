@@ -14,16 +14,22 @@ th {
   background: rgb(47, 49, 58);
   color: white;
   font-weight: bold;
+  text-transform: uppercase;
 }
-
+tr {
+  border-bottom: 1px solid rgb(190 191 197);
+}
 td,
 th {
   padding: 10px;
-  text-align: left;
+  text-align: center;
   font-size: 1rem;
 }
 tr:hover {
   background-color: #d3d3d3;
+}
+td {
+  width: 30%;
 }
 @media only screen and (max-width: 760px),
   (min-device-width: 768px) and (max-device-width: 1024px) {
@@ -45,7 +51,6 @@ tr:hover {
   tr {
     display: block;
   }
-
   thead tr {
     position: absolute;
     top: -9999px;
@@ -57,7 +62,9 @@ tr:hover {
     border: 1px solid #ccc;
   }
 
+  th,
   td {
+    text-align: left;
     height: 50px;
     border: none;
     border-bottom: 1px solid #eee;
@@ -79,5 +86,8 @@ tr:hover {
     content: attr(data-column);
     color: #000;
     font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }

@@ -73,15 +73,7 @@ function ResponsiveDrawer(props) {
     <>
     <div className={classes.root}>
       <CssBaseline />
-      {/* <IconButton
-        color="inherit"
-        aria-label="open drawer"
-        edge="start"
-        onClick={handleDrawerToggle}
-        className={classes.menuButton}
-      >
-        <MenuIcon/>
-      </IconButton> */}
+      <NavigationBar show={true} handleDrawerToggle={handleDrawerToggle}/>
       <nav className={classes.drawer} aria-label="mailbox folders" >
     
         <Hidden smUp implementation="css">

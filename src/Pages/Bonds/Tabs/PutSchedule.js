@@ -11,24 +11,20 @@ export class PutSchedule extends Component {
         if (this.props.currentStep !== 7) {
             return null
         } 
-        const {classes}=this.props
+        const {classes,bond}=this.props
         return (
             <div className="botton-margin">
                 <Typography variant="h4" className={classes.topHeading}  style={{fontWeight:700}}>Put Schedule</Typography>
-                {this.props.bonds.map(bond=>
-                bond.BondId == this.props.bid ?
                 <List sx={{ width: '100%', margin:'0 auto', background:'#f5f4f4' }} className={classes.listTable}>
                     <ListItem alignItems="flex-start">
                         <ListItemText className={classes.listFirst}>Put Date</ListItemText>
-                        <ListItemText  className={classes.listSecond}>{bond.PutDate}</ListItemText>
+                        <ListItemText  className={classes.listSecond}>{!bond.PutDate ? '---':bond.PutDate.substring(0,10) }</ListItemText>
                     </ListItem>
                     <ListItem alignItems="flex-start">
                         <ListItemText className={classes.listFirst}>Put Price</ListItemText>
-                        <ListItemText className={classes.listSecond}>{bond.PutPrice}</ListItemText>
+                        <ListItemText className={classes.listSecond}>{!bond.PutPrice ? '---':bond.PutPrice}</ListItemText>
                     </ListItem>
                 </List>
-                 : null)
-                }
             </div>
         )
     }

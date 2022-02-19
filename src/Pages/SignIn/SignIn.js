@@ -1,70 +1,37 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
+import React,{ useState}  from 'react'
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { withStyles } from '@material-ui/core/styles';
-import styles from '../../styles/styles';
+import { connect } from 'react-redux';
+import { createTheme,} from '@mui/material/styles';;
 
-
+const login = (email, password) => fetch('http://localhost:3005/api/login',
+{
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify({
+        email,
+        password
+    })
+}).then(res => res.json())
 
 const theme = createTheme();
 
 function SignIn(props) {
-  const {classes} = props;  
-  const [email, setEmail] = React.useState(null);
-  const [password, setPassword] = React.useState(null);
-  const[signInError, setSignInError] = React.useState(null);
+  const [email,setEmail]=useState('');
+  const [password,setPassword]=useState('');  
   
-  const handleSubmit = (event) => {
-    // event.preventDefault();
-    // const data = new FormData(event.currentTarget);
-    // console.log({
-    //   email: data.get('email'),
-    //   password: data.get('password'),
-    // });
-    // let data={
-    //   email: data.get('email'),
-    //   password: data.get('password'),
-    // }
-    // this.setState({loading:true})
-    // fetch('http://localhost:14011/api/user/'+email)
-    // .then(response=>response.json())
-    // .then(data=>{
-    //     console.log(data)
-    //     this.setState({bonds:data,});
-    // })
-  };
-  const userTyping=(type,e)=>{
-    switch(type){
-        case 'email':
-            setEmail(e.target.value)
-            break
-        case 'password':
-            setPassword(e.target.value)
-            break      
-        default:
-             break
-    }
-  }
-  const search=()=>{
-    this.setState({loading:true})
-    fetch('http://localhost:14011/api/user/'+email)
-    .then(response=>response.json())
-    .then(data=>{
-        console.log(data)
-        this.setState({bonds:data,});
-    })
-}
+  const handleEmailChange = (e) => setEmail(e.target.value)
+  const handlePasswordChange = (e) => setPassword(e.target.value)
+
   return (
     <div >
       <Grid container component="main" sx={{ height: '100vh' }}>
@@ -81,7 +48,7 @@ function SignIn(props) {
             backgroundPosition: 'center',
           }}
         >
-          <div className={classes. loginHeading}>
+          <div>
             <Typography  variant="h1">
               SECURITY MASTER
             </Typography>
@@ -101,15 +68,12 @@ function SignIn(props) {
             <Typography component="h1" variant="h4" style={{lineHeight:' 1.37'}}>
               Sign in
             </Typography>
-            {
-              signInError ? 
-              <Typography className={classes.errorText} component='h5' variant='h6'>
-               {signInError}
-              </Typography>:
-              null
+            {props.loginForm.error && 
+              <Typography component='h5' variant='h6'>{props.loginForm.error}</Typography>
             }
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            <Box component="form" noValidate sx={{ mt: 1 }}>
               <TextField
+                type='email'
                 margin="normal"
                 required
                 fullWidth
@@ -118,7 +82,7 @@ function SignIn(props) {
                 name="email"
                 autoComplete="email"
                 autoFocus
-                onChange={(e)=> this.userTyping('email',e)}
+                onChange={handleEmailChange}
               />
               <TextField
                 margin="normal"
@@ -129,15 +93,16 @@ function SignIn(props) {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                onChange={(e)=> this.userTyping('password',e)}
+                onChange={handlePasswordChange} 
               />  
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                className={classes.loginButton}
+                // className={classes.loginButton}
                 style={{backgroundColor:'rgb(242, 206, 114)',color:'black'}}
+                onClick={() => props.handleLogin(email,password)}
               >
                 Sign In
               </Button>
@@ -155,4 +120,26 @@ function SignIn(props) {
     </div>
   );
 }
-export default withStyles(styles) (SignIn)
+
+const mapStateToProps = function (state) {
+  return {
+      loginForm: state.loginForm 
+  }
+}
+
+const mapDispatchToProps = function (dispatch) {
+  return {
+      handleLogin: (username, password) => {
+          dispatch({ type: 'LOGIN_STARTED' });
+          login(username, password)
+              .then(res => {
+                  if (res.status === 'success') {
+                      dispatch({ type: 'LOGIN_COMPLETED' })
+                  } else
+                      dispatch({ type: 'LOGIN_FAILED' })
+              })
+      }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn)

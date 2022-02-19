@@ -4,17 +4,16 @@ import '../../../styles/styles.css'
 import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import SecurityAndSummary from '../Tabs/SecuritySummary';
+import PricingDetails from '../Tabs/PricingDetails';
+import DividentHistory from '../Tabs/DividentHistory';
+import SecuritySummary from '../Tabs/SecuritySummary';
 import SecurityIdentifier from '../Tabs/SecurityIdentifier';
 import SecurityDetails from '../Tabs/SecurityDetails';
 import Risk from '../Tabs/Risk';
 import RegulatoryDetails from '../Tabs/RegulatoryDetails';
 import ReferenceData from '../Tabs/ReferenceData';
-import PricingAndAnalytics from '../Tabs/PricingAndAnalytics';
-import CallSchedule from '../Tabs/CallSchedule';
-import PutSchedule from '../Tabs/PutSchedule';
 
-class ViewBonds extends React.Component {
+class ViewEquity extends React.Component {
 
     
     constructor(props) {
@@ -23,22 +22,22 @@ class ViewBonds extends React.Component {
         currentStep: 1,
         email:  '',
         myStep:this.props.step,
-        bond:{},
+        equity:{},
       }
     }
-     
+
     refreshList(){
-      fetch('http://localhost:14011/api/bond/'+this.props.bid)
+      fetch('http://localhost:14011/api/equity/'+this.props.eid)
       .then(response=>response.json())
       .then(data=>{
-          this.setState({bond:data});
+          this.setState({equity:data});
           console.log(data)
       });
   }
 
     _next = () => {
       let currentStep = this.state.currentStep
-      currentStep = currentStep >= 8? 9: currentStep + 1
+      currentStep = currentStep >= 7? 8: currentStep + 1
       this.setState({
         currentStep: currentStep
       })
@@ -68,7 +67,7 @@ class ViewBonds extends React.Component {
   
   nextButton(){
     let currentStep = this.state.currentStep;
-    if(currentStep <9){
+    if(currentStep <8){
       return (
         <Typography variant="h6"  style={{cursor: "pointer"}}>
         <Button onClick={this._next}>Next <KeyboardArrowRight /></Button>
@@ -82,7 +81,6 @@ class ViewBonds extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // this.refreshList();
     if (this.state.currentStep !==this.props.step) {
       this.setState({currentStep:this.props.step  });
     }
@@ -96,15 +94,14 @@ class ViewBonds extends React.Component {
             {this.nextButton()}
           </div>
           <div style={{marginBottom:40}}/>
-          <SecurityAndSummary currentStep={this.state.currentStep} bond={this.state.bond}/>
-          <SecurityIdentifier currentStep={this.state.currentStep} bond={this.state.bond}/>
-          <SecurityDetails currentStep={this.state.currentStep} bond={this.state.bond}/>
-          <Risk currentStep={this.state.currentStep} bond={this.state.bond}/>
-          <RegulatoryDetails currentStep={this.state.currentStep} bond={this.state.bond}/>
-          <ReferenceData currentStep={this.state.currentStep} bond={this.state.bond}/>
-          <PutSchedule currentStep={this.state.currentStep} bond={this.state.bond}/>
-          <PricingAndAnalytics currentStep={this.state.currentStep} bond={this.state.bond}/>
-          <CallSchedule currentStep={this.state.currentStep} bond={this.state.bond}/> 
+          <SecuritySummary currentStep={this.state.currentStep} equity={this.state.equity}/>
+          <SecurityIdentifier currentStep={this.state.currentStep} equity={this.state.equity}/>
+          <SecurityDetails currentStep={this.state.currentStep} equity={this.state.equity}/>
+          <Risk currentStep={this.state.currentStep} equity={this.state.equity}/>
+          <RegulatoryDetails currentStep={this.state.currentStep} equity={this.state.equity}/>
+          <ReferenceData currentStep={this.state.currentStep} equity={this.state.equity}/>
+          <PricingDetails currentStep={this.state.currentStep} equity={this.state.equity}/>
+          <DividentHistory currentStep={this.state.currentStep} equity={this.state.equity}/>
           <div style={this.state.currentStep != 1 ? {display:"flex",justifyContent: "space-between"}: {display:"flex",justifyContent: "flex-end"}}>
             {this.previousButton()}
             {this.nextButton()}
@@ -114,5 +111,5 @@ class ViewBonds extends React.Component {
       );
     }
   }
-export default ViewBonds;
+export default ViewEquity;
   

@@ -60,11 +60,15 @@ export default function FormDialog(props) {
       props.onErrorChange(false) 
       props.onProgressChange(false)
       props.onSuccessfullyUpload(true)
+      setShow(false)
+      setSelectedFile(false)
     })
     .catch((error) => {  
       props.onUploadError(true)
       props.onProgressChange(false)
       console.log(error)
+      setShow(false)
+      setSelectedFile(false)
     })
   };
   const classes = useStyles();
@@ -81,7 +85,7 @@ export default function FormDialog(props) {
           </Button>
           </div>
           <div>
-          <Button variant="contained" className={classes.btn3} onClick={handleClick} startIcon={<CloudUploadIcon />}>
+          <Button variant="contained" disabled className={classes.btn3} onClick={handleClick} startIcon={<CloudUploadIcon />}>
             CHOOSE FILE
           </Button>
           </div>
