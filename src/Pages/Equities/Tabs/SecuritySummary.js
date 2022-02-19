@@ -25,11 +25,11 @@ export class SecuritySummary extends Component {
                                     </ListItem>
                                     <ListItem alignItems="flex-start">
                                         <ListItemText className={classes.listFirst}>Has Position</ListItemText>
-                                        <ListItemText className={classes.listSecond}>{equity.HasPosition ? equity.HasPosition:'---'}</ListItemText>
+                                        <ListItemText className={classes.listSecond}>{equity.HasPosition ? 'True':'False'}</ListItemText>
                                     </ListItem>
                                     <ListItem alignItems="flex-start">
                                         <ListItemText className={classes.listFirst}>Is Active </ListItemText>
-                                        <ListItemText className={classes.listSecond}>{equity.IsActive ? equity.IsActive:'---'}</ListItemText>
+                                        <ListItemText className={classes.listSecond}>{equity.IsActive ? 'True':'False'}</ListItemText>
                                     </ListItem>
                                     <ListItem alignItems="flex-start">
                                         <ListItemText className={classes.listFirst}>Round Lot Size</ListItemText>
