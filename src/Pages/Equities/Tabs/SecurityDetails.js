@@ -17,7 +17,7 @@ export class SecurityDetails extends Component {
                         <List sx={{ width: '100%', margin:'0 auto', background:'#f5f4f4' }} className={classes.listTable}>
                             <ListItem alignItems="flex-start">
                                 <ListItemText className={classes.listFirst}>Is ADR</ListItemText>
-                                <ListItemText  className={classes.listSecond}>{equity.IsADR ? equity.IsADR:'---'}</ListItemText>
+                                <ListItemText  className={classes.listSecond}>{equity.IsADR ? 'True':'False'}</ListItemText>
                             </ListItem>
                             <ListItem alignItems="flex-start">
                                 <ListItemText className={classes.listFirst}>ADR Underlying Ticker</ListItemText>

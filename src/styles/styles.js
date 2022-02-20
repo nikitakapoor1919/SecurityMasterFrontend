@@ -262,6 +262,17 @@ const styles = theme => ({
     rowHeading:{
         marginTop:20,
         marginBottom:20,
+    },
+    input: {
+        "&:invalid": {
+          border: "red solid 2px"
+        }
+      },
+    actionButton:{
+    display:'flex',
+    '@media screen and (max-width: 1024px)': {
+        display:'block',
+        } 
     }
 });
   

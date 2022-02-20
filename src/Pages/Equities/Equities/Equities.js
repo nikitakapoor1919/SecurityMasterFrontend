@@ -133,7 +133,7 @@ export class Equities extends Component {
     const {Equities,open}=this.state;
             return(
                 <Container>
-                <AppBar position="static" className={classes.appbar} style={{background:'#f5f4f4',color:'black'}}>
+                <AppBar position="static" className={classes.appbar} style={{background:'#e0e0e0',color:'black'}}>
                   <div className={classes.tabContainer}>
                     <Button color="inherit" onClick={()=>this.setState({view:'one'})}>View</Button>
                     <Button color="inherit" onClick={()=>this.setState({view:'two'})}>Upload</Button>
@@ -156,6 +156,7 @@ export class Equities extends Component {
                       <div className={classes.rowHeading}><Typography variant='h4' style={{fontWeight:'bold'}}>EQUITIES LIST</Typography></div>
                       <div><TextField label="Rows Per Page" value={this.state.perPage} type='number' variant="outlined" onChange={(e)=>this.onRowChange(e)}/></div>
                     </div>
+                    <div style={{overflowX:'auto'}}>
                     <table className="mt-4" striped bordered hover size="sm">
                     <thead>
                             <tr>
@@ -186,7 +187,7 @@ export class Equities extends Component {
                                     <td data-column="Bloomberg Ticker">{Equity.BloombergTicket ? Equity.BloombergTicket:'---'}</td>
                                     <td data-column="Trading Currency">{Equity.TradingCurrency ? Equity.TradingCurrency:'---'}</td>
                                     <td data-column="Actions">
-                                        <div style={{ display: 'flex' }}>
+                                        <div className={classes.actionButton}>
                                             <IconButton href={`equity/${Equity.EquityId}`}><MoreHorizIcon /></IconButton><IconButton href={`Equity-edit/${Equity.EquityId}`}><EditIcon /></IconButton><IconButton onClick={() => this.handleOpen(Equity.EquityId)}><DeleteIcon /></IconButton>
                                         </div>
                                     </td>
@@ -194,6 +195,7 @@ export class Equities extends Component {
                             }
                         </tbody>
                     </table>
+                    </div>
                     <div style={this.state.currentPage != 1 ? {display:"flex",justifyContent: "space-between"}: {display:"flex",justifyContent: "flex-end"}}>
                         {this.previousButton()}
                         {this.nextButton()}

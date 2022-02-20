@@ -46,11 +46,11 @@ export class SecurityDetails extends Component {
                             </ListItem>
                             <ListItem alignItems="flex-start">
                                 <ListItemText className={classes.listFirst}>Is Callable</ListItemText>
-                                <ListItemText  className={classes.listSecond}>{!bond.CallableFlag ? '---':bond.CallableFlag}</ListItemText>
+                                <ListItemText  className={classes.listSecond}>{!bond.CallableFlag ? 'False':'True'}</ListItemText>
                             </ListItem>
                             <ListItem alignItems="flex-start">
                                 <ListItemText className={classes.listFirst}>Is Fix to Float</ListItemText>
-                                <ListItemText className={classes.listSecond}>{!bond.FixToFloatFlag? '---':bond.FixToFloatFlag}</ListItemText>
+                                <ListItemText className={classes.listSecond}>{!bond.FixToFloatFlag? 'False':'True'}</ListItemText>
                             </ListItem>
                             <ListItem alignItems="flex-start">
                                 <ListItemText className={classes.listFirst}>Is Putable</ListItemText>
@@ -86,7 +86,7 @@ export class SecurityDetails extends Component {
                             </ListItem>
                             <ListItem alignItems="flex-start">
                                 <ListItemText className={classes.listFirst}>Has Position</ListItemText>
-                                <ListItemText className={classes.listSecond}>{!bond.HasPosition? '---':bond.HasPosition}</ListItemText>
+                                <ListItemText className={classes.listSecond}>{!bond.HasPosition? 'False':'True'}</ListItemText>
                             </ListItem>
                         </List>
             </div>

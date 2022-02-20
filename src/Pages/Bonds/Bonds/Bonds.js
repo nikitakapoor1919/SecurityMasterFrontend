@@ -134,7 +134,7 @@ export class Bonds extends Component {
     const {bonds,open}=this.state;
             return(
                 <Container>
-                <AppBar position="static" className={classes.appbar} style={{background:'#f5f4f4',color:'black'}}>
+                <AppBar position="static" className={classes.appbar} style={{background:'#e0e0e0',color:'black'}}>
                   <div className={classes.tabContainer}>
                     <Button color="inherit" onClick={()=>this.setState({view:'one'})}>View</Button>
                     <Button color="inherit" onClick={()=>this.setState({view:'two'})}>Upload</Button>
@@ -151,21 +151,23 @@ export class Bonds extends Component {
                       Rows Per Page can't be less than one !!
                     </Alert>
                 </Snackbar>
-                    {this.state.view==='one'?<div style={{overflowX:'auto'}}>
+                    {this.state.view==='one'?
+                    <div >
                     <div className={classes.rowField}>
                       <div><TextField label="Current Page Number" value={this.state.currentPage} type='number' variant="outlined" disabled/></div>
                       <div className={classes.rowHeading}><Typography variant='h4' style={{fontWeight:'bold'}}>BONDS LIST</Typography></div>
                       <div><TextField label="Rows Per Page" value={this.state.perPage} type='number' variant="outlined" onChange={(e)=>this.onRowChange(e)}/></div>
                     </div>
+                    <div style={{overflowX:'auto'}}>
                     <table className="mt-4" striped bordered hover size="sm">
                         <thead>
                             <tr>
-                                <th>SNo</th>
+                                <th >SNo</th>
                                 <th>Name</th>
                                 <th>Description</th>
                                 <th>Asset</th>
-                                <th>First Coupon Date</th>
-                                <th>Issue Date</th>
+                                <th className='colDate1'>First Coupon Date</th>
+                                <th className='colDate2'>Issue Date</th>
                                 <th>Investment Type</th>
                                 <th>Country Of Issurance</th>
                                 <th>Issue Currency</th>
@@ -189,7 +191,7 @@ export class Bonds extends Component {
                                     <td data-column="Rating">{bond.PFCreditRating? bond.PFCreditRating : '...'}</td>
                                     <td data-column="Coupon Type">{bond.CouponType? bond.CouponType : '...'}</td> 
                                     <td data-column="Actions">
-                                        <div style={{display:'flex'}}>
+                                        <div className={classes.actionButton}>
                                         <IconButton href={`bond/${bond.BondId}`}><MoreHorizIcon/></IconButton><IconButton href={`bond-edit/${bond.BondId}`}><EditIcon/></IconButton><IconButton onClick={()=>this.handleOpen(bond.BondId)}><DeleteIcon /></IconButton>
                                         </div>
                                     </td>
@@ -197,6 +199,7 @@ export class Bonds extends Component {
                             }
                         </tbody>
                     </table>
+                    </div>
                     <div style={this.state.currentPage != 1 ? {display:"flex",justifyContent: "space-between"}: {display:"flex",justifyContent: "flex-end"}}>
                         {this.previousButton()}
                         {this.nextButton()}
