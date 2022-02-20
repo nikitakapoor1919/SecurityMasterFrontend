@@ -1,0 +1,213 @@
+USE SecurityMasterDB
+GO
+/****** Object:  Trigger dbo.trDeleteEquity    Script Date: 20-02-2022 09:24:28 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TRIGGER dbo.trUpdateEquity  ON dbo.Equities
+    FOR UPDATE
+AS 
+BEGIN
+    DECLARE @AuditId INT
+	
+    SELECT @AuditId=EquityID FROM INSERTED
+
+    INSERT INTO dbo.AuditEquities
+        (AuditId
+      ,d.Operation
+      ,d.OldSecurityName
+      ,d.NewSecurityName
+      ,d.OldSecurityDescription
+      ,d.NewSecurityDescription
+      ,d.OldHasPosition
+      ,d.NewHasPosition
+      ,d.OldIsActive
+      ,d.NewIsActive
+      ,d.OldLotSize
+      ,d.NewLotSize
+      ,d.OldBBGUniqueName
+      ,d.NewBBGUniqueName
+      ,d.OldCUSIP
+      ,d.NewCUSIP
+      ,d.OldISIN
+      ,d.NewISIN
+      ,d.OldSEDOL
+      ,d.NewSEDOL
+      ,d.OldBloombergTicket
+      ,d.NewBloombergTicket
+      ,d.OldBloombergUniqueID
+      ,d.NewBloombergUniqueID
+      ,d.OldBloombergGlobalID
+      ,d.NewBloombergGlobalID
+      ,d.OldTickerAndExchange
+      ,d.NewTickerAndExchange
+      ,d.OldIsADR
+      ,d.NewIsADR
+      ,d.OldADRUnderlyingTicker
+      ,d.NewADRUnderlyingTicker
+      ,d.OldADRUnderlyingCurrency
+      ,d.NewADRUnderlyingCurrency
+      ,d.OldSharesPerADR
+      ,d.NewSharesPerADR
+      ,d.OldIPODate
+      ,d.NewIPODate
+      ,d.OldPricingCurrency
+      ,d.NewPricingCurrency
+      ,d.OldSettleDays
+      ,d.NewSettleDays
+      ,d.OldTotalSharesOutstanding
+      ,d.NewTotalSharesOutstanding
+      ,d.OldVotingRightsPerShare
+      ,d.NewVotingRightsPerShare
+      ,d.OldAverageVolume20D
+      ,d.NewAverageVolume20D
+      ,d.OldBeta
+      ,d.NewBeta
+      ,d.OldShortInterest
+      ,d.NewShortInterest
+      ,d.OldReturnYTD
+      ,d.NewReturnYTD
+      ,d.OldVolatility90D
+      ,d.NewVolatility90D
+      ,d.OldPFAssetClass
+      ,d.NewPFAssetClass
+      ,d.OldPFCountry
+      ,d.NewPFCountry
+      ,d.OldPFCreditRating
+      ,d.NewPFCreditRating
+      ,d.OldPFCurrency
+      ,d.NewPFCurrency
+      ,d.OldPFInstrument
+      ,d.NewPFInstrument
+      ,d.OldPFLiquidityProfile
+      ,d.NewPFLiquidityProfile
+      ,d.OldPFMaturity
+      ,d.NewPFMaturity
+      ,d.OldPFNAICSCode
+      ,d.NewPFNAICSCode
+      ,d.OldPFRegion
+      ,d.NewPFRegion
+      ,d.OldPFSector
+      ,d.NewPFSector
+      ,d.OldPFSubAssetClass
+      ,d.NewPFSubAssetClass
+      ,d.OldCountryOfIssurance
+      ,d.NewCountryOfIssurance
+      ,d.OldExchange
+      ,d.NewExchange
+      ,d.OldIssurer
+      ,d.NewIssurer
+      ,d.OldIssueCurrency
+      ,d.NewIssueCurrency
+      ,d.OldTradingCurrency
+      ,d.NewTradingCurrency
+      ,d.OldBBGIndustrySubGroup
+      ,d.NewBBGIndustrySubGroup
+      ,d.OldBBloombergIndustryGroup
+      ,d.NewBBloombergIndustryGroup
+      ,d.OldBloombergSector
+      ,d.NewBloombergSector
+      ,d.OldCountryOfIncorporation
+      ,d.NewCountryOfIncorporation
+      ,d.OldRiskCurrency
+      ,d.NewRiskCurrency
+      ,d.OldOpenPrice
+      ,d.NewOpenPrice
+      ,d.OldClosePrice
+      ,d.NewClosePrice
+      ,d.OldVolume
+      ,d.NewVolume
+      ,d.OldLastPrice
+      ,d.NewLastPrice
+      ,d.OldAskPrice
+      ,d.NewAskPrice
+      ,d.OldBidRatio
+      ,d.NewBidRatio
+      ,d.OldPERatio
+      ,d.NewPERatio
+      ,d.OldDividentDeclaredDate
+      ,d.NewDividentDeclaredDate
+      ,d.OldDividentExDate
+      ,d.NewDividentExDate
+      ,d.OldDividentRecordDate
+      ,d.NewDividentRecordDate
+      ,d.OldDividentPayDate
+      ,d.NewDividentPayDate
+      ,d.OldDividentAmount
+      ,d.NewDividentAmount
+      ,d.OldFrequency
+      ,d.NewFrequency
+      ,d.OldDividentType
+      ,d.NewDividentType)
+    SELECTEquityId
+       ,'UPDATED'
+      ,d.SecurityName,i.SecurityName
+  ,d.SecurityDescription,i.SecurityDescription
+  ,d.HasPosition,i.HasPosition
+  ,d.IsActive,i.IsActive
+  ,d.LotSize,i.LotSize
+  ,d.BBGUniqueName,i.BBGUniqueName
+  ,d.CUSIP,i.CUSIP
+  ,d.ISIN,i.ISIN
+  ,d.SEDOL,i.SEDOL
+  ,d.BloombergTicket,i.BloombergTicket
+  ,d.BloombergUniqueID,i.BloombergUniqueID
+  ,d.BloombergGlobalID,i.BloombergGlobalID
+  ,d.TickerAndExchange,i.TickerAndExchange
+  ,d.IsADR,i.IsADR
+  ,d.ADRUnderlyingTicker,i.ADRUnderlyingTicker
+  ,d.ADRUnderlyingCurrency,i.ADRUnderlyingCurrency
+  ,d.SharesPerADR,i.SharesPerADR
+  ,d.IPODate,i.IPODate
+  ,d.PricingCurrency,i.PricingCurrency
+  ,d.SettleDays,i.SettleDays
+  ,d.TotalSharesOutstanding,i.TotalSharesOutstanding
+  ,d.VotingRightsPerShare,i.VotingRightsPerShare
+  ,d.AverageVolume20D,i.AverageVolume20D
+  ,d.Beta,i.Beta
+  ,d.ShortInterestShortInterest
+  ,d.ReturnYTD,i.ReturnYTD
+  ,d.Volatility90D,i.Volatility90D
+  ,d.PFAssetClass,i.PFAssetClass
+  ,d.PFCountry,i.PFCountry
+  ,d.PFCreditRating,i.PFCreditRating
+  ,d.PFCurrency,i.PFCurrency
+  ,d.PFInstrument,i.PFInstrument
+  ,d.PFLiquidityProfile,i.PFInstrument
+  ,d.PFMaturity,i.PFMaturity
+  ,d.PFNAICSCode,i.PFNAICSCode
+  ,d.PFRegion,i.PFRegion
+  ,d.PFSector,i.PFSector
+  ,d.PFSubAssetClass,i.PFSubAssetClass
+  ,d.CountryOfIssurance,i.CountryOfIssurance
+  ,d.Exchange,i.Exchange
+  ,d.Issurer,i.Issurer
+  ,d.IssueCurrency,i.IssueCurrency
+  ,d.TradingCurrency,i.TradingCurrency
+  ,d.BBGIndustrySubGroup,i.BBGIndustrySubGroup
+  ,d.BBloombergIndustryGroup,i.BBloombergIndustryGroup
+  ,d.BloombergSector,i.BloombergSector
+  ,d.CountryOfIncorporation,i.CountryOfIncorporation
+  ,d.RiskCurrency,i.RiskCurrency
+  ,d.OpenPrice,i.OpenPrice
+  ,d.ClosePrice,i.ClosePrice
+  ,d.Volume,i.Volume
+  ,d.LastPrice,i.LastPrice
+  ,d.AskPrice,i.AskPrice
+  ,d.BidRatio,i.BidRatio
+  ,d.PERatio,i.PERatio
+  ,d.DividentDeclaredDate,i.DividentDeclaredDate
+  ,d.DividentExDate,i.DividentExDate
+  ,d.DividentRecordDate,i.DividentRecordDate
+  ,d.DividentPayDate,i.DividentPayDate
+  ,d.DividentAmount,i.DividentAmount
+  ,d.Frequency,i.Frequency
+  ,d.DividentType,i.DividentType
+
+    FROM Inserted i INNER JOIN Deleted d
+    on i.EquityId=d.EquityId
+    WHERE i.EquityId=@AuditId
+
+
+END
