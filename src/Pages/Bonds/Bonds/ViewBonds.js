@@ -13,6 +13,7 @@ import ReferenceData from '../Tabs/ReferenceData';
 import PricingAndAnalytics from '../Tabs/PricingAndAnalytics';
 import CallSchedule from '../Tabs/CallSchedule';
 import PutSchedule from '../Tabs/PutSchedule';
+import UnauthorizedPage from '../../ErrorPages/UnAuthorizedPage';
 
 class ViewBonds extends React.Component {
 
@@ -90,6 +91,7 @@ class ViewBonds extends React.Component {
     
     render() {  
       return (
+        localStorage.getItem('isLoggedIn')?
         <React.Fragment>
           <div style={this.state.currentStep != 1 ? {display:"flex",justifyContent: "space-between"}: {display:"flex",justifyContent: "flex-end"}}>
             {this.previousButton()}
@@ -110,7 +112,7 @@ class ViewBonds extends React.Component {
             {this.nextButton()}
           </div>
         
-        </React.Fragment>
+        </React.Fragment>:<UnauthorizedPage/>
       );
     }
   }

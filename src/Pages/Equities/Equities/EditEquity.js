@@ -518,7 +518,6 @@ export class EditEquity extends Component{
       </Container>
     )
   }
-  //areAllFieldsFilled =  (this.state.SecurityName != "") && (this.state.SecurityDescription != "") && (this.state.BloombergUniqueID != "") && (this.state.LastPrice != "") && (this.state.AskPrice != "")
 }
 
 export default withStyles(styles) (EditEquity)

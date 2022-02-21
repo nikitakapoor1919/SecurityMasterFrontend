@@ -14,6 +14,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import MuiAlert from '@mui/material/Alert';
+import UnauthorizedPage from '../../ErrorPages/UnAuthorizedPage';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -275,6 +276,7 @@ export class EditBond extends Component{
   render(){
     const {classes} = this.props;
     return (
+      localStorage.getItem('isLoggedIn') ?
       <Container>
            <div className={classes.load}>
               {this.state.loading ? <div style={{textAlign:"center"}}> <CircularProgress/></div> :''}
@@ -524,7 +526,7 @@ export class EditBond extends Component{
              Bond Edited Successfully !!
           </Alert>
         </Snackbar>
-      </Container>
+      </Container>:<UnauthorizedPage/>
     )
   }
 }

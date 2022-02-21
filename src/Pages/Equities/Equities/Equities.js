@@ -14,6 +14,7 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@mui/material/TextField';
+import UnAuthorizedPage from '../../ErrorPages/UnAuthorizedPage'
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -25,25 +26,28 @@ export class Equities extends Component {
     super(props)
     this.state = {
         Equities:[], success:false,open:false,bid:'',view:'one',
-        value:'one',len:0,perPage:10,currentPage:1,pages:0,time:null,rowALert:false
+        value:'one',len:0,perPage:10,currentPage:1,pages:0,time:null,rowALert:false,loading:true
       }
     }
   refreshList(){
       fetch('http://localhost:14011/api/equity?per_page='+this.state.perPage+'+&current_page='+this.state.currentPage)
       .then(response=>response.json())
       .then(data=>{
-          this.setState({Equities:data,len:data.length});
+          this.setState({Equities:data,len:data.length,loading:false});
       });
   }
   handleChange = (event, newValue) => {
     this.setState({value:newValue,margin:'0 auto'})
   };
   componentDidMount(){
+      // store.dispatch({type:'LOGIN_COMPLETED'})
       this.refreshList();
       this.getCount();
+      console.log("Props:"+this.props.isLoggedIn)
   }
   
   componentDidUpdate(){
+    //  store.dispatch({type:'LOGIN_COMPLETED'})
      this.refreshList();
   }
   handleOpen = (bid) => this.setState({open:true,bid:bid})
@@ -132,6 +136,8 @@ export class Equities extends Component {
     const {classes} = this.props;
     const {Equities,open}=this.state;
             return(
+              localStorage.getItem('isLoggedIn')?
+              this.state.loading ? <Typography variant="h4" style={{marginTop:300,textAlign:'center'}}>Loading...</Typography>:
                 <Container>
                 <AppBar position="static" className={classes.appbar} style={{background:'#e0e0e0',color:'black'}}>
                   <div className={classes.tabContainer}>
@@ -156,6 +162,7 @@ export class Equities extends Component {
                       <div className={classes.rowHeading}><Typography variant='h4' style={{fontWeight:'bold'}}>EQUITIES LIST</Typography></div>
                       <div><TextField label="Rows Per Page" value={this.state.perPage} type='number' variant="outlined" onChange={(e)=>this.onRowChange(e)}/></div>
                     </div>
+                    <div className={classes.currentPage}>Page: {this.state.currentPage}/{this.state.pages}</div> 
                     <div style={{overflowX:'auto'}}>
                     <table className="mt-4" striped bordered hover size="sm">
                     <thead>
@@ -223,7 +230,7 @@ export class Equities extends Component {
                           </Button>
                         </DialogActions>
                       </Dialog>
-                </Container>
+                </Container>:<UnAuthorizedPage/>
             )
   }
 }

@@ -12,6 +12,7 @@ import SecurityDetails from '../Tabs/SecurityDetails';
 import Risk from '../Tabs/Risk';
 import RegulatoryDetails from '../Tabs/RegulatoryDetails';
 import ReferenceData from '../Tabs/ReferenceData';
+import UnauthorizedPage from '../../ErrorPages/UnAuthorizedPage';
 
 class ViewEquity extends React.Component {
 
@@ -88,6 +89,7 @@ class ViewEquity extends React.Component {
     
     render() {  
       return (
+        localStorage.getItem('isLoggedIn')?
         <React.Fragment>
           <div style={this.state.currentStep != 1 ? {display:"flex",justifyContent: "space-between"}: {display:"flex",justifyContent: "flex-end"}}>
             {this.previousButton()}
@@ -107,7 +109,7 @@ class ViewEquity extends React.Component {
             {this.nextButton()}
           </div>
         
-        </React.Fragment>
+        </React.Fragment>:<UnauthorizedPage/>
       );
     }
   }

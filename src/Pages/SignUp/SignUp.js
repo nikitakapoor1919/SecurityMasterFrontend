@@ -12,6 +12,7 @@ import axios from 'axios';
 import { withStyles } from '@material-ui/core/styles';
 import styles from '../../styles/styles';
 import { useHistory } from "react-router-dom";
+import {CircularProgress} from '@material-ui/core';
 
 const theme = createTheme();
 
@@ -24,6 +25,8 @@ function SignUp(props) {
   const [password,setPassword]=useState(''); 
   const [confirmPassword,setConfirmPassword]=useState(''); 
   const [error,setError]=useState('');
+  const [success,setSuccess]=useState('');
+  const [progress,setProgress]=useState(false);
   
   const handleEmailChange = (e) => setEmail(e.target.value)
   const handleFirstChange = (e) => setFirst(e.target.value)
@@ -67,7 +70,7 @@ function SignUp(props) {
     }
     else{
       validpas=false;
-      setError("Invalid Password Format");
+      alert("Invalid Password Format");
     }
     if(pass==cpass && validpas==true && validem==true)
     {
@@ -90,8 +93,9 @@ function SignUp(props) {
           alert("Connection Failed");
         }
         else{
-          history.push("/");
-          // alert('SIgnup')
+          setProgress(true)
+          setSuccess("SignIn To Continue")
+          setTimeout(()=>history.push("/signin"),3000)
         }
       }).catch(error=>alert(error));
     }
@@ -138,6 +142,12 @@ function SignUp(props) {
             {error && 
               <p style={{color:'red'}}>{error}</p>
             }
+            { progress &&
+              <div style={{textAlign:"center"}}> <CircularProgress/></div>
+            }
+            {success && 
+              <p style={{color:'green'}}>{success}</p>
+            }
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
             <TextField
                 type='text'
@@ -158,7 +168,6 @@ function SignUp(props) {
                 id="last_name"
                 label="Last Name"
                 name="last_name"
-                autoFocus
                 onChange={handleLastChange}
               />
               <TextField
@@ -169,8 +178,7 @@ function SignUp(props) {
                 id="email"
                 label="Email Address"
                 name="email"
-                autoComplete="email"
-                autoFocus
+                autoComplete="email"     
                 onChange={handleEmailChange}
               />
               <TextField
@@ -220,123 +228,3 @@ function SignUp(props) {
   );
 }
 export default withStyles(styles)(SignUp)
-
-
-
-
-
-
-// import '../../bootstrap-4.5.3-dist/css/bootstrap.min.css';
-// import axios from 'axios';
-// import { Redirect } from 'react-router';
-// import Link from '@mui/material/Link';
-
-// function Signup(props)
-// {
-//   const signin=()=>{
-//     document.getElementById("myform").action="/signin";
-//   }
-//   const fn = (e)=>{
-//     e.preventDefault();
-//     let fname = document.getElementById("first_name").value;
-//     let lname = document.getElementById("last_name").value;
-//     let em = document.getElementById("email").value;
-//     let pass = document.getElementById("password").value;
-//     let cpass = document.getElementById("confirm_password").value;
-//     let pattern = '^([a-z0-9.])+@+([a-z])+\\.+([a-z]{2,3})+$';
-//     let arr = em.split("@");
-//     let n = arr[0];
-//     let validem = false;
-//     let validpas = false;
-//     let passpat = '(?=[0-9])';
-//     let pat1 = '(?=[a-z])';
-//     let pat2 = '(?=[A-Z])';
-//     let pat3 = '(?=[!@#$%&^*()_|{}\[\\]\\.\\~\\`\\|\<>,:;?\/\+=-])';
-//     if(em.charAt(0)==='.' || n.charAt(n.length-1)==='.')
-//     {
-//       validem = false;
-//       alert("Invalid Email Format");
-//     } 
-//     else if(em.match(pattern))
-//     {
-//       validem = true;
-//     }
-//     else{
-//       validem = false;
-//       alert("Invalid Email Format");
-//     }
-//     if(pass.match(passpat) && pass.match(pat1) && pass.match(pat2) && pass.match(pat3) && pass.length>7)
-//     {
-//       validpas=true;
-//     }
-//     else{
-//       validpas=false;
-//       alert("Invalid Password Format");
-//     }
-//     if(pass==cpass && validpas==true && validem==true)
-//     {
-//       axios.post("http://localhost:14011/api/user/register",{
-//         firstname:fname,
-//         lastname:lname,
-//         email:em,
-//         password:pass
-//       }).then(res=>{
-//         if(res.data=="Exist")
-//         {
-//           alert("Email already exist in our database, Please SignIn");
-//         }
-//         else if(res.data=="insertionfailed")
-//         {
-//           alert("Sorry, insertion failed");	
-//         }
-//         else if(res.data=="ConnectionFailed")
-//         {
-//           alert("Connection Failed");
-//         }
-//         else{
-//           props.onLogin();
-//           alert('SIgnup')
-//         }
-//       }).catch(error=>alert(error));
-//     }
-//     else{
-//       alert("Passwords does not match");
-//     }
-//   }
-//   return(
-//     <div className="signin">
-//       <div className="signup-form">
-//     <form id="myform">
-//     <h2>Sign Up</h2>
-//     <p>Please fill in this form to create an account!</p>
-//     <hr/>
-//         <div className="form-group">
-//       <div className="row">
-//         <div className="col"><input type="text" className="form-control" id="first_name" placeholder="First Name"/></div>
-//         <div className="col"><input type="text" className="form-control" id="last_name" placeholder="Last Name"/></div>
-//       </div>        	
-//         </div>
-//         <div className="form-group">
-//           <input type="email" className="form-control" id="email" placeholder="Email"/>
-//         </div>
-//     <div className="form-group">
-//             <input type="password" className="form-control" id="password" placeholder="Password"/>
-//         </div>
-//     <div className="form-group">
-//             <input type="password" className="form-control" id="confirm_password" placeholder="Confirm Password"/>
-//         </div>        
-//         <div className="form-group">
-//             <button type="submit" className="btn btn-primary btn-lg" onClick={fn}>Sign Up</button>
-//             {/* <button type="submit" className="btn btn-primary btn-lg sin" onClick={Signin}>Sign In</button> */}
-//         </div>
-//         <Link href="/signin" variant="body2">
-//         {"Already have an account? Sign In"}
-//       </Link>
-//     </form>
-// </div>
-
-//     </div>
-//     );
-// }
-// export default Signup;
-

@@ -14,6 +14,7 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@mui/material/TextField';
+import UnauthorizedPage from '../../ErrorPages/UnAuthorizedPage';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -25,14 +26,14 @@ export class Bonds extends Component {
     super(props)
     this.state = {
         bonds:[], success:false,open:false,bid:'',view:'one',
-        value:'one',len:0,perPage:10,currentPage:1,pages:0,time:null,rowAlert:false
+        value:'one',len:0,perPage:10,currentPage:1,pages:0,time:null,rowAlert:false,loading:true
       }
     }
   refreshList(){
       fetch('http://localhost:14011/api/bond?per_page='+this.state.perPage+'+&current_page='+this.state.currentPage)
       .then(response=>response.json())
       .then(data=>{
-          this.setState({bonds:data,len:data.length});
+          this.setState({bonds:data,len:data.length,loading:false});
       });
   }
   handleChange = (event, newValue) => {
@@ -40,8 +41,7 @@ export class Bonds extends Component {
   };
   componentDidMount(){
       this.refreshList();
-      this.getCount();
-      // setInterval(() => this.setState({ time: Date.now()}), 2000)
+      this.getCount(); 
   }
   
   componentDidUpdate(){
@@ -133,6 +133,8 @@ export class Bonds extends Component {
     const {classes} = this.props;
     const {bonds,open}=this.state;
             return(
+              localStorage.getItem('isLoggedIn') ?
+                this.state.loading ? <Typography variant="h4" style={{marginTop:300,textAlign:'center'}}>Loading...</Typography>:
                 <Container>
                 <AppBar position="static" className={classes.appbar} style={{background:'#e0e0e0',color:'black'}}>
                   <div className={classes.tabContainer}>
@@ -158,6 +160,7 @@ export class Bonds extends Component {
                       <div className={classes.rowHeading}><Typography variant='h4' style={{fontWeight:'bold'}}>BONDS LIST</Typography></div>
                       <div><TextField label="Rows Per Page" value={this.state.perPage} type='number' variant="outlined" onChange={(e)=>this.onRowChange(e)}/></div>
                     </div>
+                    <div className={classes.currentPage}>Page: {this.state.currentPage}/{this.state.pages}</div>
                     <div style={{overflowX:'auto'}}>
                     <table className="mt-4" striped bordered hover size="sm">
                         <thead>
@@ -201,7 +204,7 @@ export class Bonds extends Component {
                     </table>
                     </div>
                     <div style={this.state.currentPage != 1 ? {display:"flex",justifyContent: "space-between"}: {display:"flex",justifyContent: "flex-end"}}>
-                        {this.previousButton()}
+                        {this.previousButton()}           
                         {this.nextButton()}
                     </div>
                     </div>:this.state.view==='two' ?<UploadBond/>:this.state.view==='three' ?<CreateBond/>:''}
@@ -227,7 +230,7 @@ export class Bonds extends Component {
                           </Button>
                         </DialogActions>
                       </Dialog>
-                </Container>
+                </Container>:<UnauthorizedPage/>
             )
   }
 }

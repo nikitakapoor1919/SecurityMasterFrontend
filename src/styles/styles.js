@@ -273,6 +273,14 @@ const styles = theme => ({
     '@media screen and (max-width: 1024px)': {
         display:'block',
         } 
+    },
+    loading:{
+        marginTop:300,textAlign:'center',
+        textTransform:'uppercase'
+    },
+    currentPage:{
+        textAlign: 'center',
+        marginTop: 40,
     }
 });
   

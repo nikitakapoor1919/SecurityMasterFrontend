@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './style.css'
 
 const NotFoundPage = () => (
-    <Paper style={{padding:40,margin:"0 auto"}} >
+    <Paper style={{padding:40,marginTop:150}} >
     <div class="fof">
             <h1>Error 404</h1>
             <p>Maybe the page you are looking for has been removed, or you typed in the wrong URL</p>

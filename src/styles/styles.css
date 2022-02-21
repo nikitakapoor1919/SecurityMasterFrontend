@@ -1,3 +1,11 @@
+body {
+  background-color: #f8f6f6;
+  font-family: Inter, sans-serif;
+  line-height: 1.25;
+}
+.signin {
+  margin-top: 100px;
+}
 .botton-margin {
   margin-bottom: 40px;
 }

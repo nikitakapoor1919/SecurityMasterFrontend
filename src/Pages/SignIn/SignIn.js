@@ -11,11 +11,12 @@ import { createTheme,} from '@mui/material/styles';
 import axios from 'axios';
 import { withStyles } from '@material-ui/core/styles';
 import styles from '../../styles/styles';
-
+import { BrowserRouter as Redirect,useHistory  } from 'react-router-dom'
 const theme = createTheme();
 
 function SignIn(props) {
   const {classes} = props;
+  let history = useHistory();
   const [email,setEmail]=useState('');
   const [password,setPassword]=useState('');  
   const [error,setError]=useState('');
@@ -75,7 +76,9 @@ function SignIn(props) {
           alert("Connection Failed");
         }
         else{
-        props.onLogin();
+        localStorage.setItem('isLoggedIn', true);
+        window.location.href = "/";
+
         }
       }).catch(error=>alert(error));
     }
@@ -168,104 +171,3 @@ function SignIn(props) {
   );
 }
 export default withStyles(styles)(SignIn)
-
-
-// // import '../../bootstrap-4.5.3-dist/css/bootstrap.min.css';
-// import axios from 'axios';
-// import { Redirect } from 'react-router';
-// import Link from '@mui/material/Link';
-// import { connect } from 'react-redux';
-// import store from '../../store'
-
-// function Signin(props)
-// {
-//   const signup=()=>{
-//     document.getElementById("myform").action="/signup";
-//   }
-//   const fn = (e)=>{
-//     e.preventDefault();
-//     let em = document.getElementById("email").value;
-//     let pass = document.getElementById("password").value;
-//     let pattern = '^([a-z0-9.])+@+([a-z])+\\.+([a-z]{2,3})+$';
-//     let arr = em.split("@");
-//     let n = arr[0];
-//     let validem = false;
-//     let validpas = false;
-//     let passpat = '(?=[0-9])';
-//     let pat1 = '(?=[a-z])';
-//     let pat2 = '(?=[A-Z])';
-//     let pat3 = '(?=[!@#$%&^*()_|{}\[\\]\\.\\~\\`\\|\<>,:;?\/\+=-])';
-//     if(em.charAt(0)==='.' || n.charAt(n.length-1)==='.')
-//     {
-//       validem = false;
-//       alert("Invalid Email Format");
-//     } 
-//     else if(em.match(pattern))
-//     {
-//       validem = true;
-//     }
-//     else{
-//       validem = false;
-//       alert("Invalid Email Format");
-//     }
-//     if(pass.match(passpat) && pass.match(pat1) && pass.match(pat2) && pass.match(pat3) && pass.length>7)
-//     {
-//       validpas=true;
-//     }
-//     else{
-//       validpas=false;
-//       alert("Invalid Password Format");
-//     }
-//     if(validpas==true && validem==true)
-//     {
-//       axios.post("http://localhost:14011/api/user/login",{
-//         email:em,
-//         password:pass
-//       }).then(res=>{
-//         if(res.data=="EmailNotExist")
-//         {
-//           alert("Email not exist in our database, Please SignUp");
-//         }
-//         else if(res.data=="InvalidPassword")
-//         {
-//           alert("Invalid Password for this Email");	
-//         }
-//         else if(res.data=="ConnectionFailed")
-//         {
-//           alert("Connection Failed");
-//         }
-//         else{
-//         alert('Signin')
-//         props.onLogin();
-//         }
-//       }).catch(error=>alert(error));
-//     }
-//   }
-//   return(
-//     <div className="signin">
-//       <div className="signup-form">
-//       <form id="myform">
-//       <h2>Sign In</h2>
-//       <p>Please fill in this form to create an account!</p>
-//       <hr/>
-//           <div className="form-group">
-//             <input type="email" className="form-control" id="email" placeholder="Email" required="required"/>
-//           </div>
-//       <div className="form-group">
-//               <input type="password" className="form-control" id="password" placeholder="Password" required="required"/>
-//           </div>
-//       <div className="form-group">
-//             <button type="submit" className="btn btn-primary btn-lg" onClick={fn}>Sign In</button>
-//             {/* <button type="submit" className="btn btn-primary btn-lg sin" onClick={signup}>Sign Up</button> */}
-//         </div>
-//         <Link href="/signup" variant="body2">
-//         {"Don't have an account? Sign Up"}
-//       </Link>
-//     </form>
-// </div>
-
-//     </div>
-//     );
-// }
-
-// export default Signin

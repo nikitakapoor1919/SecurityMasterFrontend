@@ -6,6 +6,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 function NavigationalBar(props) {
   const {classes} = props;  
+  
   return (
     <div className={classes.root}>
       <AppBar className={classes.navbar}>
@@ -22,15 +23,32 @@ function NavigationalBar(props) {
               <MenuIcon/>
             </IconButton>:null
            }
-          <Typography variant="h6" component="div">
-            <a href='\' className={classes.link}><Button className={classes.button} color="inherit">Home</Button></a>
-          </Typography>
-          <Typography variant="h6" component="div">
-            <a href='\equities' className={classes.link}><Button className={classes.button} color="inherit">Equities</Button></a>
-          </Typography>
-          <Typography variant="h6" component="div">
-            <a href='\bonds' className={classes.link}><Button className={classes.button} color="inherit">Bonds</Button></a>
-          </Typography>
+          {
+            props.logOut ?
+            <div style={{display:'flex'}}>
+              <Typography variant="h6" component="div">
+                <a href='\' className={classes.link}><Button className={classes.button} color="inherit">Home</Button></a>
+              </Typography>
+              <Typography variant="h6" component="div">
+                <a href='\equities' className={classes.link}><Button className={classes.button} color="inherit">Equities</Button></a>
+              </Typography>
+              <Typography variant="h6" component="div">
+                <a href='\bonds' className={classes.link}><Button className={classes.button} color="inherit">Bonds</Button></a>
+              </Typography>
+              <Typography variant="h6" component="div">
+                 <Button className={classes.button} color="inherit" onClick={props.handleLogout}>LogOut</Button>
+              </Typography>
+            </div>
+            :
+            <div style={{display:'flex'}}>
+              <Typography variant="h6" component="div">
+                <a href='\' className={classes.link}><Button className={classes.button} color="inherit">Home</Button></a>
+              </Typography>
+              <Typography variant="h6" component="div">
+                <a href='\signin' className={classes.link}><Button className={classes.button} color="inherit">SignIn</Button></a>
+              </Typography>
+            </div>
+          }
         </Toolbar>
       </AppBar>
     </div>
