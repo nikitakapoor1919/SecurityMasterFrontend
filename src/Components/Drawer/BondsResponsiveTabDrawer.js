@@ -17,6 +17,7 @@ import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import UnauthorizedPage from '../../Pages/ErrorPages/UnAuthorizedPage';
 
 const drawerWidth = 240;
 const options = [
@@ -70,7 +71,8 @@ function ResponsiveDrawer(props) {
   );
   const container = window !== undefined ? () => window().document.body : undefined;
   return (
-    <>
+    localStorage.getItem('isLoggedIn')?
+    <div>
     <div className={classes.root}>
       <CssBaseline />
       <NavigationBar show={true} handleDrawerToggle={handleDrawerToggle}/>
@@ -107,10 +109,10 @@ function ResponsiveDrawer(props) {
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-         <ViewBonds step={Id} onStepChange={onChange} bid={props.match.params.id}/>
+        {localStorage.getItem('isLoggedIn')? <ViewBonds step={Id} onStepChange={onChange} bid={props.match.params.id}/>:<UnauthorizedPage/>}
       </main>
     </div>
-    </>
+    </div>:<UnauthorizedPage/>
   
   );
 }

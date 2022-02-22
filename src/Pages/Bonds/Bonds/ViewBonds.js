@@ -33,7 +33,6 @@ class ViewBonds extends React.Component {
       .then(response=>response.json())
       .then(data=>{
           this.setState({bond:data});
-          console.log(data)
       });
   }
 
@@ -83,7 +82,6 @@ class ViewBonds extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // this.refreshList();
     if (this.state.currentStep !==this.props.step) {
       this.setState({currentStep:this.props.step  });
     }

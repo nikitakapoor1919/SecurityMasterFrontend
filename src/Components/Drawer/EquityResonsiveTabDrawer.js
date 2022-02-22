@@ -15,6 +15,7 @@ import NavigationBar from '../NavigationalBar/NavigationBar';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
 import ViewEquity from '../../Pages/Equities/Equities/ViewEquity';
+import UnauthorizedPage from '../../Pages/ErrorPages/UnAuthorizedPage';
 
 const drawerWidth = 240;
 const options = [
@@ -68,10 +69,11 @@ function ResponsiveDrawer(props) {
       </List>
       <Divider /> 
     </div>
-  );
+  )
   const container = window !== undefined ? () => window().document.body : undefined;
   return (
-    <>
+    localStorage.getItem('isLoggedIn')?
+    <div>
     <div className={classes.root}>
       <CssBaseline />
       <NavigationBar show={true} handleDrawerToggle={handleDrawerToggle}/>
@@ -107,11 +109,10 @@ function ResponsiveDrawer(props) {
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-         <ViewEquity step={Id} onStepChange={onChange} eid={props.match.params.id}/>
+        {localStorage.getItem('isLoggedIn')? <ViewEquity step={Id} onStepChange={onChange} eid={props.match.params.id}/>:<UnauthorizedPage/>}
       </main>
     </div>
-    </>
-  
-  );
+    </div>:<UnauthorizedPage/>
+  )
 }
 export default withStyles(styles)(ResponsiveDrawer);

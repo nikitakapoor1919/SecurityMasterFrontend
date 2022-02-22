@@ -6,7 +6,10 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 function NavigationalBar(props) {
   const {classes} = props;  
-  
+  const handleLogout = () => {
+    localStorage.removeItem('isLoggedIn');
+    window.location.href = "/signin";
+  }
   return (
     <div className={classes.root}>
       <AppBar className={classes.navbar}>
@@ -24,7 +27,7 @@ function NavigationalBar(props) {
             </IconButton>:null
            }
           {
-            props.logOut ?
+            props.logOut || props.show ?
             <div style={{display:'flex'}}>
               <Typography variant="h6" component="div">
                 <a href='\' className={classes.link}><Button className={classes.button} color="inherit">Home</Button></a>
@@ -36,7 +39,7 @@ function NavigationalBar(props) {
                 <a href='\bonds' className={classes.link}><Button className={classes.button} color="inherit">Bonds</Button></a>
               </Typography>
               <Typography variant="h6" component="div">
-                 <Button className={classes.button} color="inherit" onClick={props.handleLogout}>LogOut</Button>
+                 <Button className={classes.button} color="inherit" onClick={props.handleLogout||handleLogout}>LogOut</Button>
               </Typography>
             </div>
             :
